@@ -1,5 +1,10 @@
 #include "Organizm.h"
 
+Organizm::Organizm()
+{
+	turyNaMapie = 0;
+}
+
 string Organizm::GetId()
 {
 	return id;

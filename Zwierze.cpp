@@ -1,34 +1,47 @@
 #include "Zwierze.h"
+#include "Swiat.h"
 #include <cstdlib>
 #include <ctime>
 
-void Zwierze::Akcja(Swiat *swiat)
+void Zwierze::Cofnij()
 {
-	bool moved = false;
-	while (!moved)
-		moved = handleStandardMovement();
+	x = previousX;
+	y = previousY;
 }
 
-bool Zwierze::handleStandardMovement()
+bool Zwierze::SprubojPrzesunacO(int x, int y)
 {
-	const int DIRECTIONS_COUNT = 4;
-	int move = rand() % DIRECTIONS_COUNT;
-	if (move == 0 && swiat -> GetSzerokosc() > x + 1)
-		SetX(x + 1);
-	else if (move == 1 && x > 0)
-		SetX(x - 1);
-	else if (move == 2 && swiat -> GetWysokosc() > y + 1)
-		SetY(y + 1);
-	else if (move == 3 && y > 0)
-		SetY(y - 1);
-	else
+	if (this -> x + x >= swiat -> GetSzerokosc() || this -> x + x < 0)
+		return false;
+	if (this -> y + y >= swiat -> GetWysokosc() || this -> y + x < 0)
 		return false;
 
-	return true;
+	this -> x += x;
+	this -> y += y;
 }
 
-void Zwierze::Kolizja(Swiat *swiat, Organizm *organizm)
+void Zwierze::Akcja(Swiat *swiat)
 {
-	if (organizm -> GetId() == id)
-		;
+	previousX = x;
+	previousY = y;
+	bool moved = false;
+	while (!moved)
+		moved = sprubojWykonacRuch();
+}
+
+bool Zwierze::sprubojWykonacRuch(int step)
+{
+	int zmianaX = rand() % (2 * step + 1) - step;
+	int zmianaY = rand() % (2 * step + 1) - step;
+
+	if (zmianaX == 0 && zmianaY == 0)
+		return false;
+	
+	return SprubojPrzesunacO(zmianaX, zmianaY);
+}
+
+void Zwierze::Kolizja(Swiat *swiat)
+{
+	if (swiat -> GetOrganizmNaPozycji(x, y) -> GetId() == id)
+	;//
 }

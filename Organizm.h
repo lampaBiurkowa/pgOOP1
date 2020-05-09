@@ -1,9 +1,10 @@
 #pragma once
 
-#include "Swiat.h"
 #include <string>
 
 using namespace std;
+
+class Swiat;
 
 class Organizm
 {
@@ -16,6 +17,7 @@ protected:
 	string id;
 	Swiat *swiat;
 public:
+	Organizm();
 	string GetId();
 	unsigned int GetInicjatywa();
 	void SetInitiative(unsigned int inicjatywa);
@@ -30,6 +32,6 @@ public:
 	void Move(int x, int y);
 
 	virtual void Akcja(Swiat *swiat) = 0;
-	virtual void Kolizja(Swiat *swiat, Organizm *organizm) = 0;
-	virtual string Rysuj() = 0;
+	virtual void Kolizja(Swiat *swiat) = 0;
+	virtual void Rysuj() = 0;
 };

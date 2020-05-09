@@ -1,0 +1,14 @@
+#pragma once
+
+#include "Zwierze.h"
+
+class Antylopa: public Zwierze
+{
+	bool czyMaGdzieUciec(Swiat *swiat);
+	bool sprubojUciec(Swiat *swiat);
+public:
+	Antylopa();
+	void Akcja(Swiat *swiat) override;
+	void Kolizja(Swiat *swiat) override;
+	void Rysuj() override;
+};
