@@ -2,11 +2,12 @@
 
 #include "Roslina.h"
 
-class Trawa : public Roslina
+class Mlecz : public Roslina
 {
 protected:
 	void zasiejRosline(Swiat *swiat) override;
 public:
-	Trawa();
+	Mlecz();
+	void Akcja(Swiat *swiat) override;
 	void Rysuj() override;
 };

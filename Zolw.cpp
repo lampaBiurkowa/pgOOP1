@@ -6,7 +6,7 @@ using namespace std;
 
 Zolw::Zolw()
 {
-	id ="zolw";
+	id = "zolw";
 	inicjatywa = 1;
 	sila = 2;
 }
@@ -17,16 +17,16 @@ void Zolw::Akcja(Swiat *swiat)
 	if (czyStoiWMiejscu)
 		return;
 
-	bool czySiePoruszyl;
+	bool czySiePoruszyl = false;
 	while (!czySiePoruszyl)
-		czySiePoruszyl = sprubojWykonacRuch(2);
+		czySiePoruszyl = sprubojWykonacRuch(swiat, 2);
 }
 
-void Zolw::Kolizja(Swiat *swiat)
+void Zolw::Kolizja(Swiat *swiat, Organizm *organizm)
 {
-	if (dynamic_cast<Zwierze *>(swiat -> GetOrganizmNaPozycji(x, y)) != nullptr)
-		if (((Zwierze *)(swiat -> GetOrganizmNaPozycji(x, y))) -> GetSila() < 5)
-			((Zwierze *)(swiat -> GetOrganizmNaPozycji(x, y))) -> Cofnij();
+	if (dynamic_cast<Zwierze *>(organizm) != nullptr)
+		if (((Zwierze *)(organizm)) -> GetSila() < 5)
+			((Zwierze *)(organizm)) -> Cofnij();
 }
 
 void Zolw::Rysuj()

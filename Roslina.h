@@ -4,6 +4,8 @@
 
 class Roslina : public Organizm
 {
+protected:
+	virtual void zasiejRosline(Swiat *swiat) = 0;
 public:
-	void Akcja();
+	void Akcja(Swiat *swiat) override;
 };

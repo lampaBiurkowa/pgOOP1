@@ -22,7 +22,7 @@ void Lis::Akcja(Swiat *swiat)
 	while (swiat -> CzyPoleZajete(x, y) && swiat -> GetOrganizmNaPozycji(x, y) -> GetSila() > sila)
 	{
 		Cofnij();
-		sprubojWykonacRuch();
+		sprubojWykonacRuch(swiat);
 	}
 }
 
@@ -36,7 +36,7 @@ bool Lis::czyMozeSieRuszyc(Swiat *swiat)
 
 			if (!swiat -> CzyPoleZajete(previousX + i, previousY + j))
 				return true;
-			else if (swiat -> GetOrganizmNaPozycji(previousX + i, previousY + j) -> GetSila <= sila)
+			else if (swiat -> GetOrganizmNaPozycji(previousX + i, previousY + j) -> GetSila() <= sila)
 				return true;
 		}
 

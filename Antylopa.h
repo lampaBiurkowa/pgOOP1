@@ -9,6 +9,6 @@ class Antylopa: public Zwierze
 public:
 	Antylopa();
 	void Akcja(Swiat *swiat) override;
-	void Kolizja(Swiat *swiat) override;
+	void Kolizja(Swiat *swiat, Organizm *organizm) override;
 	void Rysuj() override;
 };

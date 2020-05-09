@@ -5,12 +5,12 @@
 class Zwierze : public Organizm
 {
 protected:
-	bool sprubojWykonacRuch(int step = 1);
+	bool sprubojWykonacRuch(Swiat *swiat, int step = 1);
 	unsigned int previousX;
 	unsigned int previousY;
 public:
 	void Cofnij();
-	bool SprubojPrzesunacO(int x, int y);
+	bool SprubojPrzesunacO(int x, int y, Swiat *swiat);
 	virtual void Akcja(Swiat *swiat) override;
-	virtual void Kolizja(Swiat *swiat) override;
+	virtual void Kolizja(Swiat *swiat, Organizm *organizm) override;
 };

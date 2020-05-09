@@ -15,7 +15,6 @@ protected:
 	unsigned int x;
 	unsigned int y;
 	string id;
-	Swiat *swiat;
 public:
 	Organizm();
 	string GetId();
@@ -32,6 +31,6 @@ public:
 	void Move(int x, int y);
 
 	virtual void Akcja(Swiat *swiat) = 0;
-	virtual void Kolizja(Swiat *swiat) = 0;
+	virtual void Kolizja(Swiat *swiat, Organizm *organizm) = 0;
 	virtual void Rysuj() = 0;
 };

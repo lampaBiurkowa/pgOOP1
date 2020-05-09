@@ -17,10 +17,10 @@ void Antylopa::Akcja(Swiat *swiat)
 	previousY = y;
 	bool moved = false;
 	while (!moved)
-		moved = sprubojWykonacRuch(2);
+		moved = sprubojWykonacRuch(swiat, 2);
 }
 
-void Antylopa::Kolizja(Swiat *swiat)
+void Antylopa::Kolizja(Swiat *swiat, Organizm *organizm)
 {
 	bool czyMozeUciec = rand() % 2;
 	if (czyMozeUciec && czyMaGdzieUciec(swiat))
@@ -57,7 +57,7 @@ bool Antylopa::sprubojUciec(Swiat *swiat)
 	if (!swiat -> CzyPoleZajete (x + zmianaX, y + zmianaY))
 		return false;
 
-	return SprubojPrzesunacO(zmianaX, zmianaY);
+	return SprubojPrzesunacO(zmianaX, zmianaY, swiat);
 }
 
 void Antylopa::Rysuj()

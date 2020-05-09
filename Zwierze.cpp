@@ -9,7 +9,7 @@ void Zwierze::Cofnij()
 	y = previousY;
 }
 
-bool Zwierze::SprubojPrzesunacO(int x, int y)
+bool Zwierze::SprubojPrzesunacO(int x, int y, Swiat *swiat)
 {
 	if (this -> x + x >= swiat -> GetSzerokosc() || this -> x + x < 0)
 		return false;
@@ -26,10 +26,10 @@ void Zwierze::Akcja(Swiat *swiat)
 	previousY = y;
 	bool moved = false;
 	while (!moved)
-		moved = sprubojWykonacRuch();
+		moved = sprubojWykonacRuch(swiat);
 }
 
-bool Zwierze::sprubojWykonacRuch(int step)
+bool Zwierze::sprubojWykonacRuch(Swiat *swiat, int step)
 {
 	int zmianaX = rand() % (2 * step + 1) - step;
 	int zmianaY = rand() % (2 * step + 1) - step;
@@ -37,11 +37,11 @@ bool Zwierze::sprubojWykonacRuch(int step)
 	if (zmianaX == 0 && zmianaY == 0)
 		return false;
 	
-	return SprubojPrzesunacO(zmianaX, zmianaY);
+	return SprubojPrzesunacO(zmianaX, zmianaY, swiat);
 }
 
-void Zwierze::Kolizja(Swiat *swiat)
+void Zwierze::Kolizja(Swiat *swiat, Organizm *organizm)
 {
-	if (swiat -> GetOrganizmNaPozycji(x, y) -> GetId() == id)
+	if (organizm -> GetId() == id)
 	;//
 }
