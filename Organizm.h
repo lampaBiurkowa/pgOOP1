@@ -1,27 +1,35 @@
 #pragma once
 
 #include "Swiat.h"
+#include <string>
+
+using namespace std;
 
 class Organizm
 {
 protected:
-	unsigned int sila;
 	unsigned int inicjatywa;
+	unsigned int sila;
+	unsigned int turyNaMapie;
 	unsigned int x;
 	unsigned int y;
+	string id;
 	Swiat *swiat;
 public:
-	unsigned int GetSila();
-	void SetForce(unsigned int sila);
+	string GetId();
 	unsigned int GetInicjatywa();
 	void SetInitiative(unsigned int inicjatywa);
+	unsigned int GetSila();
+	void SetSila(unsigned int sila);
+	unsigned int GetTuryNaMapie();
+	void AktualizujLicznikTur();
 	unsigned int GetX();
 	void SetX(unsigned int x);
 	unsigned int GetY();
 	void SetY(unsigned int y);
 	void Move(int x, int y);
 
-	virtual void Akcja() = 0;
-	virtual void Kolizja() = 0;
-	virtual void Rysuj() = 0;
+	virtual void Akcja(Swiat *swiat) = 0;
+	virtual void Kolizja(Swiat *swiat, Organizm *organizm) = 0;
+	virtual string Rysuj() = 0;
 };

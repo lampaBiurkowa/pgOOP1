@@ -6,6 +6,6 @@ class Zwierze : public Organizm
 {
 	bool handleStandardMovement();
 public:
-	virtual void Akcja();
-	virtual void Kolizja();
+	virtual void Akcja(Swiat *swiat) override;
+	virtual void Kolizja(Swiat *swiat, Organizm *organizm) override;
 };

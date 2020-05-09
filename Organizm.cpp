@@ -1,13 +1,8 @@
 #include "Organizm.h"
 
-unsigned int Organizm::GetSila()
+string Organizm::GetId()
 {
-	return sila;
-}
-
-void Organizm::SetForce(unsigned int force)
-{
-	this -> sila = force;
+	return id;
 }
 
 unsigned int Organizm::GetInicjatywa()
@@ -18,6 +13,26 @@ unsigned int Organizm::GetInicjatywa()
 void Organizm::SetInitiative(unsigned int initiative)
 {
 	this -> inicjatywa = initiative;
+}
+
+unsigned int Organizm::GetSila()
+{
+	return sila;
+}
+
+void Organizm::SetSila(unsigned int force)
+{
+	this -> sila = force;
+}
+
+unsigned int Organizm::GetTuryNaMapie()
+{
+	return turyNaMapie;
+}
+
+void Organizm::AktualizujLicznikTur()
+{
+	turyNaMapie++;
 }
 
 unsigned int Organizm::GetX()

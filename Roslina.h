@@ -1,9 +1,9 @@
 #pragma once
 
-#include "Organism.h"
+#include "Organizm.h"
 
-class Plant : public Organism
+class Roslina : public Organizm
 {
 public:
-	void Action();
+	void Akcja();
 };

@@ -2,7 +2,7 @@
 #include <cstdlib>
 #include <ctime>
 
-void Zwierze::Akcja()
+void Zwierze::Akcja(Swiat *swiat)
 {
 	bool moved = false;
 	while (!moved)
@@ -27,7 +27,8 @@ bool Zwierze::handleStandardMovement()
 	return true;
 }
 
-void Zwierze::Kolizja()
+void Zwierze::Kolizja(Swiat *swiat, Organizm *organizm)
 {
-
+	if (organizm -> GetId() == id)
+		;
 }

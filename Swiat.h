@@ -4,6 +4,7 @@ class Organizm;
 
 class Swiat
 {
+	bool **czyZajete;
 	Organizm *organizmy;
 	unsigned int wysokosc, szerokosc;
 public:
