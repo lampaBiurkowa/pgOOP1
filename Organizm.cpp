@@ -1,7 +1,9 @@
 #include "Organizm.h"
 
-Organizm::Organizm()
+Organizm::Organizm(unsigned int x, unsigned int y)
 {
+	this -> x = x;
+	this -> y = y;
 	turyNaMapie = 0;
 }
 

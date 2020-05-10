@@ -3,6 +3,12 @@
 #include <cstdlib>
 #include <ctime>
 
+Zwierze::Zwierze(unsigned int x, unsigned int y) : Organizm(x, y)
+{
+	previousX = x;
+	previousY = y;
+}
+
 void Zwierze::Cofnij()
 {
 	x = previousX;

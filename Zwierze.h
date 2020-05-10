@@ -9,6 +9,7 @@ protected:
 	unsigned int previousX;
 	unsigned int previousY;
 public:
+	Zwierze(unsigned int x, unsigned int y);
 	void Cofnij();
 	bool SprubojPrzesunacO(int x, int y, Swiat *swiat);
 	virtual void Akcja(Swiat *swiat) override;

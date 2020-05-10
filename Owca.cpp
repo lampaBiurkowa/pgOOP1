@@ -3,7 +3,7 @@
 
 using namespace std;
 
-Owca::Owca()
+Owca::Owca(unsigned int x, unsigned int y): Zwierze(x, y)
 {
 	inicjatywa = 4;
 	sila = 4;

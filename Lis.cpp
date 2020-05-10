@@ -4,7 +4,7 @@
 
 using namespace std;
 
-Lis::Lis()
+Lis::Lis(unsigned int x, unsigned int y): Zwierze(x, y)
 {
 	id = "lis";
 	inicjatywa = 7;

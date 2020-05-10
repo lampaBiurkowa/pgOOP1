@@ -4,10 +4,15 @@
 
 using namespace std;
 
-BarszczSosnowskiego::BarszczSosnowskiego()
+BarszczSosnowskiego::BarszczSosnowskiego(unsigned int x, unsigned int y) : Roslina(x, y)
 {
 	id = "barszczSosnowskiego";
 	sila = 10;
+}
+
+Roslina *BarszczSosnowskiego::zwrocInstancjeRosliny(unsigned int x, unsigned int y)
+{
+	return new BarszczSosnowskiego(x, y);
 }
 
 void BarszczSosnowskiego::Akcja(Swiat *swiat)

@@ -16,7 +16,7 @@ protected:
 	unsigned int y;
 	string id;
 public:
-	Organizm();
+	Organizm(unsigned int x, unsigned int y);
 	string GetId();
 	unsigned int GetInicjatywa();
 	void SetInitiative(unsigned int inicjatywa);

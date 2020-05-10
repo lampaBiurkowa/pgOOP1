@@ -5,8 +5,8 @@
 class Trawa : public Roslina
 {
 protected:
-	void zasiejRosline(Swiat *swiat) override;
+	Roslina *zwrocInstancjeRosliny(unsigned int x, unsigned int y) override;
 public:
-	Trawa();
+	Trawa(unsigned int x, unsigned int y);
 	void Rysuj() override;
 };
