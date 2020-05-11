@@ -11,6 +11,7 @@ class Organizm
 protected:
 	unsigned int inicjatywa;
 	unsigned int sila;
+	unsigned int starszenstwo;
 	unsigned int turyNaMapie;
 	unsigned int x;
 	unsigned int y;
@@ -23,7 +24,6 @@ public:
 	unsigned int GetSila();
 	void SetSila(unsigned int sila);
 	unsigned int GetTuryNaMapie();
-	void AktualizujLicznikTur();
 	unsigned int GetX();
 	void SetX(unsigned int x);
 	unsigned int GetY();

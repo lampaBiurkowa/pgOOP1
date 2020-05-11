@@ -4,7 +4,7 @@ Organizm::Organizm(unsigned int x, unsigned int y)
 {
 	this -> x = x;
 	this -> y = y;
-	turyNaMapie = 0;
+	starszenstwo = 0;
 }
 
 string Organizm::GetId()
@@ -35,11 +35,6 @@ void Organizm::SetSila(unsigned int force)
 unsigned int Organizm::GetTuryNaMapie()
 {
 	return turyNaMapie;
-}
-
-void Organizm::AktualizujLicznikTur()
-{
-	turyNaMapie++;
 }
 
 unsigned int Organizm::GetX()

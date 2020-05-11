@@ -4,7 +4,8 @@
 class Swiat
 {
 	Organizm **organizmy;
-	int iloscOrganizmow;
+	unsigned int iloscOrganizmow;
+	unsigned int licznikStarszenstwa;
 	unsigned int szerokosc, wysokosc;
 
 public:

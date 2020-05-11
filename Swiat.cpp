@@ -58,6 +58,7 @@ unsigned int Swiat::GetWysokosc()
 
 void Swiat::Stworz(int szerokosc, int wysokosc)
 {
+	licznikStarszenstwa = 0;
 	this -> szerokosc = szerokosc;
 	this -> wysokosc = wysokosc;
 	organizmy = new Organizm *[wysokosc * szerokosc];
@@ -65,6 +66,7 @@ void Swiat::Stworz(int szerokosc, int wysokosc)
 		organizmy[i] = NULL;
 	iloscOrganizmow = 0;
 }
+
 
 void Swiat::RysujSwiat()
 {

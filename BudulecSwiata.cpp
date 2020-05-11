@@ -1,0 +1,59 @@
+#include "BudulecSwiata.h"
+#include "Antylopa.h"
+#include "BarszczSosnowskiego.h"
+#include "Guarana.h"
+#include "Lis.h"
+#include "Mlecz.h"
+#include "Owca.h"
+#include "Trawa.h"
+#include "WilczeJagody.h"
+#include "Wilk.h"
+#include "Zolw.h"
+
+BudulecSwiata::BudulecSwiata()
+{
+	iloscGatunkow = 10;
+}
+
+void BudulecSwiata::RozstawOrganizmy(Swiat *swiat, int iloscSztuk)
+{
+	unsigned int **pozycje = przygotujPozycjeStartowe(swiat, iloscSztuk);
+	for (int i = 0; i < iloscSztuk * iloscGatunkow; i++)
+	{
+		swiat -> DodajOrganizm(new Antylopa(pozycje[i][0], pozycje[i++][1]));
+		swiat -> DodajOrganizm(new BarszczSosnowskiego(pozycje[i][0], pozycje[i++][1]));
+		swiat -> DodajOrganizm(new Guarana(pozycje[i][0], pozycje[i++][1]));
+		swiat -> DodajOrganizm(new Lis(pozycje[i][0], pozycje[i++][1]));
+		swiat -> DodajOrganizm(new Mlecz(pozycje[i][0], pozycje[i++][1]));
+		swiat -> DodajOrganizm(new Owca(pozycje[i][0], pozycje[i++][1]));
+		swiat -> DodajOrganizm(new Trawa(pozycje[i][0], pozycje[i++][1]));
+		swiat -> DodajOrganizm(new WilczeJagody(pozycje[i][0], pozycje[i++][1]));
+		swiat -> DodajOrganizm(new Wilk(pozycje[i][0], pozycje[i++][1]));
+		swiat -> DodajOrganizm(new Zolw(pozycje[i][0], pozycje[i][1]));
+	}
+}
+
+unsigned int **BudulecSwiata::przygotujPozycjeStartowe(Swiat *swiat, int iloscSztuk)
+{
+	unsigned int **pozycje = new unsigned int *[iloscSztuk * iloscGatunkow];
+	for (int i = 0; i < iloscSztuk * iloscGatunkow; i++)
+		pozycje[i] = new unsigned int[2];
+
+	for (int i = 0; i < iloscSztuk * iloscGatunkow; i++)
+	{
+		bool udaloSieDodac = false;
+		while (!udaloSieDodac)
+		{
+			int x = rand() % swiat -> GetSzerokosc();
+			int y = rand() % swiat -> GetWysokosc();
+			if (!swiat -> CzyPoleZajete(x, y))
+			{
+				udaloSieDodac = true;
+				pozycje[i][0] = x;
+				pozycje[i][1] = y;
+			}
+		}
+	}
+
+	return pozycje;
+}

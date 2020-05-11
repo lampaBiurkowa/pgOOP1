@@ -1,9 +1,12 @@
 #include "Swiat.h"
+#include "BudulecSwiata.h"
 
 int main()
 {
 	Swiat swiat;
-	swiat.Stworz(10, 10);
+	swiat.Stworz(20, 20);
+	BudulecSwiata budulec;
+	budulec.RozstawOrganizmy(&swiat, 3);
 	swiat.RysujSwiat();
 	return 0;
 }
