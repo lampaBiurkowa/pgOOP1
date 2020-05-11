@@ -17,7 +17,7 @@ BudulecSwiata::BudulecSwiata()
 
 void BudulecSwiata::RozstawOrganizmy(Swiat *swiat, int iloscSztuk)
 {
-	unsigned int **pozycje = przygotujPozycjeStartowe(swiat, iloscSztuk);
+	int **pozycje = przygotujPozycjeStartowe(swiat, iloscSztuk);
 	for (int i = 0; i < iloscSztuk * iloscGatunkow; i++)
 	{
 		swiat -> DodajOrganizm(new Antylopa(pozycje[i][0], pozycje[i++][1]));
@@ -33,11 +33,11 @@ void BudulecSwiata::RozstawOrganizmy(Swiat *swiat, int iloscSztuk)
 	}
 }
 
-unsigned int **BudulecSwiata::przygotujPozycjeStartowe(Swiat *swiat, int iloscSztuk)
+int **BudulecSwiata::przygotujPozycjeStartowe(Swiat *swiat, int iloscSztuk)
 {
-	unsigned int **pozycje = new unsigned int *[iloscSztuk * iloscGatunkow];
+	int **pozycje = new int *[iloscSztuk * iloscGatunkow];
 	for (int i = 0; i < iloscSztuk * iloscGatunkow; i++)
-		pozycje[i] = new unsigned int[2];
+		pozycje[i] = new int[2];
 
 	for (int i = 0; i < iloscSztuk * iloscGatunkow; i++)
 	{

@@ -8,5 +8,8 @@ int main()
 	BudulecSwiata budulec;
 	budulec.RozstawOrganizmy(&swiat, 3);
 	swiat.RysujSwiat();
+
+	swiat.WykonajTure();
+
 	return 0;
 }

@@ -3,7 +3,7 @@
 #include <cstdlib>
 #include <ctime>
 
-Zwierze::Zwierze(unsigned int x, unsigned int y) : Organizm(x, y)
+Zwierze::Zwierze(int x, int y) : Organizm(x, y)
 {
 	previousX = x;
 	previousY = y;

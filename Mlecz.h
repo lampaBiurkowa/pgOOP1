@@ -5,9 +5,9 @@
 class Mlecz : public Roslina
 {
 protected:
-	Roslina *zwrocInstancjeRosliny(unsigned int x, unsigned int y) override;
+	Roslina *zwrocInstancjeRosliny(int x, int y) override;
 public:
-	Mlecz(unsigned int x, unsigned int y);
+	Mlecz(int x, int y);
 	void Akcja(Swiat *swiat) override;
 	void Rysuj() override;
 };

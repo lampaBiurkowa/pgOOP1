@@ -4,7 +4,7 @@
 
 using namespace std;
 
-Zolw::Zolw(unsigned int x, unsigned int y) : Zwierze(x, y)
+Zolw::Zolw(int x, int y) : Zwierze(x, y)
 {
 	id = "zolw";
 	inicjatywa = 1;

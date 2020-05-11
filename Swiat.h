@@ -1,21 +1,29 @@
 #pragma once
 #include "Organizm.h"
+#include <vector>
+
+using namespace std;
 
 class Swiat
 {
 	Organizm **organizmy;
-	unsigned int iloscOrganizmow;
-	unsigned int licznikStarszenstwa;
-	unsigned int szerokosc, wysokosc;
+	int iloscOrganizmow;
+	int licznikStarszenstwa;
+	int szerokosc, wysokosc;
+	int maxInicjatywa;
+	vector<string> komunikaty;
+	int getMaxInicjatywa(int ograniczenieGorneWlaczne);
+	void ustawOrganizmyWKolejnosciRuchow(Organizm **organizmy);
 
 public:
+	void DodajKomunikat(string tresc);
 	void DodajOrganizm(Organizm *organizm);
 	void UsunOrganizm(Organizm *organizm);
 	void Stworz(int szerokosc, int wysokosc);
 	bool CzyPoleZajete(int x, int y);
-	Organizm *GetOrganizmNaPozycji(unsigned int x, unsigned int y);
-	unsigned int GetSzerokosc();
-	unsigned int GetWysokosc();
+	Organizm *GetOrganizmNaPozycji(int x, int y);
+	int GetSzerokosc();
+	int GetWysokosc();
 	void RysujSwiat();
 	void WykonajTure();
 };

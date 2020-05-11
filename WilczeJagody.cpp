@@ -4,13 +4,13 @@
 
 using namespace std;
 
-WilczeJagody::WilczeJagody(unsigned int x, unsigned int y) : Roslina(x, y)
+WilczeJagody::WilczeJagody(int x, int y) : Roslina(x, y)
 {
 	id = "wilczeJagody";
 	sila = 99;
 }
 
-Roslina *WilczeJagody::zwrocInstancjeRosliny(unsigned int x, unsigned int y)
+Roslina *WilczeJagody::zwrocInstancjeRosliny(int x, int y)
 {
 	return new WilczeJagody(x, y);
 }

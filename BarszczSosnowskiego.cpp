@@ -4,13 +4,13 @@
 
 using namespace std;
 
-BarszczSosnowskiego::BarszczSosnowskiego(unsigned int x, unsigned int y) : Roslina(x, y)
+BarszczSosnowskiego::BarszczSosnowskiego(int x, int y) : Roslina(x, y)
 {
 	id = "barszczSosnowskiego";
 	sila = 10;
 }
 
-Roslina *BarszczSosnowskiego::zwrocInstancjeRosliny(unsigned int x, unsigned int y)
+Roslina *BarszczSosnowskiego::zwrocInstancjeRosliny(int x, int y)
 {
 	return new BarszczSosnowskiego(x, y);
 }

@@ -3,13 +3,13 @@
 
 using namespace std;
 
-Guarana::Guarana(unsigned int x, unsigned int y) : Roslina(x, y)
+Guarana::Guarana(int x, int y) : Roslina(x, y)
 {
 	id = "guarana";
 	sila = 0;
 }
 
-Roslina *Guarana::zwrocInstancjeRosliny(unsigned int x, unsigned int y)
+Roslina *Guarana::zwrocInstancjeRosliny(int x, int y)
 {
 	return new Guarana(x, y);
 }

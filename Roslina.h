@@ -6,9 +6,9 @@ class Roslina : public Organizm
 {
 protected:
 	bool sprubujZasiacRosline(Swiat *swiat, int step = 1);
-	virtual Roslina *zwrocInstancjeRosliny(unsigned int x, unsigned int y) = 0;
+	virtual Roslina *zwrocInstancjeRosliny(int x, int y) = 0;
 public:
-	Roslina(unsigned int x, unsigned int y);
+	Roslina(int x, int y);
 	void Akcja(Swiat *swiat) override;
 	void Kolizja(Swiat *swiat, Organizm *organizm) override;  
 };

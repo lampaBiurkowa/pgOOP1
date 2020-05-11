@@ -5,6 +5,6 @@
 class Wilk : public Zwierze
 {
 public:
-	Wilk(unsigned int x, unsigned int y);
+	Wilk(int x, int y);
 	void Rysuj() override;
 };

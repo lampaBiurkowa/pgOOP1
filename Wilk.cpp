@@ -3,7 +3,7 @@
 
 using namespace std;
 
-Wilk::Wilk(unsigned int x, unsigned int y): Zwierze(x, y)
+Wilk::Wilk(int x, int y): Zwierze(x, y)
 {
 	id = "wilk";
 	sila = 9;

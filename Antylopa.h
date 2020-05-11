@@ -7,7 +7,7 @@ class Antylopa: public Zwierze
 	bool czyMaGdzieUciec(Swiat *swiat);
 	bool sprubojUciec(Swiat *swiat);
 public:
-	Antylopa(unsigned int x, unsigned int y);
+	Antylopa(int x, int y);
 	void Akcja(Swiat *swiat) override;
 	void Kolizja(Swiat *swiat, Organizm *organizm) override;
 	void Rysuj() override;

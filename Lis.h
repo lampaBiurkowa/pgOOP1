@@ -6,7 +6,7 @@ class Lis: public Zwierze
 {
 	bool czyMozeSieRuszyc(Swiat *swiat);
 public:
-	Lis(unsigned int x, unsigned int y);
+	Lis(int x, int y);
 	void Akcja(Swiat *swiat) override;
 	void Rysuj() override;
 };

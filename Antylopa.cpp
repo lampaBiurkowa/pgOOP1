@@ -4,7 +4,7 @@
 
 using namespace std;
 
-Antylopa::Antylopa(unsigned int x, unsigned int y) : Zwierze(x, y)
+Antylopa::Antylopa(int x, int y) : Zwierze(x, y)
 {
 	id = "antylopa";
 	inicjatywa = 4;

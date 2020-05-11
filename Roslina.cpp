@@ -1,7 +1,7 @@
 #include "Roslina.h"
 #include "Swiat.h"
 
-Roslina::Roslina(unsigned int x, unsigned int y) : Organizm(x, y)
+Roslina::Roslina(int x, int y) : Organizm(x, y)
 {
 	inicjatywa = 0;
 }

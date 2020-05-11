@@ -9,25 +9,25 @@ class Swiat;
 class Organizm
 {
 protected:
-	unsigned int inicjatywa;
-	unsigned int sila;
-	unsigned int starszenstwo;
-	unsigned int turyNaMapie;
-	unsigned int x;
-	unsigned int y;
+	int inicjatywa;
+	int sila;
+	int starszenstwo;
+	int turyNaMapie;
+	int x;
+	int y;
 	string id;
 public:
-	Organizm(unsigned int x, unsigned int y);
+	Organizm(int x, int y);
 	string GetId();
-	unsigned int GetInicjatywa();
-	void SetInitiative(unsigned int inicjatywa);
-	unsigned int GetSila();
-	void SetSila(unsigned int sila);
-	unsigned int GetTuryNaMapie();
-	unsigned int GetX();
-	void SetX(unsigned int x);
-	unsigned int GetY();
-	void SetY(unsigned int y);
+	int GetInicjatywa();
+	void SetInitiative(int inicjatywa);
+	int GetSila();
+	void SetSila(int sila);
+	int GetTuryNaMapie();
+	int GetX();
+	void SetX(int x);
+	int GetY();
+	void SetY(int y);
 	void Move(int x, int y);
 
 	virtual void Akcja(Swiat *swiat) = 0;

@@ -6,10 +6,10 @@ class Zwierze : public Organizm
 {
 protected:
 	bool sprubojWykonacRuch(Swiat *swiat, int step = 1);
-	unsigned int previousX;
-	unsigned int previousY;
+	int previousX;
+	int previousY;
 public:
-	Zwierze(unsigned int x, unsigned int y);
+	Zwierze(int x, int y);
 	void Cofnij();
 	bool SprubojPrzesunacO(int x, int y, Swiat *swiat);
 	virtual void Akcja(Swiat *swiat) override;

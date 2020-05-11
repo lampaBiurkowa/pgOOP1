@@ -1,6 +1,6 @@
 #include "Organizm.h"
 
-Organizm::Organizm(unsigned int x, unsigned int y)
+Organizm::Organizm(int x, int y)
 {
 	this -> x = x;
 	this -> y = y;
@@ -12,47 +12,47 @@ string Organizm::GetId()
 	return id;
 }
 
-unsigned int Organizm::GetInicjatywa()
+int Organizm::GetInicjatywa()
 {
 	return inicjatywa;
 }
 
-void Organizm::SetInitiative(unsigned int initiative)
+void Organizm::SetInitiative(int initiative)
 {
 	this -> inicjatywa = initiative;
 }
 
-unsigned int Organizm::GetSila()
+int Organizm::GetSila()
 {
 	return sila;
 }
 
-void Organizm::SetSila(unsigned int force)
+void Organizm::SetSila(int force)
 {
 	this -> sila = force;
 }
 
-unsigned int Organizm::GetTuryNaMapie()
+int Organizm::GetTuryNaMapie()
 {
 	return turyNaMapie;
 }
 
-unsigned int Organizm::GetX()
+int Organizm::GetX()
 {
 	return x;
 }
 
-void Organizm::SetX(unsigned int x)
+void Organizm::SetX(int x)
 {
 	this -> x = x;
 }
 
-unsigned int Organizm::GetY()
+int Organizm::GetY()
 {
 	return y;
 }
 
-void Organizm::SetY(unsigned int y)
+void Organizm::SetY(int y)
 {
 	this -> y = y;
 }

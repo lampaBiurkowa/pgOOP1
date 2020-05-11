@@ -3,8 +3,9 @@
 
 using namespace std;
 
-Owca::Owca(unsigned int x, unsigned int y): Zwierze(x, y)
+Owca::Owca(int x, int y): Zwierze(x, y)
 {
+	id = "owca";
 	inicjatywa = 4;
 	sila = 4;
 }

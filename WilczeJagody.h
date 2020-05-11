@@ -5,9 +5,9 @@
 class WilczeJagody : public Roslina
 {
 protected:
-	Roslina *zwrocInstancjeRosliny(unsigned int x, unsigned int y) override;
+	Roslina *zwrocInstancjeRosliny(int x, int y) override;
 public:
-	WilczeJagody(unsigned int x, unsigned int y);
+	WilczeJagody(int x, int y);
 	void Kolizja(Swiat *swiat, Organizm *organizm) override;
 	void Rysuj() override;
 };

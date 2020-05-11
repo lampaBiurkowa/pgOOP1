@@ -14,6 +14,11 @@ void Swiat::UsunOrganizm(Organizm *organizm)
 		}
 }
 
+void Swiat::DodajKomunikat(string tresc)
+{
+	komunikaty.push_back(tresc);
+}
+
 void Swiat::DodajOrganizm(Organizm *organizm)
 {
 	for (int i = 0; i < wysokosc * szerokosc; i++)
@@ -37,7 +42,7 @@ bool Swiat::CzyPoleZajete(int x, int y)
 	return false;
 }
 
-Organizm *Swiat::GetOrganizmNaPozycji(unsigned int x, unsigned int y)
+Organizm *Swiat::GetOrganizmNaPozycji(int x, int y)
 {
 	for (int i = 0; i < wysokosc * szerokosc; i++)
 		if (organizmy[i] != NULL && organizmy[i] -> GetX() == x && organizmy[i] -> GetY() == y)
@@ -46,18 +51,19 @@ Organizm *Swiat::GetOrganizmNaPozycji(unsigned int x, unsigned int y)
 	return NULL;
 }
 
-unsigned int Swiat::GetSzerokosc()
+int Swiat::GetSzerokosc()
 {
 	return szerokosc;
 }
 
-unsigned int Swiat::GetWysokosc()
+int Swiat::GetWysokosc()
 {
 	return wysokosc;
 }
 
 void Swiat::Stworz(int szerokosc, int wysokosc)
 {
+	maxInicjatywa = 7;
 	licznikStarszenstwa = 0;
 	this -> szerokosc = szerokosc;
 	this -> wysokosc = wysokosc;
@@ -81,4 +87,44 @@ void Swiat::RysujSwiat()
 		if (i % szerokosc == szerokosc - 1)
 			cout<<"|"<<endl;
 	}
+
+	cout<<"Komunikaty:"<<endl;
+	for (int i = 0; i < komunikaty.size(); i++)
+		cout<<komunikaty[i]<<endl;
+}
+
+void Swiat::WykonajTure()
+{
+	Organizm **ustawioneOrganizmy = new Organizm *[iloscOrganizmow];
+	ustawOrganizmyWKolejnosciRuchow(ustawioneOrganizmy);
+
+	for (int i = 0; i < iloscOrganizmow; i++)
+		cout<<ustawioneOrganizmy[i] -> GetId()<<" "<<ustawioneOrganizmy[i] -> GetInicjatywa()<<endl;
+}
+
+void Swiat::ustawOrganizmyWKolejnosciRuchow(Organizm **ustawioneOrganizmy)
+{
+	int ograniczenieGorneWlaczne = maxInicjatywa;
+	int iloscUstawionychOrganizmow = 0;
+	while (iloscUstawionychOrganizmow < iloscOrganizmow)
+	{
+		int szukanaInicjatywa = getMaxInicjatywa(ograniczenieGorneWlaczne);
+		ograniczenieGorneWlaczne = szukanaInicjatywa - 1;
+		for (int i = 0; i < iloscOrganizmow; i++)
+			if (organizmy[i] -> GetInicjatywa() == szukanaInicjatywa)
+			{
+				ustawioneOrganizmy[iloscUstawionychOrganizmow] = organizmy[i];
+				iloscUstawionychOrganizmow++;
+			}
+	}
+}
+
+int Swiat::getMaxInicjatywa(int ograniczenieGorneWlaczne)
+{
+	int max = -1;
+	for (int i = 0; i < iloscOrganizmow; i++)
+		if (organizmy[i] -> GetInicjatywa() <= ograniczenieGorneWlaczne && organizmy[i] -> GetInicjatywa() > max)
+			max = organizmy[i] -> GetInicjatywa();
+
+	return max;
 }

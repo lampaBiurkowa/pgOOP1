@@ -5,6 +5,6 @@
 class Owca: public Zwierze
 {
 public:
-	Owca(unsigned int x, unsigned int y);
+	Owca(int x, int y);
 	void Rysuj() override;
 };
