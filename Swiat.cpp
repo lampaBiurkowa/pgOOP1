@@ -1,4 +1,5 @@
 #include "Swiat.h"
+#include "Kolizja.h"
 #include <iostream>
 
 using namespace std;
@@ -99,7 +100,10 @@ void Swiat::WykonajTure()
 	ustawOrganizmyWKolejnosciRuchow(ustawioneOrganizmy);
 
 	for (int i = 0; i < iloscOrganizmow; i++)
-		cout<<ustawioneOrganizmy[i] -> GetId()<<" "<<ustawioneOrganizmy[i] -> GetInicjatywa()<<endl;
+	{
+		ustawioneOrganizmy[i] -> Akcja(this);
+		obsluzEwentualneKolizje(ustawioneOrganizmy[i]);
+	}
 }
 
 void Swiat::ustawOrganizmyWKolejnosciRuchow(Organizm **ustawioneOrganizmy)
@@ -127,4 +131,37 @@ int Swiat::getMaxInicjatywa(int ograniczenieGorneWlaczne)
 			max = organizmy[i] -> GetInicjatywa();
 
 	return max;
+}
+
+void Swiat::obsluzEwentualneKolizje(Organizm *organizmZOstatniaAkcja)
+{
+	for (int i = 0; i < GetWysokosc(); i++)
+		for (int j = 0; j < GetSzerokosc(); j++)
+		{
+			if (!CzyPoleZajete(j, i))
+				continue;
+
+			Kolizja kolizja(this, j, i);
+			if (!kolizja.WystepujeKolizja())
+				continue;
+
+			Organizm *organizmZPierwszenstwem, *organizmBezPierwszenstwa;
+			if (kolizja.GetKolidujaceOrganizmy()[0] == organizmZOstatniaAkcja)
+			{
+				organizmZPierwszenstwem = kolizja.GetKolidujaceOrganizmy()[0];
+				organizmBezPierwszenstwa = kolizja.GetKolidujaceOrganizmy()[1];
+			}
+			else
+			{
+				organizmZPierwszenstwem = kolizja.GetKolidujaceOrganizmy()[1];
+				organizmBezPierwszenstwa = kolizja.GetKolidujaceOrganizmy()[0];
+			}
+
+			organizmZPierwszenstwem -> Kolizja(this, organizmBezPierwszenstwa);
+		}
+}
+
+Organizm **Swiat::GetOrganizmy()
+{
+	return organizmy;
 }

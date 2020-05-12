@@ -1,6 +1,9 @@
 #include "Swiat.h"
 #include "BudulecSwiata.h"
 
+#include<iostream>
+using namespace std;
+
 int main()
 {
 	Swiat swiat;
@@ -8,7 +11,10 @@ int main()
 	BudulecSwiata budulec;
 	budulec.RozstawOrganizmy(&swiat, 3);
 	swiat.RysujSwiat();
-
+	swiat.WykonajTure();
+	swiat.RysujSwiat();
+	swiat.WykonajTure();
+	swiat.RysujSwiat();
 	swiat.WykonajTure();
 
 	return 0;

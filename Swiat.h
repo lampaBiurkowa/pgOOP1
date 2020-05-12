@@ -14,6 +14,7 @@ class Swiat
 	vector<string> komunikaty;
 	int getMaxInicjatywa(int ograniczenieGorneWlaczne);
 	void ustawOrganizmyWKolejnosciRuchow(Organizm **organizmy);
+	void obsluzEwentualneKolizje(Organizm *organizmZOstatniaAkcja);
 
 public:
 	void DodajKomunikat(string tresc);
@@ -22,6 +23,7 @@ public:
 	void Stworz(int szerokosc, int wysokosc);
 	bool CzyPoleZajete(int x, int y);
 	Organizm *GetOrganizmNaPozycji(int x, int y);
+	Organizm **GetOrganizmy();
 	int GetSzerokosc();
 	int GetWysokosc();
 	void RysujSwiat();
