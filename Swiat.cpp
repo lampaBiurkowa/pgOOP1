@@ -6,22 +6,26 @@ using namespace std;
 
 void Swiat::UsunOrganizm(Organizm *organizm)
 {
+	if (organizm == NULL)
+		return;
+
 	for (int i = 0; i < wysokosc * szerokosc; i++)
 		if (organizmy[i] == organizm)
 		{
 			organizmy[i] = NULL;
 			iloscOrganizmow--;
-			delete organizm;
 		}
 }
 
 void Swiat::DodajKomunikat(string tresc)
 {
+	cout<<tresc<<endl;
 	komunikaty.push_back(tresc);
 }
 
 void Swiat::DodajOrganizm(Organizm *organizm)
 {
+	zaktualizujTabliceOrganizmow();
 	for (int i = 0; i < wysokosc * szerokosc; i++)
 		if (organizmy[i] == NULL)
 		{
@@ -45,7 +49,7 @@ bool Swiat::CzyPoleZajete(int x, int y)
 
 Organizm *Swiat::GetOrganizmNaPozycji(int x, int y)
 {
-	for (int i = 0; i < wysokosc * szerokosc; i++)
+	for (int i = 0; i < GetWysokosc() * GetSzerokosc(); i++)
 		if (organizmy[i] != NULL && organizmy[i] -> GetX() == x && organizmy[i] -> GetY() == y)
 			return organizmy[i];
 
@@ -98,12 +102,20 @@ void Swiat::WykonajTure()
 {
 	Organizm **ustawioneOrganizmy = new Organizm *[iloscOrganizmow];
 	ustawOrganizmyWKolejnosciRuchow(ustawioneOrganizmy);
+	int iloscUstawionychOrganizmow = iloscOrganizmow;
 
-	for (int i = 0; i < iloscOrganizmow; i++)
+	for (int i = 0; i < iloscUstawionychOrganizmow; i++)
 	{
+		if (ustawioneOrganizmy[i] == NULL)
+			continue;
+
 		ustawioneOrganizmy[i] -> Akcja(this);
 		obsluzEwentualneKolizje(ustawioneOrganizmy[i]);
 	}
+
+	zaktualizujTabliceOrganizmow();
+	//for (int i = 0; i < iloscOrganizmow; i++)
+		//cout<<organizmy[i] -> GetId()<<endl;
 }
 
 void Swiat::ustawOrganizmyWKolejnosciRuchow(Organizm **ustawioneOrganizmy)
@@ -141,7 +153,8 @@ void Swiat::obsluzEwentualneKolizje(Organizm *organizmZOstatniaAkcja)
 			if (!CzyPoleZajete(j, i))
 				continue;
 
-			Kolizja kolizja(this, j, i);
+			Kolizja kolizja;
+			kolizja.SzukajKolizji(this, j, i);
 			if (!kolizja.WystepujeKolizja())
 				continue;
 
@@ -157,11 +170,55 @@ void Swiat::obsluzEwentualneKolizje(Organizm *organizmZOstatniaAkcja)
 				organizmBezPierwszenstwa = kolizja.GetKolidujaceOrganizmy()[0];
 			}
 
+			cout<<"pozucja "<<j<<" "<<i<<": ";
+			DodajKomunikat("Kolizja " + organizmZPierwszenstwem -> GetId() + " z " + organizmBezPierwszenstwa -> GetId());
 			organizmZPierwszenstwem -> Kolizja(this, organizmBezPierwszenstwa);
+			kolizja.SzukajKolizji(this, j, i);
+			if (!kolizja.WystepujeKolizja())
+			{
+				cout<<"ale jusz jej nie ma :D/"<<endl;
+				continue;
+			}
+			if (organizmZPierwszenstwem -> GetSila() >= organizmBezPierwszenstwa -> GetSila())
+			{
+				DodajKomunikat(organizmZPierwszenstwem -> GetId() + " zabija " + organizmBezPierwszenstwa -> GetId());
+				UsunOrganizm(organizmBezPierwszenstwa);
+			}
+			else
+			{
+				DodajKomunikat(organizmBezPierwszenstwa -> GetId() + " zabija " + organizmZPierwszenstwem -> GetId());
+				UsunOrganizm(organizmZPierwszenstwem);
+			}
 		}
 }
 
 Organizm **Swiat::GetOrganizmy()
 {
 	return organizmy;
+}
+
+void Swiat::zaktualizujTabliceOrganizmow()
+{
+	int wolnyIndeks = GetSzerokosc() * GetWysokosc();
+	bool czySzukacWolnegoIndeksu = true;
+	for (int i = 0; i < GetSzerokosc() * GetWysokosc(); i++)
+	{
+		if (czySzukacWolnegoIndeksu && organizmy[i] == NULL)
+		{
+			wolnyIndeks = i;
+			czySzukacWolnegoIndeksu = false;
+		}
+		else if (organizmy[i] != NULL && i > wolnyIndeks)
+		{
+			int roznica = i - wolnyIndeks;
+			for (int j = wolnyIndeks; j < GetSzerokosc() * GetWysokosc() - roznica; j++)
+				organizmy[j] = organizmy[j + roznica];
+
+			wolnyIndeks = GetSzerokosc() * GetWysokosc();
+			czySzukacWolnegoIndeksu = true;
+		}
+	}
+
+	for (int i = iloscOrganizmow; i < GetSzerokosc() * GetWysokosc(); i++)
+		organizmy[i] = NULL;
 }

@@ -28,6 +28,8 @@ void Antylopa::Kolizja(Swiat *swiat, Organizm *organizm)
 		bool ucieczkaUdana = false;
 		while (!ucieczkaUdana)
 			ucieczkaUdana = sprubojUciec(swiat);
+
+		swiat -> DodajKomunikat(id + "ucieka przed " + organizm -> GetId());
 	}
 }
 

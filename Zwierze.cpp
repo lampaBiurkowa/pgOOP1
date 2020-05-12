@@ -24,15 +24,16 @@ bool Zwierze::SprubojPrzesunacO(int x, int y, Swiat *swiat)
 
 	this -> x += x;
 	this -> y += y;
+	return true;
 }
 
 void Zwierze::Akcja(Swiat *swiat)
 {
 	previousX = x;
 	previousY = y;
-	bool moved = false;
-	while (!moved)
-		moved = sprubojWykonacRuch(swiat);
+	bool czyUdaloSiePoruszyc = false;
+	while (!czyUdaloSiePoruszyc)
+		czyUdaloSiePoruszyc = sprubojWykonacRuch(swiat);
 }
 
 bool Zwierze::sprubojWykonacRuch(Swiat *swiat, int step)

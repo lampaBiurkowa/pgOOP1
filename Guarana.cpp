@@ -1,5 +1,6 @@
 #include "Guarana.h"
 #include <iostream>
+#include "Swiat.h"
 
 using namespace std;
 
@@ -17,6 +18,7 @@ Roslina *Guarana::zwrocInstancjeRosliny(int x, int y)
 void Guarana::Kolizja(Swiat *swiat, Organizm *organizm)
 {
 	organizm -> SetSila(organizm -> GetSila() + 3);
+	swiat -> DodajKomunikat(organizm -> GetId() + " zjadl " + id + " i jego sila wyno sila zwiekszyla sie o 3");
 }
 
 void Guarana::Rysuj()

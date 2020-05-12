@@ -15,6 +15,7 @@ class Swiat
 	int getMaxInicjatywa(int ograniczenieGorneWlaczne);
 	void ustawOrganizmyWKolejnosciRuchow(Organizm **organizmy);
 	void obsluzEwentualneKolizje(Organizm *organizmZOstatniaAkcja);
+	void zaktualizujTabliceOrganizmow();
 
 public:
 	void DodajKomunikat(string tresc);

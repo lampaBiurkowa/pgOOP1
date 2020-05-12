@@ -26,7 +26,10 @@ void Zolw::Kolizja(Swiat *swiat, Organizm *organizm)
 {
 	if (dynamic_cast<Zwierze *>(organizm) != nullptr)
 		if (((Zwierze *)(organizm)) -> GetSila() < 5)
+		{
 			((Zwierze *)(organizm)) -> Cofnij();
+			swiat -> DodajKomunikat(id + " odpiera atak " + organizm -> GetId());
+		}
 }
 
 void Zolw::Rysuj()

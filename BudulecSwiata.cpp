@@ -9,10 +9,22 @@
 #include "WilczeJagody.h"
 #include "Wilk.h"
 #include "Zolw.h"
+#include <iostream>
+
+using namespace std;
 
 BudulecSwiata::BudulecSwiata()
 {
 	iloscGatunkow = 10;
+}
+
+bool BudulecSwiata::pozycjaZajeta(int x, int y, int **pozycje, int iloscSztuk)
+{
+	for (int i = 0; i < iloscSztuk * iloscGatunkow; i++)
+		if (pozycje[i][0] == x && pozycje[i][1] == y)
+			return true;
+
+	return false;
 }
 
 void BudulecSwiata::RozstawOrganizmy(Swiat *swiat, int iloscSztuk)
@@ -46,7 +58,7 @@ int **BudulecSwiata::przygotujPozycjeStartowe(Swiat *swiat, int iloscSztuk)
 		{
 			int x = rand() % swiat -> GetSzerokosc();
 			int y = rand() % swiat -> GetWysokosc();
-			if (!swiat -> CzyPoleZajete(x, y))
+			if (!pozycjaZajeta(x, y, pozycje, iloscSztuk))
 			{
 				udaloSieDodac = true;
 				pozycje[i][0] = x;

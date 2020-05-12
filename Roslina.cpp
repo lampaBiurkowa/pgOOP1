@@ -12,7 +12,9 @@ void Roslina::Akcja(Swiat *swiat)
 	{
 		bool czyUdaloSieZasiac = false;
 		while (!czyUdaloSieZasiac)
-			sprubujZasiacRosline(swiat);
+			czyUdaloSieZasiac = sprubujZasiacRosline(swiat);
+
+		swiat -> DodajKomunikat(id + " zasialo brata");
 	}
 }
 
