@@ -12,13 +12,13 @@ void Roslina::Akcja(Swiat *swiat)
 	{
 		bool czyUdaloSieZasiac = false;
 		while (!czyUdaloSieZasiac)
-			czyUdaloSieZasiac = sprubujZasiacRosline(swiat);
+			czyUdaloSieZasiac = sprobujZasiacRosline(swiat);
 
 		swiat -> DodajKomunikat(id + " zasialo brata");
 	}
 }
 
-bool Roslina::sprubujZasiacRosline(Swiat *swiat, int step)
+bool Roslina::sprobujZasiacRosline(Swiat *swiat, int step)
 {
 	int zmianaX = rand() % (2 * step + 1) - step;
 	int zmianaY = rand() % (2 * step + 1) - step;

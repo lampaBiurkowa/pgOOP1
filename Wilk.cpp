@@ -1,5 +1,5 @@
-#include "Wilk.h"
 #include <iostream>
+#include "Wilk.h"
 
 using namespace std;
 
@@ -13,4 +13,9 @@ Wilk::Wilk(int x, int y): Zwierze(x, y)
 void Wilk::Rysuj()
 {
 	cout<<"W";
+}
+
+Wilk *Wilk::zwrocInstancjeZwierzecia(int x, int y)
+{
+	return new Wilk(x, y);
 }

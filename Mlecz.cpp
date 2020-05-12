@@ -1,5 +1,6 @@
-#include "Mlecz.h"
 #include <iostream>
+#include "Mlecz.h"
+#include "Swiat.h"
 
 using namespace std;
 
@@ -9,23 +10,26 @@ Mlecz::Mlecz(int x, int y) : Roslina(x, y)
 	sila = 0;
 }
 
-Roslina *Mlecz::zwrocInstancjeRosliny(int x, int y)
-{
-	return new Mlecz(x, y);
-}
-
 void Mlecz::Akcja(Swiat *swiat)
 {
-	for (int i = 0; i < 3; i++)
-		if (rand() % 10 > 7)
+	const int ILOSC_PROB_ROZPRZESTRZENIENIA = 3;
+	for (int i = 0; i < ILOSC_PROB_ROZPRZESTRZENIENIA; i++)
+		if (rand() % 100 < SZANSE_NA_ROZPRZESTRZENIENIE_W_PROCENTACH)
 		{
 			bool czyUdaloSieZasiac = false;
 			while (!czyUdaloSieZasiac)
-				czyUdaloSieZasiac = sprubujZasiacRosline(swiat);
+				czyUdaloSieZasiac = sprobujZasiacRosline(swiat);
+
+			swiat -> DodajKomunikat(id + " zasialo brata");
 		}
 }
 
 void Mlecz::Rysuj()
 {
 	cout<<"m";
+}
+
+Mlecz *Mlecz::zwrocInstancjeRosliny(int x, int y)
+{
+	return new Mlecz(x, y);
 }

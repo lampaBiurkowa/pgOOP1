@@ -5,7 +5,8 @@
 class Roslina : public Organizm
 {
 protected:
-	bool sprubujZasiacRosline(Swiat *swiat, int step = 1);
+	const int SZANSE_NA_ROZPRZESTRZENIENIE_W_PROCENTACH = 50;
+	bool sprobujZasiacRosline(Swiat *swiat, int step = 1);
 	virtual Roslina *zwrocInstancjeRosliny(int x, int y) = 0;
 public:
 	Roslina(int x, int y);

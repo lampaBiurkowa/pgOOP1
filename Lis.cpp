@@ -1,6 +1,6 @@
+#include <iostream>
 #include "Lis.h"
 #include "Swiat.h"
-#include <iostream>
 
 using namespace std;
 
@@ -46,4 +46,9 @@ bool Lis::czyMozeSieRuszyc(Swiat *swiat)
 void Lis::Rysuj()
 {
 	cout<<"L";
+}
+
+Lis *Lis::zwrocInstancjeZwierzecia(int x, int y)
+{
+	return new Lis(x, y);
 }

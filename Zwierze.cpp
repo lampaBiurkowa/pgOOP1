@@ -50,5 +50,30 @@ bool Zwierze::sprubojWykonacRuch(Swiat *swiat, int step)
 void Zwierze::Kolizja(Swiat *swiat, Organizm *organizm)
 {
 	if (organizm -> GetId() == id)
-	;//
+	{
+		Cofnij();
+		bool czyUdaloSieRomznozyc = false;
+		while (!czyUdaloSieRomznozyc)
+			czyUdaloSieRomznozyc = sprobujDodacPotomka(swiat);
+
+		swiat -> DodajKomunikat(id + " zasialo brata");
+	}
+}
+
+bool Zwierze::sprobujDodacPotomka(Swiat *swiat)
+{
+	int zmianaX = rand() % 3 - 1;
+	int zmianaY = rand() % 3 - 1;
+	if (zmianaX == 0 && zmianaY == 0)
+		return false;
+
+	if (x + zmianaX < 0 || x + zmianaX >= swiat -> GetSzerokosc() || y + zmianaY < 0 || y + zmianaY >= swiat -> GetWysokosc())
+		return false;
+
+	if (x + zmianaX == previousX && y + zmianaY == previousY)
+		return false;
+
+	Zwierze *zwierze = zwrocInstancjeZwierzecia(x + zmianaX, y + zmianaY);
+	swiat -> DodajOrganizm(zwierze);
+	return true;
 }

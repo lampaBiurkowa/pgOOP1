@@ -2,9 +2,10 @@
 
 #include "Zwierze.h"
 
-class Lis: public Zwierze
+class Lis : public Zwierze
 {
 	bool czyMozeSieRuszyc(Swiat *swiat);
+	Lis *zwrocInstancjeZwierzecia(int x, int y) override;
 public:
 	Lis(int x, int y);
 	void Akcja(Swiat *swiat) override;

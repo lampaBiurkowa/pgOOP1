@@ -19,7 +19,6 @@ void Swiat::UsunOrganizm(Organizm *organizm)
 
 void Swiat::DodajKomunikat(string tresc)
 {
-	cout<<tresc<<endl;
 	komunikaty.push_back(tresc);
 }
 
@@ -93,9 +92,22 @@ void Swiat::RysujSwiat()
 			cout<<"|"<<endl;
 	}
 
+	obsluzKomunikaty();
+}
+
+void Swiat::obsluzKomunikaty()
+{
 	cout<<"Komunikaty:"<<endl;
+	if (komunikaty.size() == 0)
+	{
+		cout<<"Brak"<<endl;
+		return;
+	}
+
 	for (int i = 0; i < komunikaty.size(); i++)
 		cout<<komunikaty[i]<<endl;
+
+	komunikaty.clear();
 }
 
 void Swiat::WykonajTure()
@@ -103,7 +115,7 @@ void Swiat::WykonajTure()
 	Organizm **ustawioneOrganizmy = new Organizm *[iloscOrganizmow];
 	ustawOrganizmyWKolejnosciRuchow(ustawioneOrganizmy);
 	int iloscUstawionychOrganizmow = iloscOrganizmow;
-
+//hlicz
 	for (int i = 0; i < iloscUstawionychOrganizmow; i++)
 	{
 		if (ustawioneOrganizmy[i] == NULL)
@@ -114,8 +126,6 @@ void Swiat::WykonajTure()
 	}
 
 	zaktualizujTabliceOrganizmow();
-	//for (int i = 0; i < iloscOrganizmow; i++)
-		//cout<<organizmy[i] -> GetId()<<endl;
 }
 
 void Swiat::ustawOrganizmyWKolejnosciRuchow(Organizm **ustawioneOrganizmy)
@@ -170,15 +180,12 @@ void Swiat::obsluzEwentualneKolizje(Organizm *organizmZOstatniaAkcja)
 				organizmBezPierwszenstwa = kolizja.GetKolidujaceOrganizmy()[0];
 			}
 
-			cout<<"pozucja "<<j<<" "<<i<<": ";
 			DodajKomunikat("Kolizja " + organizmZPierwszenstwem -> GetId() + " z " + organizmBezPierwszenstwa -> GetId());
 			organizmZPierwszenstwem -> Kolizja(this, organizmBezPierwszenstwa);
 			kolizja.SzukajKolizji(this, j, i);
 			if (!kolizja.WystepujeKolizja())
-			{
-				cout<<"ale jusz jej nie ma :D/"<<endl;
 				continue;
-			}
+			
 			if (organizmZPierwszenstwem -> GetSila() >= organizmBezPierwszenstwa -> GetSila())
 			{
 				DodajKomunikat(organizmZPierwszenstwem -> GetId() + " zabija " + organizmBezPierwszenstwa -> GetId());

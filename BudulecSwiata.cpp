@@ -1,6 +1,7 @@
-#include "BudulecSwiata.h"
+#include <iostream>
 #include "Antylopa.h"
 #include "BarszczSosnowskiego.h"
+#include "BudulecSwiata.h"
 #include "Guarana.h"
 #include "Lis.h"
 #include "Mlecz.h"
@@ -9,22 +10,12 @@
 #include "WilczeJagody.h"
 #include "Wilk.h"
 #include "Zolw.h"
-#include <iostream>
 
 using namespace std;
 
 BudulecSwiata::BudulecSwiata()
 {
 	iloscGatunkow = 10;
-}
-
-bool BudulecSwiata::pozycjaZajeta(int x, int y, int **pozycje, int iloscSztuk)
-{
-	for (int i = 0; i < iloscSztuk * iloscGatunkow; i++)
-		if (pozycje[i][0] == x && pozycje[i][1] == y)
-			return true;
-
-	return false;
 }
 
 void BudulecSwiata::RozstawOrganizmy(Swiat *swiat, int iloscSztuk)
@@ -68,4 +59,13 @@ int **BudulecSwiata::przygotujPozycjeStartowe(Swiat *swiat, int iloscSztuk)
 	}
 
 	return pozycje;
+}
+
+bool BudulecSwiata::pozycjaZajeta(int x, int y, int **pozycje, int iloscSztuk)
+{
+	for (int i = 0; i < iloscSztuk * iloscGatunkow; i++)
+		if (pozycje[i][0] == x && pozycje[i][1] == y)
+			return true;
+
+	return false;
 }

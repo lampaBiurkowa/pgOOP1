@@ -1,6 +1,6 @@
-#include "WilczeJagody.h"
-#include "Swiat.h"
 #include <iostream>
+#include "Swiat.h"
+#include "WilczeJagody.h"
 
 using namespace std;
 
@@ -8,11 +8,6 @@ WilczeJagody::WilczeJagody(int x, int y) : Roslina(x, y)
 {
 	id = "wilczeJagody";
 	sila = 99;
-}
-
-Roslina *WilczeJagody::zwrocInstancjeRosliny(int x, int y)
-{
-	return new WilczeJagody(x, y);
 }
 
 void WilczeJagody::Kolizja(Swiat *swiat, Organizm *organizm)
@@ -24,4 +19,9 @@ void WilczeJagody::Kolizja(Swiat *swiat, Organizm *organizm)
 void WilczeJagody::Rysuj()
 {
 	cout<<"g";
+}
+
+WilczeJagody *WilczeJagody::zwrocInstancjeRosliny(int x, int y)
+{
+	return new WilczeJagody(x, y);
 }

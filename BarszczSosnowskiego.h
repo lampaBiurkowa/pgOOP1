@@ -4,8 +4,7 @@
 
 class BarszczSosnowskiego: public Roslina
 {
-protected:
-	Roslina *zwrocInstancjeRosliny(int x, int y) override;
+	BarszczSosnowskiego *zwrocInstancjeRosliny(int x, int y) override;
 public:
 	BarszczSosnowskiego(int x, int y);
 	void Akcja(Swiat *swiat) override;

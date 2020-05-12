@@ -4,6 +4,7 @@
 
 class Zolw: public Zwierze
 {
+	Zolw *zwrocInstancjeZwierzecia(int x, int y) override;
 public:
 	Zolw(int x, int y);
 	void Akcja(Swiat *swiat) override;

@@ -10,12 +10,11 @@ int main()
 	swiat.Stworz(20, 20);
 	BudulecSwiata budulec;
 	budulec.RozstawOrganizmy(&swiat, 3);
-	swiat.RysujSwiat();
-	swiat.WykonajTure();
-	swiat.RysujSwiat();
-	swiat.WykonajTure();
-	swiat.RysujSwiat();
-	swiat.WykonajTure();
+	for (int i = 0; i < 10; i++)
+	{
+		swiat.RysujSwiat();
+		swiat.WykonajTure();
+	}
 
 	return 0;
 }

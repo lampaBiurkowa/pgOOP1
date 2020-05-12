@@ -13,7 +13,8 @@ Zolw::Zolw(int x, int y) : Zwierze(x, y)
 
 void Zolw::Akcja(Swiat *swiat)
 {
-	int czyStoiWMiejscu = rand() % 4 < 4;
+	const int SZANSE_NA_POZOSTANIE_W_MIEJSCU_W_PROCENTACH = 75;
+	int czyStoiWMiejscu = rand() % 100 < SZANSE_NA_POZOSTANIE_W_MIEJSCU_W_PROCENTACH;
 	if (czyStoiWMiejscu)
 		return;
 
@@ -35,4 +36,9 @@ void Zolw::Kolizja(Swiat *swiat, Organizm *organizm)
 void Zolw::Rysuj()
 {
 	cout<<"Z";
+}
+
+Zolw *Zolw::zwrocInstancjeZwierzecia(int x, int y)
+{
+	return new Zolw(x, y);
 }

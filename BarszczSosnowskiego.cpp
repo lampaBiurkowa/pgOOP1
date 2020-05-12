@@ -1,6 +1,6 @@
+#include <iostream>
 #include "BarszczSosnowskiego.h"
 #include "Swiat.h"
-#include <iostream>
 
 using namespace std;
 
@@ -8,11 +8,6 @@ BarszczSosnowskiego::BarszczSosnowskiego(int x, int y) : Roslina(x, y)
 {
 	id = "barszczSosnowskiego";
 	sila = 10;
-}
-
-Roslina *BarszczSosnowskiego::zwrocInstancjeRosliny(int x, int y)
-{
-	return new BarszczSosnowskiego(x, y);
 }
 
 void BarszczSosnowskiego::Akcja(Swiat *swiat)
@@ -39,4 +34,9 @@ void BarszczSosnowskiego::Kolizja(Swiat *swiat, Organizm *organizm)
 void BarszczSosnowskiego::Rysuj()
 {
 	cout<<"b";
+}
+
+BarszczSosnowskiego *BarszczSosnowskiego::zwrocInstancjeRosliny(int x, int y)
+{
+	return new BarszczSosnowskiego(x, y);
 }

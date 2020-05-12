@@ -8,8 +8,13 @@ Kolizja::Kolizja()
 
 void Kolizja::inicjuj()
 {
-	kolidujaceOrganizmy = new Organizm*[2]{NULL, NULL};
+	kolidujaceOrganizmy = new Organizm*[MAX_ORGANIZMOW_KOLIDUJACYCH]{NULL, NULL};
 	iloscKolidujacychOrganizmow = 0;
+}
+
+Organizm **Kolizja::GetKolidujaceOrganizmy()
+{
+	return kolidujaceOrganizmy;
 }
 
 void Kolizja::SzukajKolizji(Swiat *swiat, int x, int y)
@@ -25,10 +30,10 @@ void Kolizja::SzukajKolizji(Swiat *swiat, int x, int y)
 
 bool Kolizja::WystepujeKolizja()
 {
-	return iloscKolidujacychOrganizmow == 2;
+	return iloscKolidujacychOrganizmow == MAX_ORGANIZMOW_KOLIDUJACYCH;
 }
 
-Organizm** Kolizja::GetKolidujaceOrganizmy()
+Kolizja::~Kolizja()
 {
-	return kolidujaceOrganizmy;
+	delete kolidujaceOrganizmy;
 }

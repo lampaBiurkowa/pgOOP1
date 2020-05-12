@@ -6,6 +6,8 @@ class Zwierze : public Organizm
 {
 protected:
 	bool sprubojWykonacRuch(Swiat *swiat, int step = 1);
+	bool sprobujDodacPotomka(Swiat *swiat);
+	virtual Zwierze *zwrocInstancjeZwierzecia(int x, int y) = 0;
 	int previousX;
 	int previousY;
 public:

@@ -16,6 +16,7 @@ class Swiat
 	void ustawOrganizmyWKolejnosciRuchow(Organizm **organizmy);
 	void obsluzEwentualneKolizje(Organizm *organizmZOstatniaAkcja);
 	void zaktualizujTabliceOrganizmow();
+	void obsluzKomunikaty();
 
 public:
 	void DodajKomunikat(string tresc);

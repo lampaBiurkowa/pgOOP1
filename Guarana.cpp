@@ -1,5 +1,5 @@
-#include "Guarana.h"
 #include <iostream>
+#include "Guarana.h"
 #include "Swiat.h"
 
 using namespace std;
@@ -10,18 +10,20 @@ Guarana::Guarana(int x, int y) : Roslina(x, y)
 	sila = 0;
 }
 
-Roslina *Guarana::zwrocInstancjeRosliny(int x, int y)
-{
-	return new Guarana(x, y);
-}
-
 void Guarana::Kolizja(Swiat *swiat, Organizm *organizm)
 {
-	organizm -> SetSila(organizm -> GetSila() + 3);
+	const int ZWIEKSZENIE_SILY = 3;
+
+	organizm -> SetSila(organizm -> GetSila() + ZWIEKSZENIE_SILY);
 	swiat -> DodajKomunikat(organizm -> GetId() + " zjadl " + id + " i jego sila wyno sila zwiekszyla sie o 3");
 }
 
 void Guarana::Rysuj()
 {
 	cout<<"g";
+}
+
+Guarana *Guarana::zwrocInstancjeRosliny(int x, int y)
+{
+	return new Guarana(x, y);
 }
