@@ -13,6 +13,7 @@ void Swiat::UsunOrganizm(Organizm *organizm)
 		if (organizmy[i] == organizm)
 		{
 			organizmy[i] = NULL;
+			//delete organizm;
 			iloscOrganizmow--;
 		}
 }
@@ -67,6 +68,7 @@ int Swiat::GetWysokosc()
 
 void Swiat::Stworz(int szerokosc, int wysokosc)
 {
+	kolidujaceOrganizmy = new Organizm*[2]{NULL, NULL};
 	maxInicjatywa = 7;
 	licznikStarszenstwa = 0;
 	this -> szerokosc = szerokosc;
@@ -114,17 +116,25 @@ void Swiat::WykonajTure()
 {
 	Organizm **ustawioneOrganizmy = new Organizm *[iloscOrganizmow];
 	ustawOrganizmyWKolejnosciRuchow(ustawioneOrganizmy);
+	//for (int i = 0; i < iloscOrganizmow; i++)
+		//cout<<(ustawioneOrganizmy)[i] -> GetId()<<" "<<(ustawioneOrganizmy)[i] -> GetInicjatywa()<<endl;
+
 	int iloscUstawionychOrganizmow = iloscOrganizmow;
 //hlicz
 	for (int i = 0; i < iloscUstawionychOrganizmow; i++)
 	{
-		if (ustawioneOrganizmy[i] == NULL)
+		if ((ustawioneOrganizmy)[i] == NULL)
+		{
+			cout<<i<<" NULL"<<endl;
 			continue;
+		}
 
-		ustawioneOrganizmy[i] -> Akcja(this);
-		obsluzEwentualneKolizje(ustawioneOrganizmy[i]);
+		(ustawioneOrganizmy)[i] -> Akcja(this);
+		//cout<<i<<" "<<(ustawioneOrganizmy)[i] -> GetId()<<endl;
+		obsluzEwentualneKolizje((ustawioneOrganizmy)[i]);
 	}
 
+	delete[] ustawioneOrganizmy;
 	zaktualizujTabliceOrganizmow();
 }
 
@@ -149,7 +159,7 @@ int Swiat::getMaxInicjatywa(int ograniczenieGorneWlaczne)
 {
 	int max = -1;
 	for (int i = 0; i < iloscOrganizmow; i++)
-		if (organizmy[i] -> GetInicjatywa() <= ograniczenieGorneWlaczne && organizmy[i] -> GetInicjatywa() > max)
+		if (organizmy[i] != NULL && organizmy[i] -> GetInicjatywa() <= ograniczenieGorneWlaczne && organizmy[i] -> GetInicjatywa() > max)
 			max = organizmy[i] -> GetInicjatywa();
 
 	return max;
@@ -157,34 +167,41 @@ int Swiat::getMaxInicjatywa(int ograniczenieGorneWlaczne)
 
 void Swiat::obsluzEwentualneKolizje(Organizm *organizmZOstatniaAkcja)
 {
+	//Kolizja kolizja;
+	Organizm *organizmZPierwszenstwem, *organizmBezPierwszenstwa;
 	for (int i = 0; i < GetWysokosc(); i++)
 		for (int j = 0; j < GetSzerokosc(); j++)
 		{
 			if (!CzyPoleZajete(j, i))
 				continue;
 
-			Kolizja kolizja;
-			kolizja.SzukajKolizji(this, j, i);
-			if (!kolizja.WystepujeKolizja())
+			szukajKolizji(j, i);
+			if (!wystepujeKolizja())
 				continue;
+			//kolizja.SzukajKolizji(this, j, i);
+			//if (!kolizja.WystepujeKolizja())
+				//continue;
 
-			Organizm *organizmZPierwszenstwem, *organizmBezPierwszenstwa;
-			if (kolizja.GetKolidujaceOrganizmy()[0] == organizmZOstatniaAkcja)
+			if (kolidujaceOrganizmy[0] == organizmZOstatniaAkcja)
 			{
-				organizmZPierwszenstwem = kolizja.GetKolidujaceOrganizmy()[0];
-				organizmBezPierwszenstwa = kolizja.GetKolidujaceOrganizmy()[1];
+				organizmZPierwszenstwem = kolidujaceOrganizmy[0];
+				organizmBezPierwszenstwa = kolidujaceOrganizmy[1];
 			}
 			else
 			{
-				organizmZPierwszenstwem = kolizja.GetKolidujaceOrganizmy()[1];
-				organizmBezPierwszenstwa = kolizja.GetKolidujaceOrganizmy()[0];
+				organizmZPierwszenstwem = kolidujaceOrganizmy[1];
+				organizmBezPierwszenstwa = kolidujaceOrganizmy[0];
 			}
 
-			DodajKomunikat("Kolizja " + organizmZPierwszenstwem -> GetId() + " z " + organizmBezPierwszenstwa -> GetId());
+			string text = "Kolizja " + organizmZPierwszenstwem -> GetId() + " z " + organizmBezPierwszenstwa -> GetId();
+			DodajKomunikat(text);
 			organizmZPierwszenstwem -> Kolizja(this, organizmBezPierwszenstwa);
-			kolizja.SzukajKolizji(this, j, i);
-			if (!kolizja.WystepujeKolizja())
+			szukajKolizji(j, i);
+			if (!wystepujeKolizja())
 				continue;
+			//kolizja.SzukajKolizji(this, j, i);
+			//if (!kolizja.WystepujeKolizja())
+				//continue;
 			
 			if (organizmZPierwszenstwem -> GetSila() >= organizmBezPierwszenstwa -> GetSila())
 			{
@@ -197,6 +214,30 @@ void Swiat::obsluzEwentualneKolizje(Organizm *organizmZOstatniaAkcja)
 				UsunOrganizm(organizmZPierwszenstwem);
 			}
 		}
+}
+
+void Swiat::szukajKolizji(int x, int y)
+{
+	inicjuj();
+	for (int i = 0; i < GetWysokosc() * GetSzerokosc(); i++)
+		if (GetOrganizmy()[i] != NULL && GetOrganizmy()[i] -> GetX() == x && GetOrganizmy()[i] -> GetY() == y)
+		{
+			kolidujaceOrganizmy[iloscKolidujacychOrganizmow] = GetOrganizmy()[i];
+			iloscKolidujacychOrganizmow++;
+		}
+}
+
+void Swiat::inicjuj()
+{
+	for (int i = 0; i < MAX_ORGANIZMOW_KOLIDUJACYCH; i++)
+		kolidujaceOrganizmy[i] = NULL;
+
+	iloscKolidujacychOrganizmow = 0;
+}
+
+bool Swiat::wystepujeKolizja()
+{
+	return iloscKolidujacychOrganizmow == MAX_ORGANIZMOW_KOLIDUJACYCH;
 }
 
 Organizm **Swiat::GetOrganizmy()
@@ -221,6 +262,7 @@ void Swiat::zaktualizujTabliceOrganizmow()
 			for (int j = wolnyIndeks; j < GetSzerokosc() * GetWysokosc() - roznica; j++)
 				organizmy[j] = organizmy[j + roznica];
 
+			i = wolnyIndeks + roznica - 1;
 			wolnyIndeks = GetSzerokosc() * GetWysokosc();
 			czySzukacWolnegoIndeksu = true;
 		}

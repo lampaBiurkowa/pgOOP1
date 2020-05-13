@@ -17,6 +17,13 @@ class Swiat
 	void obsluzEwentualneKolizje(Organizm *organizmZOstatniaAkcja);
 	void zaktualizujTabliceOrganizmow();
 	void obsluzKomunikaty();
+	void szukajKolizji(int x, int y);
+	bool wystepujeKolizja();
+	const int MAX_ORGANIZMOW_KOLIDUJACYCH = 2;
+	int iloscKolidujacychOrganizmow;
+	Organizm **kolidujaceOrganizmy;
+
+	void inicjuj();
 
 public:
 	void DodajKomunikat(string tresc);

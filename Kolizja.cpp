@@ -3,12 +3,15 @@
 
 Kolizja::Kolizja()
 {
+	kolidujaceOrganizmy = new Organizm*[MAX_ORGANIZMOW_KOLIDUJACYCH]{NULL, NULL};
 	inicjuj();
 }
 
 void Kolizja::inicjuj()
 {
-	kolidujaceOrganizmy = new Organizm*[MAX_ORGANIZMOW_KOLIDUJACYCH]{NULL, NULL};
+	for (int i = 0; i < MAX_ORGANIZMOW_KOLIDUJACYCH; i++)
+		kolidujaceOrganizmy[i] = NULL;
+
 	iloscKolidujacychOrganizmow = 0;
 }
 
@@ -35,5 +38,5 @@ bool Kolizja::WystepujeKolizja()
 
 Kolizja::~Kolizja()
 {
-	delete kolidujaceOrganizmy;
+	//delete[] kolidujaceOrganizmy;
 }

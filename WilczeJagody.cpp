@@ -12,8 +12,8 @@ WilczeJagody::WilczeJagody(int x, int y) : Roslina(x, y)
 
 void WilczeJagody::Kolizja(Swiat *swiat, Organizm *organizm)
 {
-	swiat -> UsunOrganizm(organizm);
 	swiat -> DodajKomunikat(organizm -> GetId() + " zjadl " + id + " i nie zyje");
+	swiat -> UsunOrganizm(organizm);
 }
 
 void WilczeJagody::Rysuj()

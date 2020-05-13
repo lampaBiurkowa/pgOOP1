@@ -1,6 +1,7 @@
 #include <iostream>
 #include "BarszczSosnowskiego.h"
 #include "Swiat.h"
+#include "Zwierze.h"
 
 using namespace std;
 
@@ -17,7 +18,7 @@ void BarszczSosnowskiego::Akcja(Swiat *swiat)
 			if (swiat -> CzyPoleZajete(x + i, y + j) && (i != 0 || j != 0))
 			{
 				Organizm *organizm = swiat -> GetOrganizmNaPozycji(x + i, y + j);
-				if (organizm == NULL)
+				if (organizm == NULL || dynamic_cast<Zwierze *>(organizm) == nullptr)
 					continue;
 
 				swiat -> DodajKomunikat(id + " zabija " + organizm -> GetId());
@@ -27,8 +28,11 @@ void BarszczSosnowskiego::Akcja(Swiat *swiat)
 
 void BarszczSosnowskiego::Kolizja(Swiat *swiat, Organizm *organizm)
 {
-	swiat -> UsunOrganizm(organizm);
-	swiat -> DodajKomunikat(organizm -> GetId() + " zjadl " + id + " i nie zyje");
+	if (dynamic_cast<Zwierze *>(organizm) != nullptr)
+	{
+		swiat -> UsunOrganizm(organizm);
+		swiat -> DodajKomunikat(organizm) -> GetId() + " zjadl " + id + " i nie zyje");
+	}
 }
 
 void BarszczSosnowskiego::Rysuj()

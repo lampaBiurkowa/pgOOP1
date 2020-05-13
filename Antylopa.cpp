@@ -22,7 +22,9 @@ void Antylopa::Akcja(Swiat *swiat)
 
 void Antylopa::Kolizja(Swiat *swiat, Organizm *organizm)
 {
-	const int SZANSA_NA_UCIECZKE_W_PROCENTACH = 50;
+	if (dynamic_cast<Zwierze *>(organizm) == nullptr)
+		return;
+
 	bool czyMozeUciec = rand() % (100 / SZANSA_NA_UCIECZKE_W_PROCENTACH);
 	if (czyMozeUciec && czyMaGdzieUciec(swiat))
 	{

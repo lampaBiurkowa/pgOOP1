@@ -20,7 +20,7 @@ void Mlecz::Akcja(Swiat *swiat)
 			while (!czyUdaloSieZasiac)
 				czyUdaloSieZasiac = sprobujZasiacRosline(swiat);
 
-			swiat -> DodajKomunikat(id + " zasialo brata");
+			//swiat -> DodajKomunikat(id + " zasialo brata");
 		}
 }
 
