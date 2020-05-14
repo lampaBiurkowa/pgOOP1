@@ -19,11 +19,14 @@ void Lis::Akcja(Swiat *swiat)
 	if (!czyMozeSieRuszyc(swiat))
 		return;
 
-	while (swiat -> CzyPoleZajete(x, y) && swiat -> GetOrganizmNaPozycji(x, y) -> GetSila() > sila)
+	do
 	{
 		Cofnij();
-		sprubojWykonacRuch(swiat);
-	}
+		bool czySiePoruszyl = false;
+		while (!czySiePoruszyl)
+			czySiePoruszyl = sprubojWykonacRuch(swiat);
+	} while (swiat -> CzyPoleZajete(x, y) && swiat -> GetOrganizmNaPozycji(x, y) -> GetSila() > sila);
+
 }
 
 bool Lis::czyMozeSieRuszyc(Swiat *swiat)
@@ -33,10 +36,12 @@ bool Lis::czyMozeSieRuszyc(Swiat *swiat)
 		{
 			if (i == 0 && j == 0)
 				continue;
+			if (previousX + j < 0 || previousX + j >= swiat -> GetSzerokosc() || previousY + i < 0 || previousY + i >= swiat -> GetWysokosc())
+				continue;
 
-			if (!swiat -> CzyPoleZajete(previousX + i, previousY + j))
+			if (!swiat -> CzyPoleZajete(previousX + j, previousY + i))
 				return true;
-			else if (swiat -> GetOrganizmNaPozycji(previousX + i, previousY + j) -> GetSila() <= sila)
+			else if (swiat -> GetOrganizmNaPozycji(previousX + j, previousY + i) -> GetSila() <= sila)
 				return true;
 		}
 

@@ -18,7 +18,7 @@ void WilczeJagody::Kolizja(Swiat *swiat, Organizm *organizm)
 
 void WilczeJagody::Rysuj()
 {
-	cout<<"g";
+	cout<<"w";
 }
 
 WilczeJagody *WilczeJagody::zwrocInstancjeRosliny(int x, int y)

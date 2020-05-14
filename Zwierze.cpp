@@ -19,7 +19,7 @@ bool Zwierze::SprubojPrzesunacO(int x, int y, Swiat *swiat)
 {
 	if (this -> x + x >= swiat -> GetSzerokosc() || this -> x + x < 0)
 		return false;
-	if (this -> y + y >= swiat -> GetWysokosc() || this -> y + x < 0)
+	if (this -> y + y >= swiat -> GetWysokosc() || this -> y + y < 0)
 		return false;
 
 	this -> x += x;
@@ -56,7 +56,7 @@ void Zwierze::Kolizja(Swiat *swiat, Organizm *organizm)
 		while (!czyUdaloSieRomznozyc)
 			czyUdaloSieRomznozyc = sprobujDodacPotomka(swiat);
 
-		swiat -> DodajKomunikat(id + " zasialo brata");
+		swiat -> DodajKomunikat("rodzi sie " + id);
 	}
 }
 

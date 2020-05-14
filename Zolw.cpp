@@ -20,7 +20,7 @@ void Zolw::Akcja(Swiat *swiat)
 
 	bool czySiePoruszyl = false;
 	while (!czySiePoruszyl)
-		czySiePoruszyl = sprubojWykonacRuch(swiat, 2);
+		czySiePoruszyl = sprubojWykonacRuch(swiat);
 }
 
 void Zolw::Kolizja(Swiat *swiat, Organizm *organizm)
