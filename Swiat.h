@@ -33,6 +33,7 @@ public:
 	bool CzyPoleZajete(int x, int y);
 	Organizm *GetOrganizmNaPozycji(int x, int y);
 	Organizm **GetOrganizmy();
+	int GetIloscOrganizmow();
 	int GetSzerokosc();
 	int GetWysokosc();
 	void RysujSwiat();

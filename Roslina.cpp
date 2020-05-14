@@ -8,13 +8,13 @@ Roslina::Roslina(int x, int y) : Organizm(x, y)
 
 void Roslina::Akcja(Swiat *swiat)
 {
-	if (rand() % 10 > 7)
+	if (rand() % 100 < SZANSE_NA_ROZPRZESTRZENIENIE_W_PROCENTACH)
 	{
 		bool czyUdaloSieZasiac = false;
 		while (!czyUdaloSieZasiac)
 			czyUdaloSieZasiac = sprobujZasiacRosline(swiat);
 
-		//swiat -> DodajKomunikat(id + " zasialo brata");
+		swiat -> DodajKomunikat(id + " zasialo brata");
 	}
 }
 

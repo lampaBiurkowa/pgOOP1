@@ -116,11 +116,8 @@ void Swiat::WykonajTure()
 {
 	Organizm **ustawioneOrganizmy = new Organizm *[iloscOrganizmow];
 	ustawOrganizmyWKolejnosciRuchow(ustawioneOrganizmy);
-	//for (int i = 0; i < iloscOrganizmow; i++)
-		//cout<<(ustawioneOrganizmy)[i] -> GetId()<<" "<<(ustawioneOrganizmy)[i] -> GetInicjatywa()<<endl;
 
 	int iloscUstawionychOrganizmow = iloscOrganizmow;
-//hlicz
 	for (int i = 0; i < iloscUstawionychOrganizmow; i++)
 	{
 		if ((ustawioneOrganizmy)[i] == NULL)
@@ -130,7 +127,7 @@ void Swiat::WykonajTure()
 		}
 
 		(ustawioneOrganizmy)[i] -> Akcja(this);
-		//cout<<i<<" "<<(ustawioneOrganizmy)[i] -> GetId()<<endl;
+		cout<<i<<" "<<(ustawioneOrganizmy)[i] -> GetId()<<" X:"<<(ustawioneOrganizmy)[i] -> GetX()<<" Y:"<<(ustawioneOrganizmy)[i] -> GetY()<<endl;
 		obsluzEwentualneKolizje((ustawioneOrganizmy)[i]);
 	}
 
@@ -176,6 +173,8 @@ void Swiat::obsluzEwentualneKolizje(Organizm *organizmZOstatniaAkcja)
 				continue;
 
 			szukajKolizji(j, i);
+			if (iloscKolidujacychOrganizmow > 2)
+				cout<<"hmm";
 			if (!wystepujeKolizja())
 				continue;
 			//kolizja.SzukajKolizji(this, j, i);
@@ -222,6 +221,11 @@ void Swiat::szukajKolizji(int x, int y)
 	for (int i = 0; i < GetWysokosc() * GetSzerokosc(); i++)
 		if (GetOrganizmy()[i] != NULL && GetOrganizmy()[i] -> GetX() == x && GetOrganizmy()[i] -> GetY() == y)
 		{
+			if (iloscKolidujacychOrganizmow >= 2)
+			{
+				for (int j = 0; j < iloscKolidujacychOrganizmow; j++)
+					cout<<kolidujaceOrganizmy[j] -> GetId()<<endl;
+			}
 			kolidujaceOrganizmy[iloscKolidujacychOrganizmow] = GetOrganizmy()[i];
 			iloscKolidujacychOrganizmow++;
 		}
@@ -270,4 +274,9 @@ void Swiat::zaktualizujTabliceOrganizmow()
 
 	for (int i = iloscOrganizmow; i < GetSzerokosc() * GetWysokosc(); i++)
 		organizmy[i] = NULL;
+}
+
+int Swiat::GetIloscOrganizmow()
+{
+	return iloscOrganizmow;
 }

@@ -31,7 +31,7 @@ void BarszczSosnowskiego::Kolizja(Swiat *swiat, Organizm *organizm)
 	if (dynamic_cast<Zwierze *>(organizm) != nullptr)
 	{
 		swiat -> UsunOrganizm(organizm);
-		swiat -> DodajKomunikat(organizm) -> GetId() + " zjadl " + id + " i nie zyje");
+		swiat -> DodajKomunikat(organizm -> GetId() + " zjadl " + id + " i nie zyje");
 	}
 }
 
