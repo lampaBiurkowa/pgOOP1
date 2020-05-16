@@ -7,9 +7,10 @@ using namespace std;
 int main()
 {
 	Swiat swiat;
-	swiat.Stworz(20, 20);
+	//swiat.Stworz(20, 20);
 	BudulecSwiata budulec;
-	budulec.RozstawOrganizmy(&swiat, 3);
+	//budulec.RozstawOrganizmyLosowo(&swiat, 3);
+	budulec.WczytajZPliku(&swiat, "jea.txt");
 	swiat.RysujSwiat();
 	for (int i = 0; i < 30; i++)
 	{

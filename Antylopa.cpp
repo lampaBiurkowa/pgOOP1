@@ -6,9 +6,10 @@ using namespace std;
 
 Antylopa::Antylopa(int x, int y) : Zwierze(x, y)
 {
-	id = "antylopa";
+	nazwa = "antylopa";
 	inicjatywa = 4;
 	sila = 4;
+	znakASCII = IDENTYFIKATOR_PLIKU;
 }
 
 void Antylopa::Akcja(Swiat *swiat)
@@ -22,6 +23,8 @@ void Antylopa::Akcja(Swiat *swiat)
 
 void Antylopa::Kolizja(Swiat *swiat, Organizm *organizm)
 {
+	Zwierze::Kolizja(swiat, organizm);
+
 	if (dynamic_cast<Zwierze *>(organizm) == nullptr)
 		return;
 
@@ -32,7 +35,7 @@ void Antylopa::Kolizja(Swiat *swiat, Organizm *organizm)
 		while (!ucieczkaUdana)
 			ucieczkaUdana = sprobujUciec(swiat);
 
-		swiat -> DodajKomunikat(id + "ucieka przed " + organizm -> GetId());
+		swiat -> DodajKomunikat(nazwa + "ucieka przed " + organizm -> GetNazwa());
 	}
 }
 
@@ -63,11 +66,6 @@ bool Antylopa::sprobujUciec(Swiat *swiat)
 		return false;
 
 	return SprubojPrzesunacO(zmianaX, zmianaY, swiat);
-}
-
-void Antylopa::Rysuj()
-{
-	cout<<"A";
 }
 
 Antylopa *Antylopa::zwrocInstancjeZwierzecia(int x, int y)

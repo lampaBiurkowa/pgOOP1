@@ -6,6 +6,7 @@ class Trawa : public Roslina
 {
 	Trawa *zwrocInstancjeRosliny(int x, int y) override;
 public:
+	static const char IDENTYFIKATOR_PLIKU = 't';
+
 	Trawa(int x, int y);
-	void Rysuj() override;
 };

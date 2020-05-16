@@ -6,8 +6,9 @@ using namespace std;
 
 Mlecz::Mlecz(int x, int y) : Roslina(x, y)
 {
-	id = "mlecz";
+	nazwa = "mlecz";
 	sila = 0;
+	znakASCII = IDENTYFIKATOR_PLIKU;
 }
 
 void Mlecz::Akcja(Swiat *swiat)
@@ -25,7 +26,7 @@ void Mlecz::Akcja(Swiat *swiat)
 
 			uzyteMiejsca[i][0] = swiat -> GetOrganizmy()[swiat -> GetIloscOrganizmow() - 1] -> GetX();
 			uzyteMiejsca[i][1] = swiat -> GetOrganizmy()[swiat -> GetIloscOrganizmow() - 1] -> GetY();
-			swiat -> DodajKomunikat(id + " zasialo brata");
+			swiat -> DodajKomunikat(nazwa + " zasialo brata");
 		}
 
 	delete[] uzyteMiejsca;
@@ -48,11 +49,6 @@ bool Mlecz::sprobujZasiacRosline(Swiat *swiat, int **uzyteMiejsca)
 	Roslina *roslina = zwrocInstancjeRosliny(x + zmianaX, y + zmianaY);
 	swiat -> DodajOrganizm(roslina);
 	return true;
-}
-
-void Mlecz::Rysuj()
-{
-	cout<<"m";
 }
 
 Mlecz *Mlecz::zwrocInstancjeRosliny(int x, int y)

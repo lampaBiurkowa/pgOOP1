@@ -4,11 +4,12 @@
 
 using namespace std;
 
-Lis::Lis(int x, int y): Zwierze(x, y)
+Lis::Lis(int x, int y) : Zwierze(x, y)
 {
-	id = "lis";
+	nazwa = "lis";
 	inicjatywa = 7;
 	sila = 3;
+	znakASCII = IDENTYFIKATOR_PLIKU;
 }
 
 void Lis::Akcja(Swiat *swiat)
@@ -46,11 +47,6 @@ bool Lis::czyMozeSieRuszyc(Swiat *swiat)
 		}
 
 	return false;
-}
-
-void Lis::Rysuj()
-{
-	cout<<"L";
 }
 
 Lis *Lis::zwrocInstancjeZwierzecia(int x, int y)

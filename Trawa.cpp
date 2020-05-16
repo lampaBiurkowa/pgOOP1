@@ -5,13 +5,9 @@ using namespace std;
 
 Trawa::Trawa(int x, int y) : Roslina(x, y)
 {
-	id = "trawa";
+	nazwa = "trawa";
 	sila = 0;
-}
-
-void Trawa::Rysuj()
-{
-	cout<<"t";
+	znakASCII = IDENTYFIKATOR_PLIKU;
 }
 
 Trawa *Trawa::zwrocInstancjeRosliny(int x, int y)

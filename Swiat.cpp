@@ -20,6 +20,7 @@ void Swiat::UsunOrganizm(Organizm *organizm)
 
 void Swiat::DodajKomunikat(string tresc)
 {
+	cout<<tresc<<endl;
 	komunikaty.push_back(tresc);
 }
 
@@ -164,7 +165,7 @@ int Swiat::getMaxInicjatywa(int ograniczenieGorneWlaczne)
 
 void Swiat::obsluzEwentualneKolizje(Organizm *organizmZOstatniaAkcja)
 {
-	//Kolizja kolizja;
+	Kolizja kolizja;
 	Organizm *organizmZPierwszenstwem, *organizmBezPierwszenstwa;
 	for (int i = 0; i < GetWysokosc(); i++)
 		for (int j = 0; j < GetSzerokosc(); j++)
@@ -172,42 +173,35 @@ void Swiat::obsluzEwentualneKolizje(Organizm *organizmZOstatniaAkcja)
 			if (!CzyPoleZajete(j, i))
 				continue;
 
-			szukajKolizji(j, i);
-			if (!wystepujeKolizja())
+			kolizja.SzukajKolizji(this, j, i);
+			if (!kolizja.WystepujeKolizja())
 				continue;
-			//kolizja.SzukajKolizji(this, j, i);
-			//if (!kolizja.WystepujeKolizja())
-				//continue;
 
-			if (kolidujaceOrganizmy[0] == organizmZOstatniaAkcja)
+			if (kolizja.GetKolidujaceOrganizmy()[0] == organizmZOstatniaAkcja)
 			{
-				organizmZPierwszenstwem = kolidujaceOrganizmy[0];
-				organizmBezPierwszenstwa = kolidujaceOrganizmy[1];
+				organizmZPierwszenstwem = kolizja.GetKolidujaceOrganizmy()[1];//kolidujaceOrganizmy[0];
+				organizmBezPierwszenstwa = kolizja.GetKolidujaceOrganizmy()[0];//kolidujaceOrganizmy[1];
 			}
 			else
 			{
-				organizmZPierwszenstwem = kolidujaceOrganizmy[1];
-				organizmBezPierwszenstwa = kolidujaceOrganizmy[0];
+				organizmZPierwszenstwem = kolizja.GetKolidujaceOrganizmy()[0];//kolidujaceOrganizmy[1];
+				organizmBezPierwszenstwa = kolizja.GetKolidujaceOrganizmy()[1];//kolidujaceOrganizmy[0];
 			}
 
-			string text = "Kolizja " + organizmZPierwszenstwem -> GetId() + " z " + organizmBezPierwszenstwa -> GetId();
-			DodajKomunikat(text);
+			DodajKomunikat("Kolizja " + organizmZPierwszenstwem -> GetNazwa() + " z " + organizmBezPierwszenstwa -> GetNazwa());
 			organizmZPierwszenstwem -> Kolizja(this, organizmBezPierwszenstwa);
-			szukajKolizji(j, i);
-			if (!wystepujeKolizja())
+			kolizja.SzukajKolizji(this, j, i);
+			if (!kolizja.WystepujeKolizja())
 				continue;
-			//kolizja.SzukajKolizji(this, j, i);
-			//if (!kolizja.WystepujeKolizja())
-				//continue;
 			
 			if (organizmZPierwszenstwem -> GetSila() >= organizmBezPierwszenstwa -> GetSila())
 			{
-				DodajKomunikat(organizmZPierwszenstwem -> GetId() + " zabija " + organizmBezPierwszenstwa -> GetId());
+				DodajKomunikat(organizmZPierwszenstwem -> GetNazwa() + " zabija " + organizmBezPierwszenstwa -> GetNazwa());
 				UsunOrganizm(organizmBezPierwszenstwa);
 			}
 			else
 			{
-				DodajKomunikat(organizmBezPierwszenstwa -> GetId() + " zabija " + organizmZPierwszenstwem -> GetId());
+				DodajKomunikat(organizmBezPierwszenstwa -> GetNazwa() + " zabija " + organizmZPierwszenstwem -> GetNazwa());
 				UsunOrganizm(organizmZPierwszenstwem);
 			}
 		}

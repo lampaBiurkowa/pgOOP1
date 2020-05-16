@@ -5,14 +5,10 @@ using namespace std;
 
 Owca::Owca(int x, int y): Zwierze(x, y)
 {
-	id = "owca";
+	nazwa = "owca";
 	inicjatywa = 4;
 	sila = 4;
-}
-
-void Owca::Rysuj()
-{
-	cout<<"O";
+	znakASCII = IDENTYFIKATOR_PLIKU;
 }
 
 Owca *Owca::zwrocInstancjeZwierzecia(int x, int y)

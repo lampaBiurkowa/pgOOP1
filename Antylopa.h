@@ -11,8 +11,9 @@ class Antylopa : public Zwierze
 	bool sprobujUciec(Swiat *swiat);
 	Antylopa *zwrocInstancjeZwierzecia(int x, int y) override;
 public:
+	static const char IDENTYFIKATOR_PLIKU = 'A';
+
 	Antylopa(int x, int y);
 	void Akcja(Swiat *swiat) override;
 	void Kolizja(Swiat *swiat, Organizm *organizm) override;
-	void Rysuj() override;
 };

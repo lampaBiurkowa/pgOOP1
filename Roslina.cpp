@@ -14,7 +14,7 @@ void Roslina::Akcja(Swiat *swiat)
 		while (!czyUdaloSieZasiac)
 			czyUdaloSieZasiac = sprobujZasiacRosline(swiat);
 
-		swiat -> DodajKomunikat(id + " zasialo brata");
+		swiat -> DodajKomunikat(nazwa + " zasialo brata");
 	}
 }
 

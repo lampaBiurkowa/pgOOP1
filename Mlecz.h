@@ -10,7 +10,8 @@ class Mlecz : public Roslina
 	bool sprobujZasiacRosline(Swiat *swiat, int **uzyteMiejsca);
 	Mlecz *zwrocInstancjeRosliny(int x, int y) override;
 public:
+	static const char IDENTYFIKATOR_PLIKU = 'm';
+
 	Mlecz(int x, int y);
 	void Akcja(Swiat *swiat) override;
-	void Rysuj() override;
 };

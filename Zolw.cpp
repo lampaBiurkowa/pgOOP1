@@ -1,14 +1,15 @@
-#include "Zolw.h"
-#include "Swiat.h"
 #include <iostream>
+#include "Swiat.h"
+#include "Zolw.h"
 
 using namespace std;
 
 Zolw::Zolw(int x, int y) : Zwierze(x, y)
 {
-	id = "zolw";
+	nazwa = "zolw";
 	inicjatywa = 1;
 	sila = 2;
+	znakASCII = IDENTYFIKATOR_PLIKU;
 }
 
 void Zolw::Akcja(Swiat *swiat)
@@ -25,17 +26,13 @@ void Zolw::Akcja(Swiat *swiat)
 
 void Zolw::Kolizja(Swiat *swiat, Organizm *organizm)
 {
+	Zwierze::Kolizja(swiat, organizm);
 	if (dynamic_cast<Zwierze *>(organizm) != nullptr)
 		if (organizm -> GetSila() < 5)
 		{
 			((Zwierze *)(organizm)) -> Cofnij();
-			swiat -> DodajKomunikat(id + " odpiera atak " + organizm -> GetId());
+			swiat -> DodajKomunikat(nazwa + " odpiera atak " + organizm -> GetNazwa());
 		}
-}
-
-void Zolw::Rysuj()
-{
-	cout<<"Z";
 }
 
 Zolw *Zolw::zwrocInstancjeZwierzecia(int x, int y)

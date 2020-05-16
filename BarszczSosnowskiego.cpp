@@ -7,8 +7,9 @@ using namespace std;
 
 BarszczSosnowskiego::BarszczSosnowskiego(int x, int y) : Roslina(x, y)
 {
-	id = "barszczSosnowskiego";
+	nazwa = "barszczSosnowskiego";
 	sila = 10;
+	znakASCII = IDENTYFIKATOR_PLIKU;
 }
 
 void BarszczSosnowskiego::Akcja(Swiat *swiat)
@@ -21,7 +22,7 @@ void BarszczSosnowskiego::Akcja(Swiat *swiat)
 				if (organizm == NULL || dynamic_cast<Zwierze *>(organizm) == nullptr)
 					continue;
 
-				swiat -> DodajKomunikat(id + " zabija " + organizm -> GetId());
+				swiat -> DodajKomunikat(nazwa + " zabija " + organizm -> GetNazwa());
 				swiat -> UsunOrganizm(organizm);
 			}
 }
@@ -31,13 +32,8 @@ void BarszczSosnowskiego::Kolizja(Swiat *swiat, Organizm *organizm)
 	if (dynamic_cast<Zwierze *>(organizm) != nullptr)
 	{
 		swiat -> UsunOrganizm(organizm);
-		swiat -> DodajKomunikat(organizm -> GetId() + " zjadl " + id + " i nie zyje");
+		swiat -> DodajKomunikat(organizm -> GetNazwa() + " zjadl " + nazwa + " i nie zyje");
 	}
-}
-
-void BarszczSosnowskiego::Rysuj()
-{
-	cout<<"b";
 }
 
 BarszczSosnowskiego *BarszczSosnowskiego::zwrocInstancjeRosliny(int x, int y)

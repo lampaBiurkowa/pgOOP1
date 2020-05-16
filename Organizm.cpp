@@ -1,4 +1,7 @@
+#include <iostream>
 #include "Organizm.h"
+
+using namespace std;
 
 Organizm::Organizm(int x, int y)
 {
@@ -6,9 +9,9 @@ Organizm::Organizm(int x, int y)
 	this -> y = y;
 }
 
-string Organizm::GetId()
+string Organizm::GetNazwa()
 {
-	return id;
+	return nazwa;
 }
 
 int Organizm::GetInicjatywa()
@@ -41,8 +44,18 @@ int Organizm::GetY()
 	return y;
 }
 
+char Organizm::GetZnakASCII()
+{
+	return znakASCII;
+}
+
 void Organizm::Move(int x, int y)
 {
 	this -> x += x;
 	this -> y += y;
+}
+
+void Organizm::Rysuj()
+{
+	cout<<znakASCII;
 }

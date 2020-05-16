@@ -5,11 +5,13 @@
 class Zwierze : public Organizm
 {
 protected:
+	int previousX;
+	int previousY;
+
+	bool czyMaGdzieUstawicPotomka(Swiat *swiat);
 	bool sprubojWykonacRuch(Swiat *swiat, int step = 1);
 	bool sprobujDodacPotomka(Swiat *swiat);
 	virtual Zwierze *zwrocInstancjeZwierzecia(int x, int y) = 0;
-	int previousX;
-	int previousY;
 public:
 	Zwierze(int x, int y);
 	void Cofnij();

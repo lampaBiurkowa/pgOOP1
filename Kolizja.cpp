@@ -38,5 +38,5 @@ bool Kolizja::WystepujeKolizja()
 
 Kolizja::~Kolizja()
 {
-	//delete[] kolidujaceOrganizmy;
+	delete[] kolidujaceOrganizmy;
 }

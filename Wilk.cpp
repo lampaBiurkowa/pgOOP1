@@ -5,14 +5,10 @@ using namespace std;
 
 Wilk::Wilk(int x, int y): Zwierze(x, y)
 {
-	id = "wilk";
+	nazwa = "wilk";
 	sila = 9;
 	inicjatywa = 5;
-}
-
-void Wilk::Rysuj()
-{
-	cout<<"W";
+	znakASCII = IDENTYFIKATOR_PLIKU;
 }
 
 Wilk *Wilk::zwrocInstancjeZwierzecia(int x, int y)
