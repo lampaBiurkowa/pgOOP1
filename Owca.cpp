@@ -7,7 +7,7 @@ Owca::Owca(int x, int y): Zwierze(x, y)
 {
 	nazwa = "owca";
 	inicjatywa = 4;
-	sila = 4;
+	sila = DOMYSLNA_SILA;
 	znakASCII = IDENTYFIKATOR_PLIKU;
 }
 

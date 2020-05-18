@@ -12,6 +12,7 @@ class Antylopa : public Zwierze
 	Antylopa *zwrocInstancjeZwierzecia(int x, int y) override;
 public:
 	static const char IDENTYFIKATOR_PLIKU = 'A';
+	static const int DOMYSLNA_SILA = 4;
 
 	Antylopa(int x, int y);
 	void Akcja(Swiat *swiat) override;

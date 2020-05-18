@@ -7,7 +7,7 @@ class BudulecSwiata
 	const int ILOSC_GATUNKOW = 10;
 	const int X_INDEKS = 0, Y_INDEKS = 1;
 	const int ILOSC_ARGUMENOW_METADANYCH = Y_INDEKS + 1;
-	const char SEPARATOR_W_PLIKU = ',';
+	const char SEPARATOR_W_PLIKU = ',', PUSTE_POLE = '-';
 
 	bool pozycjaZajeta(int x, int y, int **pozycje, int iloscSztuk);
 	int **przygotujPozycjeStartowe(Swiat *swiat, int iloscSztuk);
@@ -16,4 +16,5 @@ class BudulecSwiata
 public:
 	void RozstawOrganizmyLosowo(Swiat *swiat, int iloscSztuk);
 	void WczytajZPliku(Swiat *swiat, string sciezka);
+	void ZapiszDoPliku(Swiat *swiat, string sciezka);
 };

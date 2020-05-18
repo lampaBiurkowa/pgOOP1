@@ -1,18 +1,20 @@
 #include <iostream>
 #include "Swiat.h"
 #include "WilczeJagody.h"
-
-using namespace std;
+#include "Zwierze.h"
 
 WilczeJagody::WilczeJagody(int x, int y) : Roslina(x, y)
 {
 	nazwa = "wilczeJagody";
-	sila = 99;
+	sila = DOMYSLNA_SILA;
 	znakASCII = IDENTYFIKATOR_PLIKU;
 }
 
 void WilczeJagody::Kolizja(Swiat *swiat, Organizm *organizm)
-{//TODO a jak roslina ? d
+{
+	if (dynamic_cast<Zwierze *>(organizm) == nullptr)
+		return;
+
 	swiat -> DodajKomunikat(organizm -> GetNazwa() + " zjadl " + nazwa + " i nie zyje");
 	swiat -> UsunOrganizm(organizm);
 }

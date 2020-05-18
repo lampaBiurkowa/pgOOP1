@@ -5,7 +5,7 @@ Zolw::Zolw(int x, int y) : Zwierze(x, y)
 {
 	nazwa = "zolw";
 	inicjatywa = 1;
-	sila = 2;
+	sila = DOMYSLNA_SILA;
 	znakASCII = IDENTYFIKATOR_PLIKU;
 }
 

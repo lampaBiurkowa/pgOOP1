@@ -8,6 +8,7 @@ class Zwierze : public Organizm
 protected:
 	int previousX;
 	int previousY;
+	int zwiekszenieSily;
 
 	bool czyMaGdzieUstawicPotomka(Swiat *swiat);
 	bool sprubojWykonacRuch(Swiat *swiat, int step = 1);
@@ -16,7 +17,9 @@ protected:
 public:
 	Zwierze(int x, int y);
 	void Cofnij();
+	int GetZwiekszenieSily();
 	bool SprubojPrzesunacO(int x, int y, Swiat *swiat);
+	void OznaczZwiekszenieSily(int ilosc);
 	virtual void Akcja(Swiat *swiat) override;
 	virtual void Kolizja(Swiat *swiat, Organizm *organizm) override;
 };

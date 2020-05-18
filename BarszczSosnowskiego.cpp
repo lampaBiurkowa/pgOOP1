@@ -8,7 +8,7 @@ using namespace std;
 BarszczSosnowskiego::BarszczSosnowskiego(int x, int y) : Roslina(x, y)
 {
 	nazwa = "barszczSosnowskiego";
-	sila = 10;
+	sila = DOMYSLNA_SILA;
 	znakASCII = IDENTYFIKATOR_PLIKU;
 }
 

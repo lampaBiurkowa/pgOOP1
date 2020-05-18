@@ -15,6 +15,16 @@ void Zwierze::Cofnij()
 	y = previousY;
 }
 
+int Zwierze::GetZwiekszenieSily()
+{
+	return zwiekszenieSily;
+}
+
+void Zwierze::OznaczZwiekszenieSily(int ilosc)
+{
+	zwiekszenieSily += ilosc;
+}
+
 bool Zwierze::SprubojPrzesunacO(int x, int y, Swiat *swiat)
 {
 	if (!swiat -> CzyPunktMiesciSieNaMapie(this -> x + x, this -> y + y))

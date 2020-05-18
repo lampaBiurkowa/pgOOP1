@@ -8,17 +8,16 @@ using namespace std;
 Guarana::Guarana(int x, int y) : Roslina(x, y)
 {
 	nazwa = "guarana";
-	sila = 0;
+	sila = DOMYSLNA_SILA;
 	znakASCII = IDENTYFIKATOR_PLIKU;
 }
 
 void Guarana::Kolizja(Swiat *swiat, Organizm *organizm)
 {
-	const int ZWIEKSZENIE_SILY = 3;
-
 	if (dynamic_cast<Zwierze *>(organizm) != nullptr)
 	{
-		((Zwierze *)(organizm)) -> SetSila(((Zwierze *)(organizm)) -> GetSila() + ZWIEKSZENIE_SILY);
+		organizm -> SetSila(organizm -> GetSila() + ZWIEKSZENIE_SILY);
+		((Zwierze *)(organizm)) -> OznaczZwiekszenieSily(ZWIEKSZENIE_SILY);
 		swiat -> DodajKomunikat(((Zwierze *)(organizm)) -> GetNazwa() + " zjadl " + nazwa + " i jego sila wyno sila zwiekszyla sie o 3");
 	}
 }

@@ -9,6 +9,7 @@ class Zolw : public Zwierze
 	Zolw *zwrocInstancjeZwierzecia(int x, int y) override;
 public:
 	static const char IDENTYFIKATOR_PLIKU = 'Z';
+	static const int DOMYSLNA_SILA = 2;
 
 	Zolw(int x, int y);
 	void Akcja(Swiat *swiat) override;

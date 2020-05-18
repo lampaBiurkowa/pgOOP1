@@ -135,3 +135,50 @@ void BudulecSwiata::wdrozMetadane(Swiat *swiat, int *metadane)
 {
 	swiat -> Stworz(metadane[X_INDEKS], metadane[Y_INDEKS]);
 }
+
+void BudulecSwiata::ZapiszDoPliku(Swiat *swiat, string sciezka)
+{
+	string metadane = to_string(swiat -> GetSzerokosc()) + SEPARATOR_W_PLIKU + to_string(swiat -> GetWysokosc());
+	vector<string> linieMapy;
+	vector<string> informacjOSile;
+	string informacjeOSupermocy;
+	for (int i = 0; i < swiat -> GetWysokosc(); i++)
+	{
+		string linia = "";
+		for (int j = 0; j < swiat -> GetSzerokosc(); j++)
+		{
+			if (!swiat -> CzyPoleZajete(i, j))
+				linia += PUSTE_POLE;
+			else
+			{
+				Organizm *organizm = swiat -> GetOrganizmNaPozycji(i, j);
+				linia += organizm -> GetZnakASCII();
+				if (dynamic_cast<Zwierze *>(organizm) != nullptr)
+				{
+					int zwiekszenieSily = ((Zwierze *)(organizm)) -> GetZwiekszenieSily();
+					if (((Zwierze *)(organizm)) -> GetZwiekszenieSily() != 0)
+						informacjOSile.push_back(to_string(i) + SEPARATOR_W_PLIKU + to_string(j) + SEPARATOR_W_PLIKU + to_string(zwiekszenieSily));
+					if (dynamic_cast<Czlowiek *>(organizm) != nullptr)
+					{
+						int pozostalaIloscTurZSupemoca = ((Czlowiek *)(organizm)) -> GetPozostalaIloscTurZSupermoca();
+						int iloscTurDoUzyciaSupermocy = ((Czlowiek *)(organizm)) -> GetIloscTurDoUzyciaSupermocy();
+						informacjeOSupermocy = to_string(pozostalaIloscTurZSupemoca) + SEPARATOR_W_PLIKU + to_string(iloscTurDoUzyciaSupermocy);
+					}
+				}
+			}
+
+			if (j != swiat -> GetSzerokosc() - 1)
+				linia += SEPARATOR_W_PLIKU;
+		}
+		linieMapy.push_back(linia);
+	}
+
+	fstream zapis(sciezka, ios::out);
+	zapis<<metadane;
+	for (int i = 0; i < linieMapy.size(); i++)
+		zapis<<linieMapy[i];
+	for (int i = 0; i < informacjOSile.size(); i++)
+		zapis<<informacjOSile[i];
+	zapis<<informacjeOSupermocy;
+	zapis.close();
+}
