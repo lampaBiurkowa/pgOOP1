@@ -8,6 +8,8 @@ Czlowiek::Czlowiek(int x, int y) : Zwierze(x, y)
 	inicjatywa = 4;
 	sila = DOMYSLNA_SILA;
 	znakASCII = IDENTYFIKATOR_PLIKU;
+	iloscTurDoUzyciaSupermocy = 0;
+	pozostalaIloscTurZSupermoca = 0;
 }
 
 void Czlowiek::Akcja(Swiat *swiat)

@@ -13,6 +13,11 @@ class BudulecSwiata
 	int **przygotujPozycjeStartowe(Swiat *swiat, int iloscSztuk);
 	void sprobujZebracMetadaneZPliku(Swiat *swiat, string zrodlo, int *tabilcaDocelowa);
 	void wdrozMetadane(Swiat *swiat, int *metadane);
+	void sprobujZapisacInformacjeOZwiekszeniuSily(Organizm *organizm, vector<string> *informacjeOSile);
+	string sprobujZapisacInformacjeOSupermocy(Organizm *organizm);
+	void wykonajZapisDanych(string sciezka, string metadane, vector<string> *linieMapy, vector<string> *informacjeOSile, string informacjeOSupermocy);
+	void sprobujWdrozycInformacjeOSileZPliku(Swiat *swiat, string zrodlo);
+
 public:
 	void RozstawOrganizmyLosowo(Swiat *swiat, int iloscSztuk);
 	void WczytajZPliku(Swiat *swiat, string sciezka);

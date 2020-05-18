@@ -7,6 +7,7 @@ Zwierze::Zwierze(int x, int y) : Organizm(x, y)
 {
 	previousX = x;
 	previousY = y;
+	zwiekszenieSily = 0;
 }
 
 void Zwierze::Cofnij()

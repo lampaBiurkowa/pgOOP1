@@ -105,6 +105,13 @@ void BudulecSwiata::WczytajZPliku(Swiat *swiat, string sciezka)
 				swiat -> DodajOrganizm(new Zolw(i, j / 2));
 		}
 	}
+
+	string linia;
+	while (!dane.eof())
+	{
+		dane>>linia;
+		sprobujWdrozycInformacjeOSileZPliku(swiat, linia);
+	}
 	dane.close();
 }
 
@@ -131,6 +138,34 @@ void BudulecSwiata::sprobujZebracMetadaneZPliku(Swiat *swiat, string zrodlo, int
 	}
 }
 
+void BudulecSwiata::sprobujWdrozycInformacjeOSileZPliku(Swiat *swiat, string zrodlo)
+{
+	int *dane = new int[3];
+	string numer = "";
+	int iterator = 0;
+	for (int i = 0; i < zrodlo.length(); i++)
+	{
+		if (zrodlo[i] != SEPARATOR_W_PLIKU)
+			numer += zrodlo[i];
+		if (i == zrodlo.length() - 1 || zrodlo[i] == SEPARATOR_W_PLIKU)
+		{
+			dane[iterator] = atoi(numer.c_str());
+			iterator++;
+			numer = "";
+		}
+	}
+
+	int x = dane[0];
+	int y = dane[1];
+	int zwiekszenieSily = dane[2];
+	if (!swiat -> CzyPoleZajete(x, y) || dynamic_cast<Zwierze *>(swiat -> GetOrganizmNaPozycji(x, y)) == nullptr)
+		return;
+
+	Zwierze *zwierze = ((Zwierze *)swiat -> GetOrganizmNaPozycji(x, y));
+	zwierze -> OznaczZwiekszenieSily(zwiekszenieSily);
+	zwierze -> SetSila(zwierze -> GetSila() + zwiekszenieSily);
+}
+
 void BudulecSwiata::wdrozMetadane(Swiat *swiat, int *metadane)
 {
 	swiat -> Stworz(metadane[X_INDEKS], metadane[Y_INDEKS]);
@@ -139,8 +174,7 @@ void BudulecSwiata::wdrozMetadane(Swiat *swiat, int *metadane)
 void BudulecSwiata::ZapiszDoPliku(Swiat *swiat, string sciezka)
 {
 	string metadane = to_string(swiat -> GetSzerokosc()) + SEPARATOR_W_PLIKU + to_string(swiat -> GetWysokosc());
-	vector<string> linieMapy;
-	vector<string> informacjOSile;
+	vector<string> linieMapy, informacjOSile;
 	string informacjeOSupermocy;
 	for (int i = 0; i < swiat -> GetWysokosc(); i++)
 	{
@@ -153,18 +187,8 @@ void BudulecSwiata::ZapiszDoPliku(Swiat *swiat, string sciezka)
 			{
 				Organizm *organizm = swiat -> GetOrganizmNaPozycji(i, j);
 				linia += organizm -> GetZnakASCII();
-				if (dynamic_cast<Zwierze *>(organizm) != nullptr)
-				{
-					int zwiekszenieSily = ((Zwierze *)(organizm)) -> GetZwiekszenieSily();
-					if (((Zwierze *)(organizm)) -> GetZwiekszenieSily() != 0)
-						informacjOSile.push_back(to_string(i) + SEPARATOR_W_PLIKU + to_string(j) + SEPARATOR_W_PLIKU + to_string(zwiekszenieSily));
-					if (dynamic_cast<Czlowiek *>(organizm) != nullptr)
-					{
-						int pozostalaIloscTurZSupemoca = ((Czlowiek *)(organizm)) -> GetPozostalaIloscTurZSupermoca();
-						int iloscTurDoUzyciaSupermocy = ((Czlowiek *)(organizm)) -> GetIloscTurDoUzyciaSupermocy();
-						informacjeOSupermocy = to_string(pozostalaIloscTurZSupemoca) + SEPARATOR_W_PLIKU + to_string(iloscTurDoUzyciaSupermocy);
-					}
-				}
+				sprobujZapisacInformacjeOZwiekszeniuSily(organizm, &informacjOSile);
+				informacjeOSupermocy = sprobujZapisacInformacjeOSupermocy(organizm);
 			}
 
 			if (j != swiat -> GetSzerokosc() - 1)
@@ -172,13 +196,40 @@ void BudulecSwiata::ZapiszDoPliku(Swiat *swiat, string sciezka)
 		}
 		linieMapy.push_back(linia);
 	}
+	wykonajZapisDanych(sciezka, metadane, &linieMapy, &informacjOSile, informacjeOSupermocy);
+}
 
+void BudulecSwiata::wykonajZapisDanych(string sciezka, string metadane, vector<string> *linieMapy, vector<string> *informacjeOSile, string informacjeOSupermocy)
+{
 	fstream zapis(sciezka, ios::out);
-	zapis<<metadane;
-	for (int i = 0; i < linieMapy.size(); i++)
-		zapis<<linieMapy[i];
-	for (int i = 0; i < informacjOSile.size(); i++)
-		zapis<<informacjOSile[i];
-	zapis<<informacjeOSupermocy;
+	zapis<<metadane<<endl;
+	for (int i = 0; i < linieMapy -> size(); i++)
+		zapis<<(*linieMapy)[i]<<endl;
+	for (int i = 0; i < informacjeOSile -> size(); i++)
+		zapis<<(*informacjeOSile)[i]<<endl;
+	zapis<<informacjeOSupermocy<<endl;
 	zapis.close();
+}
+
+string BudulecSwiata::sprobujZapisacInformacjeOSupermocy(Organizm *organizm)
+{
+	string informacjeOSupermocy;
+	if (dynamic_cast<Czlowiek *>(organizm) != nullptr)
+	{
+		int pozostalaIloscTurZSupemoca = ((Czlowiek *)(organizm)) -> GetPozostalaIloscTurZSupermoca();
+		int iloscTurDoUzyciaSupermocy = ((Czlowiek *)(organizm)) -> GetIloscTurDoUzyciaSupermocy();
+		informacjeOSupermocy = to_string(pozostalaIloscTurZSupemoca) + SEPARATOR_W_PLIKU + to_string(iloscTurDoUzyciaSupermocy);
+	}
+
+	return informacjeOSupermocy;
+}
+
+void BudulecSwiata::sprobujZapisacInformacjeOZwiekszeniuSily(Organizm *organizm, vector<string> *informacjeOSile)
+{
+	if (dynamic_cast<Zwierze *>(organizm) != nullptr)
+	{
+		int zwiekszenieSily = ((Zwierze *)(organizm)) -> GetZwiekszenieSily();
+		if (((Zwierze *)(organizm)) -> GetZwiekszenieSily() != 0)
+			informacjeOSile -> push_back(to_string(organizm -> GetX()) + SEPARATOR_W_PLIKU + to_string(organizm -> GetY()) + SEPARATOR_W_PLIKU + to_string(zwiekszenieSily));
+	}
 }
