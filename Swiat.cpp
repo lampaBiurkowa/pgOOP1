@@ -38,14 +38,17 @@ void Swiat::DodajOrganizm(Organizm *organizm)
 
 bool Swiat::CzyPoleZajete(int x, int y)
 {
-	if (x >= szerokosc || y >= wysokosc || x < 0 || y < 0)
-		return true;
 
 	for (int i = 0; i < wysokosc * szerokosc; i++)
 		if (organizmy[i] != NULL && organizmy[i] -> GetX() == x && organizmy[i] -> GetY() == y)
 			return true;
 
 	return false;
+}
+
+bool Swiat::CzyPunktMiesciSieNaMapie(int x, int y)
+{
+	return x < szerokosc && y < wysokosc && x >= 0 && y >= 0;
 }
 
 Organizm *Swiat::GetOrganizmNaPozycji(int x, int y)
@@ -266,4 +269,18 @@ void Swiat::zaktualizujTabliceOrganizmow()
 int Swiat::GetIloscOrganizmow()
 {
 	return iloscOrganizmow;
+}
+
+void Swiat::WypelnijSasiadujacePola(int **tablicaDocelowa, int zasieg, int x, int y)
+{
+	int iterator = 0;
+	for (int i = -zasieg; i <= zasieg; i++)
+		for (int j = -zasieg; j <= zasieg; j++)
+		{
+			if ((i == 0 && j == 0) || (i != 0 && j != 0))
+				continue;
+
+			tablicaDocelowa[iterator][0] = x + j;
+			tablicaDocelowa[iterator][1] = y + i;
+		}
 }

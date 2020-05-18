@@ -1,7 +1,4 @@
-#include <iostream>
 #include "Wilk.h"
-
-using namespace std;
 
 Wilk::Wilk(int x, int y): Zwierze(x, y)
 {

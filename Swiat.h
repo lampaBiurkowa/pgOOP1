@@ -31,6 +31,7 @@ public:
 	void UsunOrganizm(Organizm *organizm);
 	void Stworz(int szerokosc, int wysokosc);
 	bool CzyPoleZajete(int x, int y);
+	bool CzyPunktMiesciSieNaMapie(int x, int y);
 	Organizm *GetOrganizmNaPozycji(int x, int y);
 	Organizm **GetOrganizmy();
 	int GetIloscOrganizmow();
@@ -38,4 +39,5 @@ public:
 	int GetWysokosc();
 	void RysujSwiat();
 	void WykonajTure();
+	void WypelnijSasiadujacePola(int **tablicaDocelowa, int zasieg, int x, int y);
 };

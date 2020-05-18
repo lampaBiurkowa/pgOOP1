@@ -17,9 +17,7 @@ void Zwierze::Cofnij()
 
 bool Zwierze::SprubojPrzesunacO(int x, int y, Swiat *swiat)
 {
-	if (this -> x + x >= swiat -> GetSzerokosc() || this -> x + x < 0)
-		return false;
-	if (this -> y + y >= swiat -> GetWysokosc() || this -> y + y < 0)
+	if (!swiat -> CzyPunktMiesciSieNaMapie(this -> x + x, this -> y + y))
 		return false;
 
 	this -> x += x;
@@ -41,7 +39,7 @@ bool Zwierze::sprubojWykonacRuch(Swiat *swiat, int step)
 	int zmianaX = rand() % (2 * step + 1) - step;
 	int zmianaY = rand() % (2 * step + 1) - step;
 
-	if (zmianaX == 0 && zmianaY == 0)
+	if ((zmianaX == 0 && zmianaY == 0) || (zmianaX != 0 && zmianaY != 0))
 		return false;
 	
 	return SprubojPrzesunacO(zmianaX, zmianaY, swiat);
@@ -64,12 +62,9 @@ void Zwierze::Kolizja(Swiat *swiat, Organizm *organizm)
 
 bool Zwierze::sprobujDodacPotomka(Swiat *swiat)
 {
-	int zmianaX = rand() % 3 - 1;
-	int zmianaY = rand() % 3 - 1;
-	if (zmianaX == 0 && zmianaY == 0)
-		return false;
-
-	if (x + zmianaX < 0 || x + zmianaX >= swiat -> GetSzerokosc() || y + zmianaY < 0 || y + zmianaY >= swiat -> GetWysokosc())
+	int zmianaX = rand() % (2 * ZASIEG_USTAWIENIA_POTOMKA + 1) - ZASIEG_USTAWIENIA_POTOMKA;
+	int zmianaY = rand() % (2 * ZASIEG_USTAWIENIA_POTOMKA + 1) - ZASIEG_USTAWIENIA_POTOMKA;
+	if ((zmianaX == 0 && zmianaY == 0) || (zmianaX != 0 && zmianaY != 0) || !swiat -> CzyPunktMiesciSieNaMapie(x + zmianaX, y + zmianaY))
 		return false;
 
 	if (x + zmianaX == previousX && y + zmianaY == previousY)
@@ -85,13 +80,10 @@ bool Zwierze::sprobujDodacPotomka(Swiat *swiat)
 
 bool Zwierze::czyMaGdzieUstawicPotomka(Swiat *swiat)
 {
-	for (int i = -1; i < 2; i++)
-		for (int j = -1; j < 2; j++)
+	for (int i = -ZASIEG_USTAWIENIA_POTOMKA; i <= ZASIEG_USTAWIENIA_POTOMKA; i++)
+		for (int j = -ZASIEG_USTAWIENIA_POTOMKA; j <= ZASIEG_USTAWIENIA_POTOMKA; j++)
 		{
-			if (x + j == previousX && y + i == previousY)
-				continue;
-
-			if (x + j >= 0 || x + j < swiat -> GetSzerokosc() || y + i >= 0 || y + i < swiat -> GetWysokosc())
+			if ((i == 0 && j == 0) || (i != 0 && j != 0) || x + j == previousX && y + i == previousY || !swiat -> CzyPunktMiesciSieNaMapie(x + j, y + i))
 				continue;
 
 			if (!swiat -> CzyPoleZajete(x + j, y + i) || swiat -> GetOrganizmNaPozycji(x + j, y + i) -> GetNazwa() != nazwa)

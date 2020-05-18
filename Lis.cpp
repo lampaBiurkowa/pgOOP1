@@ -1,8 +1,5 @@
-#include <iostream>
 #include "Lis.h"
 #include "Swiat.h"
-
-using namespace std;
 
 Lis::Lis(int x, int y) : Zwierze(x, y)
 {
@@ -27,17 +24,15 @@ void Lis::Akcja(Swiat *swiat)
 		while (!czySiePoruszyl)
 			czySiePoruszyl = sprubojWykonacRuch(swiat);
 	} while (swiat -> CzyPoleZajete(x, y) && swiat -> GetOrganizmNaPozycji(x, y) -> GetSila() > sila);
-
 }
 
 bool Lis::czyMozeSieRuszyc(Swiat *swiat)
 {
-	for (int i = -1; i < 2; i++)
-		for (int j = -1; j < 2; j++)
+	const int KROK = 1;
+	for (int i = -KROK; i <= KROK; i++)
+		for (int j = -KROK; j <= KROK; j++)
 		{
-			if (i == 0 && j == 0)
-				continue;
-			if (previousX + j < 0 || previousX + j >= swiat -> GetSzerokosc() || previousY + i < 0 || previousY + i >= swiat -> GetWysokosc())
+			if ((i == 0 && j == 0) || (i != 0 && j != 0) || !swiat -> CzyPunktMiesciSieNaMapie(previousX + j, previousY + i))
 				continue;
 
 			if (!swiat -> CzyPoleZajete(previousX + j, previousY + i))

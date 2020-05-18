@@ -4,6 +4,7 @@
 
 class BarszczSosnowskiego: public Roslina
 {
+	const int ZASIEG_ZNISZCZEN = 1;
 	BarszczSosnowskiego *zwrocInstancjeRosliny(int x, int y) override;
 public:
 	static const char IDENTYFIKATOR_PLIKU = 'b';

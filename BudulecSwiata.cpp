@@ -3,6 +3,7 @@
 #include "Antylopa.h"
 #include "BarszczSosnowskiego.h"
 #include "BudulecSwiata.h"
+#include "Czlowiek.h"
 #include "Guarana.h"
 #include "Lis.h"
 #include "Mlecz.h"
@@ -84,6 +85,8 @@ void BudulecSwiata::WczytajZPliku(Swiat *swiat, string sciezka)
 				swiat -> DodajOrganizm(new Antylopa(i, j / 2));
 			else if (rzad[j] == BarszczSosnowskiego::IDENTYFIKATOR_PLIKU)
 				swiat -> DodajOrganizm(new BarszczSosnowskiego(i, j / 2));
+			if (rzad[j] == Czlowiek::IDENTYFIKATOR_PLIKU)
+				swiat -> DodajOrganizm(new Czlowiek(i, j / 2));
 			else if (rzad[j] == Guarana::IDENTYFIKATOR_PLIKU)
 				swiat -> DodajOrganizm(new Guarana(i, j / 2));
 			else if (rzad[j] == Lis::IDENTYFIKATOR_PLIKU)
@@ -110,14 +113,16 @@ void BudulecSwiata::sprobujZebracMetadaneZPliku(Swiat *swiat, string zrodlo, int
 	string numer = "";
 	int iterator = 0;
 	for (int i = 0; i < zrodlo.length(); i++)
-		if (zrodlo[i] == SEPARATOR_W_PLIKU)
+	{
+		if (zrodlo[i] != SEPARATOR_W_PLIKU)
+			numer += zrodlo[i];
+		if (i == zrodlo.length() - 1 || zrodlo[i] == SEPARATOR_W_PLIKU)
 		{
 			tabilcaDocelowa[iterator] = atoi(numer.c_str());
 			iterator++;
 			numer = "";
 		}
-		else
-			numer += zrodlo[i];
+	}
 
 	if (iterator != ILOSC_ARGUMENOW_METADANYCH)
 	{

@@ -4,6 +4,7 @@
 
 class Zwierze : public Organizm
 {
+	const int ZASIEG_USTAWIENIA_POTOMKA = 1;
 protected:
 	int previousX;
 	int previousY;

@@ -6,8 +6,7 @@ class BudulecSwiata
 {
 	const int ILOSC_GATUNKOW = 10;
 	const int X_INDEKS = 0, Y_INDEKS = 1;
-	const int CZLOWIEK_X_INDEKS = 2, CZLOWIEK_Y_INDEKS = 3;
-	const int ILOSC_ARGUMENOW_METADANYCH = CZLOWIEK_Y_INDEKS;
+	const int ILOSC_ARGUMENOW_METADANYCH = Y_INDEKS + 1;
 	const char SEPARATOR_W_PLIKU = ',';
 
 	bool pozycjaZajeta(int x, int y, int **pozycje, int iloscSztuk);

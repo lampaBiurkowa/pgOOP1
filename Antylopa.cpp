@@ -1,8 +1,5 @@
-#include <iostream>
 #include "Antylopa.h"
 #include "Swiat.h"
-
-using namespace std;
 
 Antylopa::Antylopa(int x, int y) : Zwierze(x, y)
 {
@@ -16,9 +13,9 @@ void Antylopa::Akcja(Swiat *swiat)
 {
 	previousX = x;
 	previousY = y;
-	bool moved = false;
-	while (!moved)
-		moved = sprubojWykonacRuch(swiat, 2);
+	bool czyUdaloSiePoruszyc = false;
+	while (!czyUdaloSiePoruszyc)
+		czyUdaloSiePoruszyc = sprubojWykonacRuch(swiat, 2);
 }
 
 void Antylopa::Kolizja(Swiat *swiat, Organizm *organizm)
@@ -44,10 +41,10 @@ bool Antylopa::czyMaGdzieUciec(Swiat *swiat)
 	for (int i = -KROK_UCIECZKI; i <= KROK_UCIECZKI; i++)
 		for (int j = -KROK_UCIECZKI; j <= KROK_UCIECZKI; j++)
 		{
-			if (i == 0 && j == 0)
+			if ((i == 0 && j == 0) || (i != 0 && j != 0) || !swiat -> CzyPunktMiesciSieNaMapie(previousX + j, previousY + i))
 				continue;
 
-			if (!swiat -> CzyPoleZajete(previousX + i, previousY + j))
+			if (!swiat -> CzyPoleZajete(previousX + j, previousY + i))
 				return true;
 		}
 
@@ -59,7 +56,7 @@ bool Antylopa::sprobujUciec(Swiat *swiat)
 	int zmianaX = rand() % (KROK_UCIECZKI * 2 + 1) - KROK_UCIECZKI;
 	int zmianaY = rand() % (KROK_UCIECZKI * 2 + 1) - KROK_UCIECZKI;
 
-	if (zmianaX == 0 && zmianaY == 0)
+	if ((zmianaX == 0 && zmianaY == 0) || (zmianaX != 0 && zmianaY != 0))
 		return false;
 
 	if (swiat -> CzyPoleZajete (x + zmianaX, y + zmianaY))
