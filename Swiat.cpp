@@ -36,7 +36,6 @@ void Swiat::DodajOrganizm(Organizm *organizm)
 
 bool Swiat::CzyPoleZajete(int x, int y)
 {
-
 	for (int i = 0; i < wysokosc * szerokosc; i++)
 		if (organizmy[i] != NULL && organizmy[i] -> GetX() == x && organizmy[i] -> GetY() == y)
 			return true;
@@ -68,11 +67,11 @@ int Swiat::GetWysokosc()
 	return wysokosc;
 }
 
-void Swiat::Stworz(int szerokosc, int wysokosc)
+void Swiat::Stworz(int szerokosc, int wysokosc, int numerTury)
 {
 	iloscOrganizmow = 0;
 	maxInicjatywa = 7;
-	numerTury = 0;
+	this -> numerTury = numerTury;
 	this -> szerokosc = szerokosc;
 	this -> wysokosc = wysokosc;
 	organizmy = new Organizm *[wysokosc * szerokosc];

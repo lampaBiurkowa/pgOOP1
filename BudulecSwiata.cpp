@@ -17,7 +17,7 @@ using namespace std;
 
 void BudulecSwiata::RozstawOrganizmyLosowo(Swiat *swiat, int iloscSztuk)
 {
-	if (iloscSztuk * ILOSC_GATUNKOW_DO_LOSOWANIA < swiat -> GetSzerokosc() * swiat -> GetWysokosc())
+	if (iloscSztuk * ILOSC_GATUNKOW_DO_LOSOWANIA + 1 < swiat -> GetSzerokosc() * swiat -> GetWysokosc())
 	{
 		cout<<"Zbyt maly rozmiar swiat do zmieszczeia wszystkich gatunkow";
 		return;
@@ -37,15 +37,16 @@ void BudulecSwiata::RozstawOrganizmyLosowo(Swiat *swiat, int iloscSztuk)
 		swiat -> DodajOrganizm(new Wilk(pozycje[i][0], pozycje[i++][1]));
 		swiat -> DodajOrganizm(new Zolw(pozycje[i][0], pozycje[i][1]));
 	}
+	swiat -> DodajOrganizm(new Czlowiek(pozycje[iloscSztuk * ILOSC_GATUNKOW_DO_LOSOWANIA][0], pozycje[iloscSztuk * ILOSC_GATUNKOW_DO_LOSOWANIA][1]));
 }
 
 int **BudulecSwiata::przygotujPozycjeStartowe(Swiat *swiat, int iloscSztuk)
 {
-	int **pozycje = new int *[iloscSztuk * ILOSC_GATUNKOW_DO_LOSOWANIA];
-	for (int i = 0; i < iloscSztuk * ILOSC_GATUNKOW_DO_LOSOWANIA; i++)
+	int **pozycje = new int *[iloscSztuk * ILOSC_GATUNKOW_DO_LOSOWANIA + 1];
+	for (int i = 0; i < iloscSztuk * ILOSC_GATUNKOW_DO_LOSOWANIA + 1; i++)
 		pozycje[i] = new int[2];
 
-	for (int i = 0; i < iloscSztuk * ILOSC_GATUNKOW_DO_LOSOWANIA; i++)
+	for (int i = 0; i < iloscSztuk * ILOSC_GATUNKOW_DO_LOSOWANIA + 1; i++)
 	{
 		bool udaloSieDodac = false;
 		while (!udaloSieDodac)
@@ -124,7 +125,7 @@ void BudulecSwiata::wdrozMetadane(Swiat *swiat, string zrodlo)
 	int *dane = new int[ILOSC_ARGUMENOW_METADANYCH];
 	int iloscParametrow = wypelnijLiczbowaTabliceZPlikuIZwrocIlosc(zrodlo, dane, 0);
 	obsluzPotencjalnyBladWczytywania(ILOSC_ARGUMENOW_METADANYCH, iloscParametrow);
-	swiat -> Stworz(dane[X_INDEKS], dane[Y_INDEKS]);
+	swiat -> Stworz(dane[X_INDEKS], dane[Y_INDEKS], dane[NUMER_TURY_INDEKS]);
 }
 
 void BudulecSwiata::obsluzPotencjalnyBladWczytywania(int oczekiwanaIloscArg, int aktualnaIloscArg)
@@ -192,9 +193,17 @@ int BudulecSwiata::wypelnijLiczbowaTabliceZPlikuIZwrocIlosc(string zrodlo, int *
 	return iterator;
 }
 
+string BudulecSwiata::przygotujMetadaneDoZapisu(Swiat *swiat)
+{
+	string metadane = to_string(swiat -> GetSzerokosc()) + SEPARATOR_W_PLIKU;
+	metadane += to_string(swiat -> GetWysokosc()) + SEPARATOR_W_PLIKU;
+	metadane += to_string(swiat -> GetNumerTury());
+
+	return metadane;
+}
+
 void BudulecSwiata::ZapiszDoPliku(Swiat *swiat, string sciezka)
 {
-	string metadane = to_string(swiat -> GetSzerokosc()) + SEPARATOR_W_PLIKU + to_string(swiat -> GetWysokosc());
 	vector<string> linieMapy, informacjOSile;
 	string informacjeOSupermocy;
 	for (int i = 0; i < swiat -> GetWysokosc(); i++)
@@ -219,7 +228,7 @@ void BudulecSwiata::ZapiszDoPliku(Swiat *swiat, string sciezka)
 		}
 		linieMapy.push_back(linia);
 	}
-	wykonajZapisDanych(sciezka, metadane, &linieMapy, &informacjOSile, informacjeOSupermocy);
+	wykonajZapisDanych(sciezka, przygotujMetadaneDoZapisu(swiat), &linieMapy, &informacjOSile, informacjeOSupermocy);
 }
 
 void BudulecSwiata::wykonajZapisDanych(string sciezka, string metadane, vector<string> *linieMapy, vector<string> *informacjeOSile, string informacjeOSupermocy)

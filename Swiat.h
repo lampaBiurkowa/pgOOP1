@@ -35,7 +35,7 @@ public:
 	int GetWysokosc();
 	void RysujSwiat();
 	Czlowiek *SprobujZnalezcCzlowieka();
-	void Stworz(int szerokosc, int wysokosc);
+	void Stworz(int szerokosc, int wysokosc, int numerTury = 0);
 	void UsunOrganizm(Organizm *organizm);
 	void WykonajTure();
 	void WypelnijSasiadujacePola(int **tablicaDocelowa, int zasieg, int x, int y);
