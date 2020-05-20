@@ -48,7 +48,7 @@ bool Swiat::CzyPunktMiesciSieNaMapie(int x, int y)
 	return x < szerokosc && y < wysokosc && x >= 0 && y >= 0;
 }
 
-Organizm *Swiat::GetOrganizmNaPozycji(int x, int y)
+Organizm *Swiat::GetOrganizmNaPozycji(int x, int y) const
 {
 	for (int i = 0; i < GetWysokosc() * GetSzerokosc(); i++)
 		if (organizmy[i] != NULL && organizmy[i] -> GetX() == x && organizmy[i] -> GetY() == y)
@@ -57,12 +57,12 @@ Organizm *Swiat::GetOrganizmNaPozycji(int x, int y)
 	return NULL;
 }
 
-int Swiat::GetSzerokosc()
+int Swiat::GetSzerokosc() const
 {
 	return szerokosc;
 }
 
-int Swiat::GetWysokosc()
+int Swiat::GetWysokosc() const
 {
 	return wysokosc;
 }
@@ -207,7 +207,7 @@ void Swiat::obsluzEwentualneKolizje(Organizm *organizmZOstatniaAkcja)
 		}
 }
 
-Organizm **Swiat::GetOrganizmy()
+Organizm **Swiat::GetOrganizmy() const
 {
 	return organizmy;
 }
@@ -239,7 +239,7 @@ void Swiat::zaktualizujTabliceOrganizmow()
 		organizmy[i] = NULL;
 }
 
-int Swiat::GetIloscOrganizmow()
+int Swiat::GetIloscOrganizmow() const
 {
 	return iloscOrganizmow;
 }
@@ -277,7 +277,7 @@ bool Swiat::CzyOrganizmJestNaPolu(int x, int y, string nazwa)
 	return false;
 }
 
-int Swiat::GetNumerTury()
+int Swiat::GetNumerTury() const
 {
 	return numerTury;
 }

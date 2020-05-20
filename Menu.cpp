@@ -41,9 +41,9 @@ void Menu::obslozWczytanieSwiataZPliku()
 void Menu::obslozWygenerowanieSwiata()
 {
 	int x, y, iloscSztuk;
-	cout<<"Podaj x"<<endl;
+	cout<<"Podaj szerokosc"<<endl;
 	cin>>x;
-	cout<<"Podaj y"<<endl;
+	cout<<"Podaj wysokosc"<<endl;
 	cin>>y;
 	cout<<"Podaj poczatkowa ilosc sztuk organizmow (oprocz czlowieka)"<<endl;
 	cin>>iloscSztuk;
@@ -64,7 +64,7 @@ void Menu::obslozRuchCzlowiekaJezeliIstnieje()
 	Czlowiek *czlowiek = swiat.SprobujZnalezcCzlowieka();
 	char wybor = '\0';
 
-	cout<<"Twoja si³a: "<<czlowiek -> GetSila()<<endl;
+	cout<<"Twoja sila: "<<czlowiek -> GetSila()<<endl;
 	cout<<"Pozostala ilosc tur z wazna supermoca: "<<czlowiek -> GetPozostalaIloscTurZSupermoca()<<endl;
 	cout<<"Ilosc tur do ponownego aktywowania supermocy: "<<czlowiek -> GetIloscTurDoUzyciaSupermocy() + czlowiek -> GetPozostalaIloscTurZSupermoca()<<endl;
 	if (czlowiek -> GetIloscTurDoUzyciaSupermocy() == 0)
@@ -74,6 +74,7 @@ void Menu::obslozRuchCzlowiekaJezeliIstnieje()
 		if (wybor == 't')
 			czlowiek -> SprobujAktywowacSuperMoc();
 	}
+	cout<<"Wybierz strzalka kierunek ruchu"<<endl;
 	czlowiek -> WczytajInformacjeORuchu(&swiat);
 }
 

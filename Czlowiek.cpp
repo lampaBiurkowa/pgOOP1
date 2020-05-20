@@ -4,10 +4,11 @@
 
 Czlowiek::Czlowiek(int x, int y) : Zwierze(x, y)
 {
-	nazwa = "czlowiek";
+	nazwa = "Czlowiek";
 	inicjatywa = 4;
 	sila = 5;
 	znakASCII = IDENTYFIKATOR_PLIKU;
+
 	iloscTurDoUzyciaSupermocy = 0;
 	pozostalaIloscTurZSupermoca = 0;
 }
@@ -67,12 +68,12 @@ void Czlowiek::Akcja(Swiat *swiat)
 	aktualizujStanSupermocyPoUzyciu();
 }
 
-int Czlowiek::GetIloscTurDoUzyciaSupermocy()
+int Czlowiek::GetIloscTurDoUzyciaSupermocy() const
 {
 	return iloscTurDoUzyciaSupermocy;
 }
 
-int Czlowiek::GetPozostalaIloscTurZSupermoca()
+int Czlowiek::GetPozostalaIloscTurZSupermoca() const
 {
 	return pozostalaIloscTurZSupermoca;
 }

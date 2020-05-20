@@ -6,7 +6,7 @@ using namespace std;
 
 Mlecz::Mlecz(int x, int y) : Roslina(x, y)
 {
-	nazwa = "mlecz";
+	nazwa = "Mlecz";
 	sila = 0;
 	znakASCII = IDENTYFIKATOR_PLIKU;
 }
@@ -24,6 +24,8 @@ void Mlecz::Akcja(Swiat *swiat)
 			while (!czyUdaloSieZasiac)
 				czyUdaloSieZasiac = sprobujZasiacRosline(swiat, uzyteMiejsca);
 
+			if (swiat -> GetOrganizmy()[swiat -> GetIloscOrganizmow() - 1] == NULL)
+				break;
 			uzyteMiejsca[i][0] = swiat -> GetOrganizmy()[swiat -> GetIloscOrganizmow() - 1] -> GetX();
 			uzyteMiejsca[i][1] = swiat -> GetOrganizmy()[swiat -> GetIloscOrganizmow() - 1] -> GetY();
 			swiat -> DodajKomunikat(nazwa + " zasialo brata");

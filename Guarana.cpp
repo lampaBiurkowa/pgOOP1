@@ -7,7 +7,7 @@ using namespace std;
 
 Guarana::Guarana(int x, int y) : Roslina(x, y)
 {
-	nazwa = "guarana";
+	nazwa = "Guarana";
 	sila = 0;
 	znakASCII = IDENTYFIKATOR_PLIKU;
 }

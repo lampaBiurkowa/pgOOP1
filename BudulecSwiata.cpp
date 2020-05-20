@@ -17,7 +17,7 @@ using namespace std;
 
 void BudulecSwiata::RozstawOrganizmyLosowo(Swiat *swiat, int iloscSztuk)
 {
-	if (iloscSztuk * ILOSC_GATUNKOW_DO_LOSOWANIA + 1 < swiat -> GetSzerokosc() * swiat -> GetWysokosc())
+	if (iloscSztuk * ILOSC_GATUNKOW_DO_LOSOWANIA + 1 > swiat -> GetSzerokosc() * swiat -> GetWysokosc())
 	{
 		cout<<"Zbyt maly rozmiar swiat do zmieszczeia wszystkich gatunkow";
 		return;
@@ -26,15 +26,15 @@ void BudulecSwiata::RozstawOrganizmyLosowo(Swiat *swiat, int iloscSztuk)
 	int **pozycje = przygotujPozycjeStartowe(swiat, iloscSztuk);
 	for (int i = 0; i < iloscSztuk * ILOSC_GATUNKOW_DO_LOSOWANIA; i++)
 	{
-		swiat -> DodajOrganizm(new Antylopa(pozycje[i][0], pozycje[i++][1]));
-		swiat -> DodajOrganizm(new BarszczSosnowskiego(pozycje[i][0], pozycje[i++][1]));
-		swiat -> DodajOrganizm(new Guarana(pozycje[i][0], pozycje[i++][1]));
-		swiat -> DodajOrganizm(new Lis(pozycje[i][0], pozycje[i++][1]));
-		swiat -> DodajOrganizm(new Mlecz(pozycje[i][0], pozycje[i++][1]));
-		swiat -> DodajOrganizm(new Owca(pozycje[i][0], pozycje[i++][1]));
-		swiat -> DodajOrganizm(new Trawa(pozycje[i][0], pozycje[i++][1]));
-		swiat -> DodajOrganizm(new WilczeJagody(pozycje[i][0], pozycje[i++][1]));
-		swiat -> DodajOrganizm(new Wilk(pozycje[i][0], pozycje[i++][1]));
+		swiat -> DodajOrganizm(new Antylopa(pozycje[i][0], pozycje[i][1])), i++;
+		swiat -> DodajOrganizm(new BarszczSosnowskiego(pozycje[i][0], pozycje[i][1])), i++;
+		swiat -> DodajOrganizm(new Guarana(pozycje[i][0], pozycje[i][1])), i++;
+		swiat -> DodajOrganizm(new Lis(pozycje[i][0], pozycje[i][1])), i++;
+		swiat -> DodajOrganizm(new Mlecz(pozycje[i][0], pozycje[i][1])), i++;
+		swiat -> DodajOrganizm(new Owca(pozycje[i][0], pozycje[i][1])), i++;
+		swiat -> DodajOrganizm(new Trawa(pozycje[i][0], pozycje[i][1])), i++;
+		swiat -> DodajOrganizm(new WilczeJagody(pozycje[i][0], pozycje[i][1])), i++;
+		swiat -> DodajOrganizm(new Wilk(pozycje[i][0], pozycje[i][1])), i++;
 		swiat -> DodajOrganizm(new Zolw(pozycje[i][0], pozycje[i][1]));
 	}
 	swiat -> DodajOrganizm(new Czlowiek(pozycje[iloscSztuk * ILOSC_GATUNKOW_DO_LOSOWANIA][0], pozycje[iloscSztuk * ILOSC_GATUNKOW_DO_LOSOWANIA][1]));
@@ -66,7 +66,7 @@ int **BudulecSwiata::przygotujPozycjeStartowe(Swiat *swiat, int iloscSztuk)
 
 bool BudulecSwiata::pozycjaZajeta(int x, int y, int **pozycje, int iloscSztuk)
 {
-	for (int i = 0; i < iloscSztuk * ILOSC_GATUNKOW_DO_LOSOWANIA; i++)
+	for (int i = 0; i < iloscSztuk * ILOSC_GATUNKOW_DO_LOSOWANIA + 1; i++)
 		if (pozycje[i][0] == x && pozycje[i][1] == y)
 			return true;
 

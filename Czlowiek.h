@@ -30,8 +30,8 @@ public:
 	Czlowiek(int x, int y);
 	void Akcja(Swiat *swiat) override;
 	void Kolizja(Swiat *swiat, Organizm *organizm) override;
-	int GetIloscTurDoUzyciaSupermocy();
-	int GetPozostalaIloscTurZSupermoca();
+	int GetIloscTurDoUzyciaSupermocy() const;
+	int GetPozostalaIloscTurZSupermoca() const;
 	void SetIloscTurDoUzyciaSupermocy(int iloscTurDoUzyciaSupermocy);
 	void SetPozostalaIloscTurZSupermoca(int pozostalaIloscTurZSupermoca);
 	bool SprobujAktywowacSuperMoc();

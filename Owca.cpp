@@ -5,7 +5,7 @@ using namespace std;
 
 Owca::Owca(int x, int y): Zwierze(x, y)
 {
-	nazwa = "owca";
+	nazwa = "Owca";
 	inicjatywa = 4;
 	sila = 4;
 	znakASCII = IDENTYFIKATOR_PLIKU;

@@ -27,12 +27,12 @@ public:
 	bool CzyOrganizmJestNaPolu(int x, int y, string nazwa);
 	void DodajKomunikat(string tresc);
 	void DodajOrganizm(Organizm *organizm);
-	int GetIloscOrganizmow();
-	Organizm *GetOrganizmNaPozycji(int x, int y);
-	Organizm **GetOrganizmy();
-	int GetNumerTury();
-	int GetSzerokosc();
-	int GetWysokosc();
+	int GetIloscOrganizmow() const;
+	Organizm *GetOrganizmNaPozycji(int x, int y) const;
+	Organizm **GetOrganizmy() const;
+	int GetNumerTury() const;
+	int GetSzerokosc() const;
+	int GetWysokosc() const;
 	void RysujSwiat();
 	Czlowiek *SprobujZnalezcCzlowieka();
 	void Stworz(int szerokosc, int wysokosc, int numerTury = 0);

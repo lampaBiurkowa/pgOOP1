@@ -16,7 +16,7 @@ protected:
 public:
 	Zwierze(int x, int y);
 	void Cofnij();
-	int GetZwiekszenieSily();
+	int GetZwiekszenieSily() const;
 	void OznaczZwiekszenieSily(int ilosc);
 	bool SprubojPrzesunacO(int x, int y, Swiat *swiat);
 

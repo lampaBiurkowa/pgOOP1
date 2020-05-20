@@ -12,18 +12,16 @@ protected:
 	string nazwa;
 	int inicjatywa;
 	int sila;
-	int turyNaMapie;
 	int x, y;
 	char znakASCII;
 public:
 	Organizm(int x, int y);
-	int GetInicjatywa();
-	string GetNazwa();
-	int GetSila();
-	int GetX();
-	int GetY();
-	int GetTuryNaMapie();
-	char GetZnakASCII();
+	int GetInicjatywa() const;
+	string GetNazwa() const;
+	int GetSila() const;
+	int GetX() const;
+	int GetY() const;
+	char GetZnakASCII() const;
 	void SetSila(int sila);
 
 	virtual void Akcja(Swiat *swiat) = 0;

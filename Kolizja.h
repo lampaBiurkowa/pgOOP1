@@ -14,7 +14,7 @@ class Kolizja
 	void inicjuj();
 public:
 	Kolizja();
-	Organizm **GetKolidujaceOrganizmy();
+	Organizm **GetKolidujaceOrganizmy() const;
 	void SzukajKolizji(Swiat *swiat, int x, int y);
 	bool WystepujeKolizja();
 	~Kolizja();

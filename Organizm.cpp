@@ -9,17 +9,17 @@ Organizm::Organizm(int x, int y)
 	this -> y = y;
 }
 
-string Organizm::GetNazwa()
+string Organizm::GetNazwa() const
 {
 	return nazwa;
 }
 
-int Organizm::GetInicjatywa()
+int Organizm::GetInicjatywa() const
 {
 	return inicjatywa;
 }
 
-int Organizm::GetSila()
+int Organizm::GetSila() const
 {
 	return sila;
 }
@@ -29,22 +29,17 @@ void Organizm::SetSila(int force)
 	this -> sila = force;
 }
 
-int Organizm::GetTuryNaMapie()
-{
-	return turyNaMapie;
-}
-
-int Organizm::GetX()
+int Organizm::GetX() const
 {
 	return x;
 }
 
-int Organizm::GetY()
+int Organizm::GetY() const
 {
 	return y;
 }
 
-char Organizm::GetZnakASCII()
+char Organizm::GetZnakASCII() const
 {
 	return znakASCII;
 }

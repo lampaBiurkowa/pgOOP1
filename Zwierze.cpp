@@ -16,7 +16,7 @@ void Zwierze::Cofnij()
 	y = previousY;
 }
 
-int Zwierze::GetZwiekszenieSily()
+int Zwierze::GetZwiekszenieSily() const
 {
 	return zwiekszenieSily;
 }
