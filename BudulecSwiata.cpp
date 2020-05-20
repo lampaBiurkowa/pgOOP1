@@ -178,7 +178,7 @@ int BudulecSwiata::wypelnijLiczbowaTabliceZPlikuIZwrocIlosc(string zrodlo, int *
 {
 	string numer = "";
 	int iterator = 0;
-	for (int i = 0; startIteracji; i < zrodlo.length(); i++)
+	for (int i = startIteracji; i < zrodlo.length(); i++)
 	{
 		if (zrodlo[i] != SEPARATOR_W_PLIKU)
 			numer += zrodlo[i];

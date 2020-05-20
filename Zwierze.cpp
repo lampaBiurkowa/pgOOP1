@@ -97,7 +97,7 @@ bool Zwierze::czyMaGdzieUstawicPotomka(Swiat *swiat)
 			if ((i == 0 && j == 0) || (i != 0 && j != 0) || x + j == previousX && y + i == previousY || !swiat -> CzyPunktMiesciSieNaMapie(x + j, y + i))
 				continue;
 
-			if (!swiat -> CzyPoleZajete(x + j, y + i) || swiat -> GetOrganizmNaPozycji(x + j, y + i) -> GetNazwa() != nazwa)
+			if (!swiat -> CzyPoleZajete(x + j, y + i) || !swiat -> CzyOrganizmJestNaPolu(x + j, y + i, nazwa))
 				return true;
 		}
 

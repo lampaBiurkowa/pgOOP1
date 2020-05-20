@@ -13,7 +13,6 @@ void Swiat::UsunOrganizm(Organizm *organizm)
 		if (organizmy[i] == organizm)
 		{
 			organizmy[i] = NULL;
-			//delete organizm;
 			iloscOrganizmow--;
 		}
 }
@@ -71,15 +70,14 @@ int Swiat::GetWysokosc()
 
 void Swiat::Stworz(int szerokosc, int wysokosc)
 {
-	kolidujaceOrganizmy = new Organizm*[2]{NULL, NULL};
+	iloscOrganizmow = 0;
 	maxInicjatywa = 7;
-	licznikStarszenstwa = 0;
+	numerTury = 0;
 	this -> szerokosc = szerokosc;
 	this -> wysokosc = wysokosc;
 	organizmy = new Organizm *[wysokosc * szerokosc];
 	for (int i = 0; i < wysokosc * szerokosc; i++)
 		organizmy[i] = NULL;
-	iloscOrganizmow = 0;
 }
 
 
@@ -136,6 +134,7 @@ void Swiat::WykonajTure()
 
 	delete[] ustawioneOrganizmy;
 	zaktualizujTabliceOrganizmow();
+	numerTury++;
 }
 
 void Swiat::ustawOrganizmyWKolejnosciRuchow(Organizm **ustawioneOrganizmy)
@@ -209,30 +208,6 @@ void Swiat::obsluzEwentualneKolizje(Organizm *organizmZOstatniaAkcja)
 		}
 }
 
-void Swiat::szukajKolizji(int x, int y)
-{
-	inicjuj();
-	for (int i = 0; i < GetWysokosc() * GetSzerokosc(); i++)
-		if (GetOrganizmy()[i] != NULL && GetOrganizmy()[i] -> GetX() == x && GetOrganizmy()[i] -> GetY() == y)
-		{
-			kolidujaceOrganizmy[iloscKolidujacychOrganizmow] = GetOrganizmy()[i];
-			iloscKolidujacychOrganizmow++;
-		}
-}
-
-void Swiat::inicjuj()
-{
-	for (int i = 0; i < MAX_ORGANIZMOW_KOLIDUJACYCH; i++)
-		kolidujaceOrganizmy[i] = NULL;
-
-	iloscKolidujacychOrganizmow = 0;
-}
-
-bool Swiat::wystepujeKolizja()
-{
-	return iloscKolidujacychOrganizmow == MAX_ORGANIZMOW_KOLIDUJACYCH;
-}
-
 Organizm **Swiat::GetOrganizmy()
 {
 	return organizmy;
@@ -301,4 +276,9 @@ bool Swiat::CzyOrganizmJestNaPolu(int x, int y, string nazwa)
 			return true;
 
 	return false;
+}
+
+int Swiat::GetNumerTury()
+{
+	return numerTury;
 }

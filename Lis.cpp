@@ -5,7 +5,7 @@ Lis::Lis(int x, int y) : Zwierze(x, y)
 {
 	nazwa = "lis";
 	inicjatywa = 7;
-	sila = DOMYSLNA_SILA;
+	sila = 3;
 	znakASCII = IDENTYFIKATOR_PLIKU;
 }
 

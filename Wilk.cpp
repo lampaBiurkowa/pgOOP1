@@ -3,7 +3,7 @@
 Wilk::Wilk(int x, int y): Zwierze(x, y)
 {
 	nazwa = "wilk";
-	sila = DOMYSLNA_SILA;
+	sila = 9;
 	inicjatywa = 5;
 	znakASCII = IDENTYFIKATOR_PLIKU;
 }

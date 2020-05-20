@@ -49,12 +49,6 @@ char Organizm::GetZnakASCII()
 	return znakASCII;
 }
 
-void Organizm::Move(int x, int y)
-{
-	this -> x += x;
-	this -> y += y;
-}
-
 void Organizm::Rysuj()
 {
 	cout<<znakASCII;

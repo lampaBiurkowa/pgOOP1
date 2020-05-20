@@ -13,20 +13,18 @@ protected:
 	int inicjatywa;
 	int sila;
 	int turyNaMapie;
-	int x;
-	int y;
+	int x, y;
 	char znakASCII;
 public:
 	Organizm(int x, int y);
-	string GetNazwa();
 	int GetInicjatywa();
+	string GetNazwa();
 	int GetSila();
-	void SetSila(int sila);
-	int GetTuryNaMapie();
 	int GetX();
 	int GetY();
+	int GetTuryNaMapie();
 	char GetZnakASCII();
-	void Move(int x, int y);
+	void SetSila(int sila);
 
 	virtual void Akcja(Swiat *swiat) = 0;
 	virtual void Kolizja(Swiat *swiat, Organizm *organizm) = 0;

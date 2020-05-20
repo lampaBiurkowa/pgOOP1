@@ -5,7 +5,7 @@ Antylopa::Antylopa(int x, int y) : Zwierze(x, y)
 {
 	nazwa = "antylopa";
 	inicjatywa = 4;
-	sila = DOMYSLNA_SILA;
+	sila = 4;
 	znakASCII = IDENTYFIKATOR_PLIKU;
 }
 

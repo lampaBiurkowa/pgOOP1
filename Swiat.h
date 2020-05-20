@@ -9,39 +9,34 @@ class Swiat
 {
 	Organizm **organizmy;
 	int iloscOrganizmow;
-	int licznikStarszenstwa;
-	int szerokosc, wysokosc;
-	int maxInicjatywa;
 	vector<string> komunikaty;
+	int maxInicjatywa;
+	int numerTury;
+	int szerokosc, wysokosc;
+
 	int getMaxInicjatywa(int ograniczenieGorneWlaczne);
-	void ustawOrganizmyWKolejnosciRuchow(Organizm **organizmy);
-	void obsluzEwentualneKolizje(Organizm *organizmZOstatniaAkcja);
-	void zaktualizujTabliceOrganizmow();
 	void rysujKomunikaty();
 	void rysujMape();
-	void szukajKolizji(int x, int y);
-	bool wystepujeKolizja();
-	static const int MAX_ORGANIZMOW_KOLIDUJACYCH = 2;
-	int iloscKolidujacychOrganizmow;
-	Organizm **kolidujaceOrganizmy;
-
-	void inicjuj();
+	void obsluzEwentualneKolizje(Organizm *organizmZOstatniaAkcja);
+	void ustawOrganizmyWKolejnosciRuchow(Organizm **organizmy);
+	void zaktualizujTabliceOrganizmow();
 
 public:
-	void DodajKomunikat(string tresc);
-	void DodajOrganizm(Organizm *organizm);
-	void UsunOrganizm(Organizm *organizm);
-	void Stworz(int szerokosc, int wysokosc);
 	bool CzyPoleZajete(int x, int y);
 	bool CzyPunktMiesciSieNaMapie(int x, int y);
 	bool CzyOrganizmJestNaPolu(int x, int y, string nazwa);
+	void DodajKomunikat(string tresc);
+	void DodajOrganizm(Organizm *organizm);
+	int GetIloscOrganizmow();
 	Organizm *GetOrganizmNaPozycji(int x, int y);
 	Organizm **GetOrganizmy();
-	int GetIloscOrganizmow();
+	int GetNumerTury();
 	int GetSzerokosc();
 	int GetWysokosc();
 	void RysujSwiat();
+	Czlowiek *SprobujZnalezcCzlowieka();
+	void Stworz(int szerokosc, int wysokosc);
+	void UsunOrganizm(Organizm *organizm);
 	void WykonajTure();
 	void WypelnijSasiadujacePola(int **tablicaDocelowa, int zasieg, int x, int y);
-	Czlowiek *SprobujZnalezcCzlowieka();
 };

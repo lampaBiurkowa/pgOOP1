@@ -7,6 +7,7 @@ class Swiat;
 class Kolizja
 {
 	static const int MAX_ORGANIZMOW_KOLIDUJACYCH = 2;
+
 	int iloscKolidujacychOrganizmow;
 	Organizm **kolidujaceOrganizmy;
 

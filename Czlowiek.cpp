@@ -6,7 +6,7 @@ Czlowiek::Czlowiek(int x, int y) : Zwierze(x, y)
 {
 	nazwa = "czlowiek";
 	inicjatywa = 4;
-	sila = DOMYSLNA_SILA;
+	sila = 5;
 	znakASCII = IDENTYFIKATOR_PLIKU;
 	iloscTurDoUzyciaSupermocy = 0;
 	pozostalaIloscTurZSupermoca = 0;

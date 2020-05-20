@@ -11,18 +11,17 @@ class BudulecSwiata
 	static const int ILOSC_ARGUMENOW_METADANYCH = 2, ILOSC_ARGUMENOW_SUPERMOCY = 2, ILOSC_ARGUMENOW_SILY = 3;
 	static const char SEPARATOR_W_PLIKU = ',', PUSTE_POLE = '-', OZNACZENIE_SUPERMOCY = 'S';
 
-	bool pozycjaZajeta(int x, int y, int **pozycje, int iloscSztuk);
-	int **przygotujPozycjeStartowe(Swiat *swiat, int iloscSztuk);
-	void wdrozMetadane(Swiat *swiat, string zrodlo);
-	void sprobujZapisacInformacjeOZwiekszeniuSily(Organizm *organizm, vector<string> *informacjeOSile);
-	string sprobujZapisacInformacjeOSupermocy(Organizm *organizm);
-	void wykonajZapisDanych(string sciezka, string metadane, vector<string> *linieMapy, vector<string> *informacjeOSile, string informacjeOSupermocy);
-	void sprobujWdrozycInformacjeOSileZPliku(Swiat *swiat, string zrodlo);
-	void sprobujWdrozycInformacjeOSupermocyZPliku(Swiat *swiat, string zrodlo);
-	void wdrozPozostaleInformacjeZPliku(Swiat *swiat, string zrodlo);
-	void wdrozMapeOrganizmow(Swiat *swiat);
 	void dodajOdpowiedniTypOrganizmu(Swiat *swiat, char znak, int x, int y);
 	void obsluzPotencjalnyBladWczytywania(int oczekiwanaIloscArg, int aktualnaIloscArg);
+	bool pozycjaZajeta(int x, int y, int **pozycje, int iloscSztuk);
+	int **przygotujPozycjeStartowe(Swiat *swiat, int iloscSztuk);
+	void sprobujWdrozycInformacjeOSileZPliku(Swiat *swiat, string zrodlo);
+	void sprobujWdrozycInformacjeOSupermocyZPliku(Swiat *swiat, string zrodlo);
+	string sprobujZapisacInformacjeOSupermocy(Organizm *organizm);
+	void sprobujZapisacInformacjeOZwiekszeniuSily(Organizm *organizm, vector<string> *informacjeOSile);
+	void wdrozMetadane(Swiat *swiat, string zrodlo);
+	void wdrozPozostaleInformacjeZPliku(Swiat *swiat, string zrodlo);
+	void wykonajZapisDanych(string sciezka, string metadane, vector<string> *linieMapy, vector<string> *informacjeOSile, string informacjeOSupermocy);
 	int wypelnijLiczbowaTabliceZPlikuIZwrocIlosc(string zrodlo, int *tablicaDocelowa, int startIteracji = 0);
 
 public:

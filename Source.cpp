@@ -9,13 +9,14 @@ int main()
 	//swiat.Stworz(20, 20);
 	BudulecSwiata budulec;
 	//budulec.RozstawOrganizmyLosowo(&swiat, 3);
-	budulec.WczytajZPliku(&swiat, "jea.txt");
+	budulec.WczytajZPliku(&swiat, "jea8.txt");
 	Czlowiek *czlowiek = swiat.SprobujZnalezcCzlowieka();
 	swiat.RysujSwiat();
 	char wybor;
 	for (int i = 0; i < 30; i++)
 	{
 		czlowiek = swiat.SprobujZnalezcCzlowieka();
+		cout<<"Numer tury: "<<swiat.GetNumerTury() + 1<<endl;
 		if (czlowiek != NULL)
 		{
 			cout<<"Pozostala ilosc tur z wazna supermoca: "<<czlowiek -> GetPozostalaIloscTurZSupermoca()<<endl;
@@ -30,9 +31,10 @@ int main()
 			czlowiek -> WczytajInformacjeORuchu(&swiat);
 		}
 		system("cls");
+		cout<<"Symulowanie..."<<endl;
 		swiat.WykonajTure();
 		swiat.RysujSwiat();
-		budulec.ZapiszDoPliku(&swiat, "jea" + to_string(i) + ".txt");
+		budulec.ZapiszDoPliku(&swiat, "jea" + to_string(swiat.GetNumerTury()) + ".txt");
 	}
 
 	return 0;

@@ -6,7 +6,7 @@
 WilczeJagody::WilczeJagody(int x, int y) : Roslina(x, y)
 {
 	nazwa = "wilczeJagody";
-	sila = DOMYSLNA_SILA;
+	sila = 99;
 	znakASCII = IDENTYFIKATOR_PLIKU;
 }
 

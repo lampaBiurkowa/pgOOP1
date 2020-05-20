@@ -6,7 +6,7 @@ using namespace std;
 Trawa::Trawa(int x, int y) : Roslina(x, y)
 {
 	nazwa = "trawa";
-	sila = DOMYSLNA_SILA;
+	sila = 0;
 	znakASCII = IDENTYFIKATOR_PLIKU;
 }
 

@@ -7,7 +7,7 @@ using namespace std;
 Mlecz::Mlecz(int x, int y) : Roslina(x, y)
 {
 	nazwa = "mlecz";
-	sila = DOMYSLNA_SILA;
+	sila = 0;
 	znakASCII = IDENTYFIKATOR_PLIKU;
 }
 
