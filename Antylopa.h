@@ -4,8 +4,8 @@
 
 class Antylopa : public Zwierze
 {
-	const int KROK_UCIECZKI = 1;
-	const int SZANSA_NA_UCIECZKE_W_PROCENTACH = 50;
+	static const int KROK_UCIECZKI = 1;
+	static const int SZANSA_NA_UCIECZKE_W_PROCENTACH = 50;
 	
 	bool czyMaGdzieUciec(Swiat *swiat);
 	bool sprobujUciec(Swiat *swiat);

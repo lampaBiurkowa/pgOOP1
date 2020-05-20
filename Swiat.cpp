@@ -20,7 +20,6 @@ void Swiat::UsunOrganizm(Organizm *organizm)
 
 void Swiat::DodajKomunikat(string tresc)
 {
-	cout<<tresc<<endl;
 	komunikaty.push_back(tresc);
 }
 
@@ -86,6 +85,12 @@ void Swiat::Stworz(int szerokosc, int wysokosc)
 
 void Swiat::RysujSwiat()
 {
+	rysujKomunikaty();
+	rysujMape();
+}
+
+void Swiat::rysujMape()
+{
 	for (int i = 0; i < wysokosc * szerokosc; i++)
 	{
 		Organizm *organizm = GetOrganizmNaPozycji(i % szerokosc, i / wysokosc);
@@ -97,11 +102,9 @@ void Swiat::RysujSwiat()
 		if (i % szerokosc == szerokosc - 1)
 			cout<<"|"<<endl;
 	}
-
-	//obsluzKomunikaty();
 }
 
-void Swiat::obsluzKomunikaty()
+void Swiat::rysujKomunikaty()
 {
 	cout<<"Komunikaty:"<<endl;
 	if (komunikaty.size() == 0)
@@ -125,13 +128,9 @@ void Swiat::WykonajTure()
 	for (int i = 0; i < iloscUstawionychOrganizmow; i++)
 	{
 		if ((ustawioneOrganizmy)[i] == NULL)
-		{
-			cout<<i<<" NULL"<<endl;
 			continue;
-		}
 
 		(ustawioneOrganizmy)[i] -> Akcja(this);
-		//cout<<i<<" "<<(ustawioneOrganizmy)[i] -> GetId()<<" X:"<<(ustawioneOrganizmy)[i] -> GetX()<<" Y:"<<(ustawioneOrganizmy)[i] -> GetY()<<endl;
 		obsluzEwentualneKolizje((ustawioneOrganizmy)[i]);
 	}
 
@@ -182,13 +181,13 @@ void Swiat::obsluzEwentualneKolizje(Organizm *organizmZOstatniaAkcja)
 
 			if (kolizja.GetKolidujaceOrganizmy()[0] == organizmZOstatniaAkcja)
 			{
-				organizmZPierwszenstwem = kolizja.GetKolidujaceOrganizmy()[1];//kolidujaceOrganizmy[0];
-				organizmBezPierwszenstwa = kolizja.GetKolidujaceOrganizmy()[0];//kolidujaceOrganizmy[1];
+				organizmZPierwszenstwem = kolizja.GetKolidujaceOrganizmy()[1];
+				organizmBezPierwszenstwa = kolizja.GetKolidujaceOrganizmy()[0];
 			}
 			else
 			{
-				organizmZPierwszenstwem = kolizja.GetKolidujaceOrganizmy()[0];//kolidujaceOrganizmy[1];
-				organizmBezPierwszenstwa = kolizja.GetKolidujaceOrganizmy()[1];//kolidujaceOrganizmy[0];
+				organizmZPierwszenstwem = kolizja.GetKolidujaceOrganizmy()[0];
+				organizmBezPierwszenstwa = kolizja.GetKolidujaceOrganizmy()[1];
 			}
 
 			DodajKomunikat("Kolizja " + organizmZPierwszenstwem -> GetNazwa() + " z " + organizmBezPierwszenstwa -> GetNazwa());
@@ -283,4 +282,23 @@ void Swiat::WypelnijSasiadujacePola(int **tablicaDocelowa, int zasieg, int x, in
 			tablicaDocelowa[iterator][0] = x + j;
 			tablicaDocelowa[iterator][1] = y + i;
 		}
+}
+
+Czlowiek *Swiat::SprobujZnalezcCzlowieka()
+{
+	for (int i = 0; i < GetWysokosc(); i++)
+		for (int j = 0; j < GetSzerokosc(); j++)
+			if (CzyPoleZajete(j, i) && dynamic_cast<Czlowiek *>(GetOrganizmNaPozycji(j, i)) != nullptr)
+				return (Czlowiek *)GetOrganizmNaPozycji(j, i);
+
+	return NULL;
+}
+
+bool Swiat::CzyOrganizmJestNaPolu(int x, int y, string nazwa)
+{
+	for (int i = 0; i < GetWysokosc() * GetSzerokosc(); i++)
+		if (organizmy[i] != NULL && organizmy[i] -> GetX() == x && organizmy[i] -> GetY() == y && organizmy[i] -> GetNazwa() == nazwa)
+			return true;
+
+	return false;
 }

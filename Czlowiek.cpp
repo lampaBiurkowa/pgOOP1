@@ -12,27 +12,59 @@ Czlowiek::Czlowiek(int x, int y) : Zwierze(x, y)
 	pozostalaIloscTurZSupermoca = 0;
 }
 
-void Czlowiek::Akcja(Swiat *swiat)
+void Czlowiek::WczytajInformacjeORuchu(Swiat *swiat)
 {
-	bool udaloSiePoruszyc = false;
+	bool wyborPoprawny = false;
+	int krok = czyDzialaSupermoc() ? KROK_Z_SUPERMOCA : STANDARDOWY_KROK;
 	char wybor;
-	while (!udaloSiePoruszyc)
+	while (!wyborPoprawny)
 	{
 		wybor = _getch();
-		udaloSiePoruszyc = wybor == STRZALKA_KOD_KONTROLNY;
+		wyborPoprawny = wybor == STRZALKA_KOD_KONTROLNY;
 
 		wybor = _getch();
 		if (wybor == STRZALKA_DOL_KOD)
-			udaloSiePoruszyc = SprubojPrzesunacO(0, 1, swiat);
+		{
+			wybranaZmianaX = 0;
+			wybranaZmianaY = krok;
+		}
 		else if (wybor == STRZALKA_GORA_KOD)
-			udaloSiePoruszyc = SprubojPrzesunacO(0, -1, swiat);
+		{
+			wybranaZmianaX = 0;
+			wybranaZmianaY = -krok;
+		}
 		else if (wybor == STRZALKA_LEWO_KOD)
-			udaloSiePoruszyc = SprubojPrzesunacO(1, 0, swiat);
+		{
+			wybranaZmianaX = krok;
+			wybranaZmianaY = 0;
+		}
 		else if (wybor == STRZALKA_PRAWO_KOD)
-			udaloSiePoruszyc = SprubojPrzesunacO(-1, 0, swiat);
+		{
+			wybranaZmianaX = -krok;
+			wybranaZmianaY = 0;
+		}
 		else
-			udaloSiePoruszyc = false;
+			continue;
+
+		wyborPoprawny = swiat -> CzyPunktMiesciSieNaMapie(GetX() + wybranaZmianaX, GetY() + wybranaZmianaY);
 	}
+}
+
+void Czlowiek::Akcja(Swiat *swiat)
+{
+	previousX = x;
+	previousY = y;
+	SprubojPrzesunacO(wybranaZmianaX, wybranaZmianaY, swiat);
+
+	if (GetPozostalaIloscTurZSupermoca() == 0)
+	{
+		if (GetIloscTurDoUzyciaSupermocy() > 0)
+			iloscTurDoUzyciaSupermocy--;
+
+		return;
+	}
+
+	aktualizujStanSupermocyPoUzyciu();
 }
 
 int Czlowiek::GetIloscTurDoUzyciaSupermocy()
@@ -45,26 +77,28 @@ int Czlowiek::GetPozostalaIloscTurZSupermoca()
 	return pozostalaIloscTurZSupermoca;
 }
 
+void Czlowiek::SetPozostalaIloscTurZSupermoca(int pozostalaIloscTurZSupermoca)
+{
+	this -> pozostalaIloscTurZSupermoca = pozostalaIloscTurZSupermoca;
+}
+
+void Czlowiek::SetIloscTurDoUzyciaSupermocy(int iloscTurDoUzyciaSupermocy)
+{
+	this -> iloscTurDoUzyciaSupermocy = iloscTurDoUzyciaSupermocy;
+}
+
 void Czlowiek::Kolizja(Swiat *swiat, Organizm *organizm)
 {
-	if (GetPozostalaIloscTurZSupermoca() == 0)
-		return;
-		
-	for (int i = -ZASIEG_ZNISZCZEN; i <= ZASIEG_ZNISZCZEN; i++)
-		for (int j = -ZASIEG_ZNISZCZEN; j <=ZASIEG_ZNISZCZEN ; j++)
-		{
-			if ((i == 0 && j == 0) || (i != 0 && j != 0) || !swiat -> CzyPunktMiesciSieNaMapie(x + j, y + i))
-				continue;
+}
 
-			if (!swiat -> CzyPoleZajete(x + i, y + j))
-				continue;
+bool Czlowiek::czyDzialaSupermoc()
+{
+	if (pozostalaIloscTurZSupermoca > ILOSC_TUR_Z_WAZNA_SUPERMOCA - ILOSC_TUR_DO_OSLABIENIA_SUPERMOCY)
+		return true;
+	else if (pozostalaIloscTurZSupermoca > 0 && rand() % 100 < PROCENT_SZANS_NA_SUPERMOC_PO_OSLABIENIU)
+		return true;
 
-			Organizm *organizm = swiat -> GetOrganizmNaPozycji(x + i, y + j);
-			swiat -> DodajKomunikat(nazwa + " zabija " + organizm -> GetNazwa());
-			swiat -> UsunOrganizm(organizm);
-		}
-
-	aktualizujStanSupermocyPoUzyciu();
+	return false;
 }
 
 void Czlowiek::aktualizujStanSupermocyPoUzyciu()
@@ -81,6 +115,7 @@ bool Czlowiek::SprobujAktywowacSuperMoc()
 		return false;
 
 	pozostalaIloscTurZSupermoca = ILOSC_TUR_Z_WAZNA_SUPERMOCA;
+	iloscTurDoUzyciaSupermocy = ILOSC_TUR_DO_ODTWORZENIA_SUPERMOCY;
 }
 
 Czlowiek *Czlowiek::zwrocInstancjeZwierzecia(int x, int y)

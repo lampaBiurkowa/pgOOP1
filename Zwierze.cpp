@@ -81,7 +81,7 @@ bool Zwierze::sprobujDodacPotomka(Swiat *swiat)
 	if (x + zmianaX == previousX && y + zmianaY == previousY)
 		return false;
 
-	if (swiat -> CzyPoleZajete(x + zmianaX, y + zmianaY) && swiat -> GetOrganizmNaPozycji(x + zmianaX, y + zmianaY) -> GetNazwa() == nazwa)
+	if (swiat -> CzyPoleZajete(x + zmianaX, y + zmianaY) && swiat -> CzyOrganizmJestNaPolu(x + zmianaX, y + zmianaY, nazwa))
 		return false;
 
 	Zwierze *zwierze = zwrocInstancjeZwierzecia(x + zmianaX, y + zmianaY);

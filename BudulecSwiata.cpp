@@ -17,8 +17,14 @@ using namespace std;
 
 void BudulecSwiata::RozstawOrganizmyLosowo(Swiat *swiat, int iloscSztuk)
 {
+	if (iloscSztuk * ILOSC_GATUNKOW_DO_LOSOWANIA < swiat -> GetSzerokosc() * swiat -> GetWysokosc())
+	{
+		cout<<"Zbyt maly rozmiar swiat do zmieszczeia wszystkich gatunkow";
+		return;
+	}
+
 	int **pozycje = przygotujPozycjeStartowe(swiat, iloscSztuk);
-	for (int i = 0; i < iloscSztuk * ILOSC_GATUNKOW; i++)
+	for (int i = 0; i < iloscSztuk * ILOSC_GATUNKOW_DO_LOSOWANIA; i++)
 	{
 		swiat -> DodajOrganizm(new Antylopa(pozycje[i][0], pozycje[i++][1]));
 		swiat -> DodajOrganizm(new BarszczSosnowskiego(pozycje[i][0], pozycje[i++][1]));
@@ -35,11 +41,11 @@ void BudulecSwiata::RozstawOrganizmyLosowo(Swiat *swiat, int iloscSztuk)
 
 int **BudulecSwiata::przygotujPozycjeStartowe(Swiat *swiat, int iloscSztuk)
 {
-	int **pozycje = new int *[iloscSztuk * ILOSC_GATUNKOW];
-	for (int i = 0; i < iloscSztuk * ILOSC_GATUNKOW; i++)
+	int **pozycje = new int *[iloscSztuk * ILOSC_GATUNKOW_DO_LOSOWANIA];
+	for (int i = 0; i < iloscSztuk * ILOSC_GATUNKOW_DO_LOSOWANIA; i++)
 		pozycje[i] = new int[2];
 
-	for (int i = 0; i < iloscSztuk * ILOSC_GATUNKOW; i++)
+	for (int i = 0; i < iloscSztuk * ILOSC_GATUNKOW_DO_LOSOWANIA; i++)
 	{
 		bool udaloSieDodac = false;
 		while (!udaloSieDodac)
@@ -49,8 +55,7 @@ int **BudulecSwiata::przygotujPozycjeStartowe(Swiat *swiat, int iloscSztuk)
 			if (!pozycjaZajeta(x, y, pozycje, iloscSztuk))
 			{
 				udaloSieDodac = true;
-				pozycje[i][0] = x;
-				pozycje[i][1] = y;
+				pozycje[i][0] = x, pozycje[i][1] = y;
 			}
 		}
 	}
@@ -60,7 +65,7 @@ int **BudulecSwiata::przygotujPozycjeStartowe(Swiat *swiat, int iloscSztuk)
 
 bool BudulecSwiata::pozycjaZajeta(int x, int y, int **pozycje, int iloscSztuk)
 {
-	for (int i = 0; i < iloscSztuk * ILOSC_GATUNKOW; i++)
+	for (int i = 0; i < iloscSztuk * ILOSC_GATUNKOW_DO_LOSOWANIA; i++)
 		if (pozycje[i][0] == x && pozycje[i][1] == y)
 			return true;
 
@@ -69,106 +74,122 @@ bool BudulecSwiata::pozycjaZajeta(int x, int y, int **pozycje, int iloscSztuk)
 
 void BudulecSwiata::WczytajZPliku(Swiat *swiat, string sciezka)
 {
-	string metadaneZrodlo;
+	string linia;
 	fstream dane(sciezka.c_str(), ios::in);
-	dane>>metadaneZrodlo;
-	int *metadanePrzekonwertowane = new int[ILOSC_ARGUMENOW_METADANYCH];
-	sprobujZebracMetadaneZPliku(swiat, metadaneZrodlo, metadanePrzekonwertowane);
-	wdrozMetadane(swiat, metadanePrzekonwertowane);
+	dane>>linia;
+	wdrozMetadane(swiat, linia);
 	for (int i = 0; i < swiat -> GetWysokosc(); i++)
 	{
-		string rzad;
-		dane>>rzad;
-		for (int j = 0; j < rzad.length(); j += 2)
-		{
-			if (rzad[j] == Antylopa::IDENTYFIKATOR_PLIKU)
-				swiat -> DodajOrganizm(new Antylopa(i, j / 2));
-			else if (rzad[j] == BarszczSosnowskiego::IDENTYFIKATOR_PLIKU)
-				swiat -> DodajOrganizm(new BarszczSosnowskiego(i, j / 2));
-			if (rzad[j] == Czlowiek::IDENTYFIKATOR_PLIKU)
-				swiat -> DodajOrganizm(new Czlowiek(i, j / 2));
-			else if (rzad[j] == Guarana::IDENTYFIKATOR_PLIKU)
-				swiat -> DodajOrganizm(new Guarana(i, j / 2));
-			else if (rzad[j] == Lis::IDENTYFIKATOR_PLIKU)
-				swiat -> DodajOrganizm(new Lis(i, j / 2));
-			else if (rzad[j] == Mlecz::IDENTYFIKATOR_PLIKU)
-				swiat -> DodajOrganizm(new Mlecz(i, j / 2));
-			else if (rzad[j] == Owca::IDENTYFIKATOR_PLIKU)
-				swiat -> DodajOrganizm(new Owca(i, j / 2));
-			else if (rzad[j] == Trawa::IDENTYFIKATOR_PLIKU)
-				swiat -> DodajOrganizm(new Trawa(i, j / 2));
-			else if (rzad[j] == WilczeJagody::IDENTYFIKATOR_PLIKU)
-				swiat -> DodajOrganizm(new WilczeJagody(i, j / 2));
-			else if (rzad[j] == Wilk::IDENTYFIKATOR_PLIKU)
-				swiat -> DodajOrganizm(new Wilk(i, j / 2));
-			else if (rzad[j] == Zolw::IDENTYFIKATOR_PLIKU)
-				swiat -> DodajOrganizm(new Zolw(i, j / 2));
-		}
+		dane>>linia;
+		for (int j = 0; j < linia.length(); j += 2)
+			dodajOdpowiedniTypOrganizmu(swiat, linia[j], j / 2, i);
 	}
 
-	string linia;
 	while (!dane.eof())
 	{
 		dane>>linia;
-		sprobujWdrozycInformacjeOSileZPliku(swiat, linia);
+		wdrozPozostaleInformacjeZPliku(swiat, linia);
 	}
 	dane.close();
 }
 
-void BudulecSwiata::sprobujZebracMetadaneZPliku(Swiat *swiat, string zrodlo, int *tabilcaDocelowa)
+void BudulecSwiata::dodajOdpowiedniTypOrganizmu(Swiat *swiat, char znak, int x, int y)
 {
-	string numer = "";
-	int iterator = 0;
-	for (int i = 0; i < zrodlo.length(); i++)
-	{
-		if (zrodlo[i] != SEPARATOR_W_PLIKU)
-			numer += zrodlo[i];
-		if (i == zrodlo.length() - 1 || zrodlo[i] == SEPARATOR_W_PLIKU)
-		{
-			tabilcaDocelowa[iterator] = atoi(numer.c_str());
-			iterator++;
-			numer = "";
-		}
-	}
+	if (znak == Antylopa::IDENTYFIKATOR_PLIKU)
+		swiat -> DodajOrganizm(new Antylopa(x, y));
+	else if (znak == BarszczSosnowskiego::IDENTYFIKATOR_PLIKU)
+		swiat -> DodajOrganizm(new BarszczSosnowskiego(x, y));
+	else if (znak == Czlowiek::IDENTYFIKATOR_PLIKU)
+		swiat -> DodajOrganizm(new Czlowiek(x, y));
+	else if (znak == Guarana::IDENTYFIKATOR_PLIKU)
+		swiat -> DodajOrganizm(new Guarana(x, y));
+	else if (znak == Lis::IDENTYFIKATOR_PLIKU)
+		swiat -> DodajOrganizm(new Lis(x, y));
+	else if (znak == Mlecz::IDENTYFIKATOR_PLIKU)
+		swiat -> DodajOrganizm(new Mlecz(x, y));
+	else if (znak == Owca::IDENTYFIKATOR_PLIKU)
+		swiat -> DodajOrganizm(new Owca(x, y));
+	else if (znak == Trawa::IDENTYFIKATOR_PLIKU)
+		swiat -> DodajOrganizm(new Trawa(x, y));
+	else if (znak == WilczeJagody::IDENTYFIKATOR_PLIKU)
+		swiat -> DodajOrganizm(new WilczeJagody(x, y));
+	else if (znak == Wilk::IDENTYFIKATOR_PLIKU)
+		swiat -> DodajOrganizm(new Wilk(x, y));
+	else if (znak == Zolw::IDENTYFIKATOR_PLIKU)
+		swiat -> DodajOrganizm(new Zolw(x, y));
+}
 
-	if (iterator != ILOSC_ARGUMENOW_METADANYCH)
+void BudulecSwiata::wdrozMetadane(Swiat *swiat, string zrodlo)
+{
+	int *dane = new int[ILOSC_ARGUMENOW_METADANYCH];
+	int iloscParametrow = wypelnijLiczbowaTabliceZPlikuIZwrocIlosc(zrodlo, dane, 0);
+	obsluzPotencjalnyBladWczytywania(ILOSC_ARGUMENOW_METADANYCH, iloscParametrow);
+	swiat -> Stworz(dane[X_INDEKS], dane[Y_INDEKS]);
+}
+
+void BudulecSwiata::obsluzPotencjalnyBladWczytywania(int oczekiwanaIloscArg, int aktualnaIloscArg)
+{
+	if (aktualnaIloscArg != oczekiwanaIloscArg)
 	{
-		cout<<"Blad! Ilosc argumentow w metadnych: "<<iterator<<", oczekiwano: "<<ILOSC_ARGUMENOW_METADANYCH<<endl;
+		cout<<"Blad! Ilosc argumentow w metadnych: "<<aktualnaIloscArg<<", oczekiwano: "<<oczekiwanaIloscArg<<endl;
 		exit(-1);
 	}
 }
 
+void BudulecSwiata::wdrozPozostaleInformacjeZPliku(Swiat *swiat, string zrodlo)
+{
+	if (zrodlo[0] == OZNACZENIE_SUPERMOCY)
+		sprobujWdrozycInformacjeOSupermocyZPliku(swiat, zrodlo);
+	else
+		sprobujWdrozycInformacjeOSileZPliku(swiat, zrodlo);
+}
+
+void BudulecSwiata::sprobujWdrozycInformacjeOSupermocyZPliku(Swiat *swiat, string zrodlo)
+{
+	Czlowiek *czlowiek = swiat -> SprobujZnalezcCzlowieka();
+	if (czlowiek == NULL)
+		return;
+
+	int *dane = new int[ILOSC_ARGUMENOW_SUPERMOCY];
+	int iloscParametrow = wypelnijLiczbowaTabliceZPlikuIZwrocIlosc(zrodlo, dane, 1);
+	obsluzPotencjalnyBladWczytywania(ILOSC_ARGUMENOW_SUPERMOCY, iloscParametrow);
+
+	czlowiek -> SetPozostalaIloscTurZSupermoca(dane[POZOSTALE_TURY_Z_SUPERMOCA_INDEKS]);
+	czlowiek -> SetIloscTurDoUzyciaSupermocy(dane[ILOSC_TUR_DO_AKTYWACJI_SUPERMOCY_INDEKS]);
+}
+
 void BudulecSwiata::sprobujWdrozycInformacjeOSileZPliku(Swiat *swiat, string zrodlo)
 {
-	int *dane = new int[3];
+	int *dane = new int[ILOSC_ARGUMENOW_SILY];
+	int iloscParametrow = wypelnijLiczbowaTabliceZPlikuIZwrocIlosc(zrodlo, dane);
+	obsluzPotencjalnyBladWczytywania(ILOSC_ARGUMENOW_SILY, iloscParametrow);
+
+	int x = dane[X_INDEKS], y = dane[Y_INDEKS];
+	int zwiekszenieSily = dane[ZWIEKSZENIE_SILY_INDEKS];
+	Organizm *organizm = swiat -> GetOrganizmNaPozycji(x, y);
+	if (swiat -> CzyPoleZajete(x, y) && dynamic_cast<Zwierze *>(organizm) != nullptr)
+	{
+		((Zwierze *)organizm) -> OznaczZwiekszenieSily(zwiekszenieSily);
+		organizm -> SetSila(organizm -> GetSila() + zwiekszenieSily);
+	}
+}
+
+int BudulecSwiata::wypelnijLiczbowaTabliceZPlikuIZwrocIlosc(string zrodlo, int *tablicaDocelowa, int startIteracji)
+{
 	string numer = "";
 	int iterator = 0;
-	for (int i = 0; i < zrodlo.length(); i++)
+	for (int i = 0; startIteracji; i < zrodlo.length(); i++)
 	{
 		if (zrodlo[i] != SEPARATOR_W_PLIKU)
 			numer += zrodlo[i];
-		if (i == zrodlo.length() - 1 || zrodlo[i] == SEPARATOR_W_PLIKU)
+		if (zrodlo[i] == SEPARATOR_W_PLIKU || i == zrodlo.length() - 1)
 		{
-			dane[iterator] = atoi(numer.c_str());
-			iterator++;
+			tablicaDocelowa[iterator++] = atoi(numer.c_str());
 			numer = "";
 		}
 	}
 
-	int x = dane[0];
-	int y = dane[1];
-	int zwiekszenieSily = dane[2];
-	if (!swiat -> CzyPoleZajete(x, y) || dynamic_cast<Zwierze *>(swiat -> GetOrganizmNaPozycji(x, y)) == nullptr)
-		return;
-
-	Zwierze *zwierze = ((Zwierze *)swiat -> GetOrganizmNaPozycji(x, y));
-	zwierze -> OznaczZwiekszenieSily(zwiekszenieSily);
-	zwierze -> SetSila(zwierze -> GetSila() + zwiekszenieSily);
-}
-
-void BudulecSwiata::wdrozMetadane(Swiat *swiat, int *metadane)
-{
-	swiat -> Stworz(metadane[X_INDEKS], metadane[Y_INDEKS]);
+	return iterator;
 }
 
 void BudulecSwiata::ZapiszDoPliku(Swiat *swiat, string sciezka)
@@ -181,14 +202,16 @@ void BudulecSwiata::ZapiszDoPliku(Swiat *swiat, string sciezka)
 		string linia = "";
 		for (int j = 0; j < swiat -> GetSzerokosc(); j++)
 		{
-			if (!swiat -> CzyPoleZajete(i, j))
+			if (!swiat -> CzyPoleZajete(j, i))
 				linia += PUSTE_POLE;
 			else
 			{
-				Organizm *organizm = swiat -> GetOrganizmNaPozycji(i, j);
+				Organizm *organizm = swiat -> GetOrganizmNaPozycji(j, i);
 				linia += organizm -> GetZnakASCII();
 				sprobujZapisacInformacjeOZwiekszeniuSily(organizm, &informacjOSile);
-				informacjeOSupermocy = sprobujZapisacInformacjeOSupermocy(organizm);
+				string wynikProby = sprobujZapisacInformacjeOSupermocy(organizm);
+				if (wynikProby.length() > 0)
+					informacjeOSupermocy = wynikProby;
 			}
 
 			if (j != swiat -> GetSzerokosc() - 1)
@@ -218,7 +241,7 @@ string BudulecSwiata::sprobujZapisacInformacjeOSupermocy(Organizm *organizm)
 	{
 		int pozostalaIloscTurZSupemoca = ((Czlowiek *)(organizm)) -> GetPozostalaIloscTurZSupermoca();
 		int iloscTurDoUzyciaSupermocy = ((Czlowiek *)(organizm)) -> GetIloscTurDoUzyciaSupermocy();
-		informacjeOSupermocy = to_string(pozostalaIloscTurZSupemoca) + SEPARATOR_W_PLIKU + to_string(iloscTurDoUzyciaSupermocy);
+		informacjeOSupermocy = OZNACZENIE_SUPERMOCY + to_string(pozostalaIloscTurZSupemoca) + SEPARATOR_W_PLIKU + to_string(iloscTurDoUzyciaSupermocy);
 	}
 
 	return informacjeOSupermocy;

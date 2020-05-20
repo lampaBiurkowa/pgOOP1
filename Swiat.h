@@ -1,5 +1,6 @@
 #pragma once
 #include "Organizm.h"
+#include "Czlowiek.h"
 #include <vector>
 
 using namespace std;
@@ -16,10 +17,11 @@ class Swiat
 	void ustawOrganizmyWKolejnosciRuchow(Organizm **organizmy);
 	void obsluzEwentualneKolizje(Organizm *organizmZOstatniaAkcja);
 	void zaktualizujTabliceOrganizmow();
-	void obsluzKomunikaty();
+	void rysujKomunikaty();
+	void rysujMape();
 	void szukajKolizji(int x, int y);
 	bool wystepujeKolizja();
-	const int MAX_ORGANIZMOW_KOLIDUJACYCH = 2;
+	static const int MAX_ORGANIZMOW_KOLIDUJACYCH = 2;
 	int iloscKolidujacychOrganizmow;
 	Organizm **kolidujaceOrganizmy;
 
@@ -32,6 +34,7 @@ public:
 	void Stworz(int szerokosc, int wysokosc);
 	bool CzyPoleZajete(int x, int y);
 	bool CzyPunktMiesciSieNaMapie(int x, int y);
+	bool CzyOrganizmJestNaPolu(int x, int y, string nazwa);
 	Organizm *GetOrganizmNaPozycji(int x, int y);
 	Organizm **GetOrganizmy();
 	int GetIloscOrganizmow();
@@ -40,4 +43,5 @@ public:
 	void RysujSwiat();
 	void WykonajTure();
 	void WypelnijSasiadujacePola(int **tablicaDocelowa, int zasieg, int x, int y);
+	Czlowiek *SprobujZnalezcCzlowieka();
 };
