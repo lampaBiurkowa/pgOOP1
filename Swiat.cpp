@@ -166,7 +166,7 @@ int Swiat::getMaxInicjatywa(int ograniczenieGorneWlaczne)
 void Swiat::obsluzEwentualneKolizje(Organizm *organizmZOstatniaAkcja)
 {
 	Kolizja kolizja;
-	Organizm *organizmZPierwszenstwem, *organizmBezPierwszenstwa;
+	Organizm *organizmAtakowany, *organizmAtakujacy;
 	for (int i = 0; i < GetWysokosc(); i++)
 		for (int j = 0; j < GetSzerokosc(); j++)
 		{
@@ -179,30 +179,30 @@ void Swiat::obsluzEwentualneKolizje(Organizm *organizmZOstatniaAkcja)
 
 			if (kolizja.GetKolidujaceOrganizmy()[0] == organizmZOstatniaAkcja)
 			{
-				organizmZPierwszenstwem = kolizja.GetKolidujaceOrganizmy()[1];
-				organizmBezPierwszenstwa = kolizja.GetKolidujaceOrganizmy()[0];
+				organizmAtakowany = kolizja.GetKolidujaceOrganizmy()[1];
+				organizmAtakujacy = kolizja.GetKolidujaceOrganizmy()[0];
 			}
 			else
 			{
-				organizmZPierwszenstwem = kolizja.GetKolidujaceOrganizmy()[0];
-				organizmBezPierwszenstwa = kolizja.GetKolidujaceOrganizmy()[1];
+				organizmAtakowany = kolizja.GetKolidujaceOrganizmy()[0];
+				organizmAtakujacy = kolizja.GetKolidujaceOrganizmy()[1];
 			}
 
-			DodajKomunikat("Kolizja " + organizmZPierwszenstwem -> GetNazwa() + " z " + organizmBezPierwszenstwa -> GetNazwa());
-			organizmZPierwszenstwem -> Kolizja(this, organizmBezPierwszenstwa);
+			DodajKomunikat("Kolizja " + organizmAtakowany -> GetNazwa() + " z " + organizmAtakujacy -> GetNazwa());
+			organizmAtakowany -> Kolizja(this, organizmAtakujacy);
 			kolizja.SzukajKolizji(this, j, i);
 			if (!kolizja.WystepujeKolizja())
 				continue;
 			
-			if (organizmZPierwszenstwem -> GetSila() >= organizmBezPierwszenstwa -> GetSila())
+			if (organizmAtakowany -> GetSila() >= organizmAtakujacy -> GetSila())
 			{
-				DodajKomunikat(organizmZPierwszenstwem -> GetNazwa() + " zabija " + organizmBezPierwszenstwa -> GetNazwa());
-				UsunOrganizm(organizmBezPierwszenstwa);
+				DodajKomunikat(organizmAtakowany -> GetNazwa() + " zabija " + organizmAtakujacy -> GetNazwa());
+				UsunOrganizm(organizmAtakujacy);
 			}
 			else
 			{
-				DodajKomunikat(organizmBezPierwszenstwa -> GetNazwa() + " zabija " + organizmZPierwszenstwem -> GetNazwa());
-				UsunOrganizm(organizmZPierwszenstwem);
+				DodajKomunikat(organizmAtakujacy -> GetNazwa() + " zabija " + organizmAtakowany -> GetNazwa());
+				UsunOrganizm(organizmAtakowany);
 			}
 		}
 }
@@ -229,7 +229,7 @@ void Swiat::zaktualizujTabliceOrganizmow()
 			for (int j = wolnyIndeks; j < GetSzerokosc() * GetWysokosc() - roznica; j++)
 				organizmy[j] = organizmy[j + roznica];
 
-			i = wolnyIndeks + roznica - 1;
+			i = wolnyIndeks;
 			wolnyIndeks = GetSzerokosc() * GetWysokosc();
 			czySzukacWolnegoIndeksu = true;
 		}

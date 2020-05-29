@@ -117,6 +117,7 @@ bool Czlowiek::SprobujAktywowacSuperMoc()
 
 	pozostalaIloscTurZSupermoca = ILOSC_TUR_Z_WAZNA_SUPERMOCA;
 	iloscTurDoUzyciaSupermocy = ILOSC_TUR_DO_ODTWORZENIA_SUPERMOCY;
+	return true;
 }
 
 Czlowiek *Czlowiek::zwrocInstancjeZwierzecia(int x, int y)

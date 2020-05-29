@@ -62,6 +62,9 @@ void Menu::obslozTure()
 void Menu::obslozRuchCzlowiekaJezeliIstnieje()
 {
 	Czlowiek *czlowiek = swiat.SprobujZnalezcCzlowieka();
+	if (czlowiek == NULL)
+		return;
+
 	char wybor = '\0';
 
 	cout<<"Twoja sila: "<<czlowiek -> GetSila()<<endl;

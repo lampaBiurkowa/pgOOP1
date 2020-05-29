@@ -1,8 +1,5 @@
-#include <iostream>
 #include "Mlecz.h"
 #include "Swiat.h"
-
-using namespace std;
 
 Mlecz::Mlecz(int x, int y) : Roslina(x, y)
 {
@@ -18,14 +15,12 @@ void Mlecz::Akcja(Swiat *swiat)
 		uzyteMiejsca[i] = new int[2]{-1, -1};
 
 	for (int i = 0; i < ILOSC_PROB_ROZPRZESTRZENIENIA; i++)
-		if (rand() % 100 < SZANSE_NA_ROZPRZESTRZENIENIE_W_PROCENTACH)
+		if (czyMaGdzieUstawicPotomka(swiat) && rand() % 100 < SZANSE_NA_ROZPRZESTRZENIENIE_W_PROCENTACH)
 		{
 			bool czyUdaloSieZasiac = false;
 			while (!czyUdaloSieZasiac)
 				czyUdaloSieZasiac = sprobujZasiacRosline(swiat, uzyteMiejsca);
 
-			if (swiat -> GetOrganizmy()[swiat -> GetIloscOrganizmow() - 1] == NULL)
-				break;
 			uzyteMiejsca[i][0] = swiat -> GetOrganizmy()[swiat -> GetIloscOrganizmow() - 1] -> GetX();
 			uzyteMiejsca[i][1] = swiat -> GetOrganizmy()[swiat -> GetIloscOrganizmow() - 1] -> GetY();
 			swiat -> DodajKomunikat(nazwa + " zasialo brata");
@@ -41,7 +36,7 @@ bool Mlecz::sprobujZasiacRosline(Swiat *swiat, int **uzyteMiejsca)
 	if (zmianaX == 0 && zmianaY == 0)
 		return false;
 
-	if (x + zmianaX < 0 || x + zmianaX >= swiat -> GetSzerokosc() || y + zmianaY < 0 || y + zmianaY >= swiat -> GetWysokosc())
+	if (!swiat -> CzyPunktMiesciSieNaMapie(x + zmianaX, y + zmianaY) || swiat -> CzyOrganizmJestNaPolu(x + zmianaX, y + zmianaY, nazwa))
 		return false;
 
 	for (int i = 0; i < ILOSC_PROB_ROZPRZESTRZENIENIA; i++)
@@ -56,4 +51,8 @@ bool Mlecz::sprobujZasiacRosline(Swiat *swiat, int **uzyteMiejsca)
 Mlecz *Mlecz::zwrocInstancjeRosliny(int x, int y)
 {
 	return new Mlecz(x, y);
+}
+
+void Mlecz::Kolizja(Swiat *swiat, Organizm *organizm)
+{
 }

@@ -14,4 +14,5 @@ public:
 
 	Mlecz(int x, int y);
 	void Akcja(Swiat *swiat) override;
+	void Kolizja(Swiat *swiat, Organizm *organizm) override;
 };

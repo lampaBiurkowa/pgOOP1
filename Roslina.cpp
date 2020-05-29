@@ -8,7 +8,7 @@ Roslina::Roslina(int x, int y) : Organizm(x, y)
 
 void Roslina::Akcja(Swiat *swiat)
 {
-	if (rand() % 100 < SZANSE_NA_ROZPRZESTRZENIENIE_W_PROCENTACH)
+	if (czyMaGdzieUstawicPotomka(swiat) && rand() % 100 < SZANSE_NA_ROZPRZESTRZENIENIE_W_PROCENTACH)
 	{
 		bool czyUdaloSieZasiac = false;
 		while (!czyUdaloSieZasiac)
@@ -33,7 +33,17 @@ bool Roslina::sprobujZasiacRosline(Swiat *swiat, int step)
 	return true;
 }
 
-void Roslina::Kolizja(Swiat *swiat, Organizm *organizm)
+bool Roslina::czyMaGdzieUstawicPotomka(Swiat *swiat)
 {
-	
+	for (int i = -ZASIEG_USTAWIENIA_POTOMKA; i <= ZASIEG_USTAWIENIA_POTOMKA; i++)
+		for (int j = -ZASIEG_USTAWIENIA_POTOMKA; j <= ZASIEG_USTAWIENIA_POTOMKA; j++)
+		{
+			if ((i == 0 && j == 0) || (i != 0 && j != 0) || !swiat -> CzyPunktMiesciSieNaMapie(x + j, y + i))
+				continue;
+
+			if (!swiat -> CzyPoleZajete(x + j, y + i) || !swiat -> CzyOrganizmJestNaPolu(x + j, y + i, nazwa))
+				return true;
+		}
+
+	return false;
 }

@@ -9,4 +9,5 @@ public:
 	static const char IDENTYFIKATOR_PLIKU = 't';
 
 	Trawa(int x, int y);
+	void Kolizja(Swiat *swiat, Organizm *organizm) override;
 };

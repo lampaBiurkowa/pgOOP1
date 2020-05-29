@@ -139,6 +139,9 @@ void BudulecSwiata::obsluzPotencjalnyBladWczytywania(int oczekiwanaIloscArg, int
 
 void BudulecSwiata::wdrozPozostaleInformacjeZPliku(Swiat *swiat, string zrodlo)
 {
+	if (zrodlo.length() == 0)
+		return;
+
 	if (zrodlo[0] == OZNACZENIE_SUPERMOCY)
 		sprobujWdrozycInformacjeOSupermocyZPliku(swiat, zrodlo);
 	else

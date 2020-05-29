@@ -18,7 +18,7 @@ void Guarana::Kolizja(Swiat *swiat, Organizm *organizm)
 	{
 		organizm -> SetSila(organizm -> GetSila() + ZWIEKSZENIE_SILY);
 		((Zwierze *)(organizm)) -> OznaczZwiekszenieSily(ZWIEKSZENIE_SILY);
-		swiat -> DodajKomunikat(((Zwierze *)(organizm)) -> GetNazwa() + " zjadl " + nazwa + " i jego sila wyno sila zwiekszyla sie o 3");
+		swiat -> DodajKomunikat(((Zwierze *)(organizm)) -> GetNazwa() + " zjadl " + nazwa + " i jego sila zwiekszyla sie o 3");
 	}
 }
 
